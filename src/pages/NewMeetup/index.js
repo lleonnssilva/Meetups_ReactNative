@@ -51,13 +51,16 @@ export default class newMeetup extends Component {
       <TouchableOpacity
         style={{ paddingRight: 20 }}
         onPress={() => {
-          navigation.navigate('search')
+          AsyncStorage.clear()
+          navigation.navigate('SignIn')
         }}>
         <Icon name='person-outline' size={24} color={'white'} />
       </TouchableOpacity>
     ),
     headerLeft: (
-      <TouchableOpacity style={{ paddingLeft: 20 }} onPress={this.signOut}>
+      <TouchableOpacity
+        style={{ paddingLeft: 20 }}
+        onPress={() => navigation.goBack()}>
         <Icon name='chevron-left' size={24} color={'white'} />
       </TouchableOpacity>
     )
@@ -250,7 +253,7 @@ export default class newMeetup extends Component {
                   onPress={() => this.onChange(key)}
                 />
               )
-              console.tron.log(item)
+            //  console.tron.log(item)
             })}
 
             <TouchableOpacity

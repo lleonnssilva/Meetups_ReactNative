@@ -76,7 +76,8 @@ const MeetupItem = ({ props, meetup, registered, subscriptions }) => (
         }}>
         <TouchableOpacity
           onPress={() => {
-            const { navigation } = props
+            const { navigation } = props.props
+
             navigation.navigate('Meetup', meetup.id)
           }}
           style={{

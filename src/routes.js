@@ -84,7 +84,9 @@ const Routes = (userLogged = false) =>
         ),
         SignIn: { screen: SignIn },
         SignUp: { screen: SignUp },
-        Profile: { screen: Profile },
+        Profile: createStackNavigator({
+          Profile: { screen: Profile }
+        }),
         Preferences: { screen: Preferences }
       },
       {

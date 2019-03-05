@@ -1,0 +1,140 @@
+constructor (props) {
+    super(props)
+
+    this.state = {
+      stepIndex: 0
+    }
+
+    this.currentStepIndex = 0
+
+    this.nextStep = this._nextStep.bind(this)
+    this.previousStep = this._previousStep.bind(this)
+
+    this.flexItems = [
+      { promptText: 'step 1', type: 'intro' },
+      { promptText: 'step 2', type: 'location' },
+      { promptText: 'step 3', type: 'pickList' },
+      { promptText: 'step 4', type: 'longText' },
+      { promptText: 'step 5', type: 'photo' },
+      { promptText: 'Review and Submit', type: 'review' }
+    ]
+
+    this.nextStep = this._nextStep.bind(this)
+    this.previousStep = this._previousStep.bind(this)
+
+    console.log('State: ', this.state)
+  }
+
+  render () {
+    console.log('Render new request screen')
+    return (
+      <SafeAreaView>
+        <View>
+          <View>
+            <Text>
+              {' '}
+              {this.flexItems.length == this.state.stepIndex
+                ? 'Review & Submit'
+                : 'Step ' +
+                  (this.state.stepIndex + 1) +
+                  ' of ' +
+                  this.flexItems.length}
+            </Text>
+          </View>
+          <FlatList
+            ref={(ref) => {
+              this.flatListRef = ref
+            }}
+            scrollEnabled={false}
+            initialNumToRender={1}
+            initialScrollIndex={0}
+            refreshing={false}
+            pagingEnabled
+            horizontal
+            getItemLayout={(data, index) => ({
+              length: Dimensions.get('window').width,
+              offset: Dimensions.get('window').width * index,
+              index
+            })}
+            data={this.flexItems}
+            showsHorizontalScrollIndicator={false}
+            decelerationRate={0}
+            renderItem={({ item, index }) => {
+              if (item.type === 'intro') {
+                return (
+                  <View>
+                    <View>
+                      <Text>All About Potholes</Text>
+                    </View>
+                  </View>
+                )
+              } else if (item.type === 'pickList') {
+                return (
+                  <View>
+                    <View>
+                      <Text>{item.promptText}</Text>
+                    </View>
+                  </View>
+                )
+              } else {
+                return (
+                  <View>
+                    <View>
+                      <Text>{item.promptText}</Text>
+                    </View>
+                  </View>
+                )
+              }
+            }}
+            keyExtractor={(item) => item.type}
+          />
+        </View>
+        <View>
+          <TouchableOpacity onPress={this.previousStep}>
+            <Text>Prev Step</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.nextStep}>
+            <Text>
+              {' '}
+              {this.state.stepIndex < this.flexItems.length - 1
+                ? 'Next Step'
+                : 'Submit'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    )
+  }
+
+  _nextStep () {
+    console.log('next tapped...')
+
+    if (this.currentStepIndex < this.flexItems.length - 1) {
+      this.currentStepIndex = this.currentStepIndex + 1
+      this.flatListRef.scrollToIndex({
+        index: this.currentStepIndex,
+        animated: true
+      })
+
+      this.setState({
+        stepIndex: this.currentStepIndex
+      })
+    } else {
+      this._onDismissScreen()
+    }
+  }
+
+  _previousStep () {
+    console.log('prev tapped...')
+    if (this.currentStepIndex > 0) {
+      this.currentStepIndex = this.currentStepIndex - 1
+      this.flatListRef.scrollToIndex({
+        index: this.currentStepIndex,
+        animated: true
+      })
+      this.setState({
+        stepIndex: this.currentStepIndex
+      })
+    }
+  }
+}

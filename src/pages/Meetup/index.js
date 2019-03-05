@@ -36,13 +36,16 @@ export default class Index extends Component {
       <TouchableOpacity
         style={{ paddingRight: 20 }}
         onPress={() => {
-          navigation.navigate('search')
+          AsyncStorage.clear()
+          navigation.navigate('SignIn')
         }}>
         <Icon name='person-outline' size={24} color={'white'} />
       </TouchableOpacity>
     ),
     headerLeft: (
-      <TouchableOpacity style={{ paddingLeft: 20 }} onPress={this.signOut}>
+      <TouchableOpacity
+        style={{ paddingLeft: 20 }}
+        onPress={() => navigation.goBack()}>
         <Icon name='chevron-left' size={24} color={'white'} />
       </TouchableOpacity>
     )
@@ -55,7 +58,7 @@ export default class Index extends Component {
   componentDidMount = async () => {
     const id = await this.props.navigation.state.params
     const { data } = await api.get(`/meetups/${id}`)
-    console.tron.log(data.meetup.__meta__.subscriptions_count)
+
     this.setState({
       meetup: data.meetup,
       registered: data.registered,
@@ -71,7 +74,6 @@ export default class Index extends Component {
         registered: data.registered,
         subscriptions: data.meetup.__meta__.subscriptions_count
       })
-      console.tron.log(this.state.registered)
     } catch (_err) {
       // this.setState({ error: 'Erro ao se increver' })
     } finally {

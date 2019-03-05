@@ -1,60 +1,3 @@
-// import React from 'react'
-
-// import { View, Text, TouchableOpacity } from 'react-native'
-// import Icon from 'react-native-vector-icons/MaterialIcons'
-// // import styles from './styles';
-
-// const Details = () => (
-//   <View>
-//     <Text>Leo</Text>
-//   </View>
-// )
-// Details.navigationOptions = ({ navigation }) => ({
-//   headerBackTitle: null,
-//   headerTintColor: '#FFF',
-//   headerStyle: {
-//     backgroundColor: '#111',
-//     borderBottomColor: 'transparent',
-//     borderWidth: 0,
-//     elevation: 0,
-//     shadowOpacity: 0
-//   },
-//   headerBackTitle: true,
-//   headerTitle: () => (
-//     <View style={{ flex: 1 }}>
-//       <Text
-//         adjustsFontSizeToFit
-//         style={{
-//           textAlign: 'center',
-//           alignSelf: 'center',
-//           color: 'white',
-//           borderBottomColor: 'transparent',
-//           borderWidth: 0,
-//           elevation: 0,
-//           shadowOpacity: 0
-//         }}>
-//         Details
-//       </Text>
-//     </View>
-//   ),
-//   headerRight: (
-//     <TouchableOpacity
-//       onPress={() => {
-//         navigation.navigate('search')
-//       }}>
-//       <Icon name='person-outline' size={24} />
-//     </TouchableOpacity>
-//   ),
-//   headerLeft: (
-//     <TouchableOpacity
-//       onPress={() => {
-//         navigation.navigate('NewMeetup')
-//       }}>
-//       <Icon name='chevron-left' size={24} />
-//     </TouchableOpacity>
-//   )
-// })
-// export default Details
 import React, { Component, Fragment } from 'react'
 
 import {
@@ -86,14 +29,19 @@ export default class Login extends Component {
   }
   handleSignInPress = async () => {
     try {
+      const preferences = await this.state.preferences
+        .filter(function (item) {
+          return item.checked == true
+        })
+        .map((e) => e.id)
       const response = await api.post('/users', {
         email: this.state.email,
         username: this.state.username,
         password: this.state.password,
         password_confirmation: this.state.password_confirmation,
-        Preferences: this.state.preferences
+        preferences: preferences
       })
-
+      // console.tron.log(this.state)
       this.props.navigation.navigate('SignIn')
     } catch (_err) {
       this.setState({
@@ -110,30 +58,29 @@ export default class Login extends Component {
 
   componentDidMount = async () => {
     const user = await this.props.navigation.state.params
-    if (user.preferences) {
-      try {
-        this.setState({
-          email: user.email,
-          username: user.username,
-          password: user.password,
-          password_confirmation: user.password_confirmation,
-          preferences: user.preferences
-        })
-      } catch (_err) {
-        this.setState({ error: 'Erro ao recuperar os meetups recomendados' })
-      } finally {
-        this.setState({ loading: false, refreshing: false })
-      }
-    } else {
-      const preferences = await api.get('/preferences')
-      this.setState({
-        email: user.email,
-        username: user.username,
-        password: user.password,
-        password_confirmation: user.password_confirmation,
-        preferences: preferences.data
-      })
-    }
+    // if (user.preferences) {
+    //   try {
+    //     this.setState({
+    //       email: user.email,
+    //       username: user.username,
+    //       password: user.password,
+    //       password_confirmation: user.password_confirmation,
+    //       preferences: user.preferences
+    //     })
+    //   } catch (_err) {
+    //     this.setState({ error: 'Erro ao recuperar os meetups recomendados' })
+    //   } finally {
+    //     this.setState({ loading: false, refreshing: false })
+    //   }
+    // } else {
+    const preferences = await api.get('/preferences')
+    this.setState({
+      email: user.email,
+      username: user.username,
+      password: user.password,
+      password_confirmation: user.password,
+      preferences: preferences.data
+    })
   }
 
   render () {
@@ -177,7 +124,7 @@ export default class Login extends Component {
                 onPress={() => this.onChange(key)}
               />
             )
-            console.tron.log(item)
+           // console.tron.log(item)
           })}
 
           <TouchableOpacity

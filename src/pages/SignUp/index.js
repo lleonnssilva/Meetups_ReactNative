@@ -37,25 +37,7 @@ export default class SigUp extends Component {
         () => false
       )
     } else {
-      // try {
-      //   const response = await api.post('/users', {
-      //     username: this.state.username,
-      //     email: this.state.email,
-      //     password: this.state.password,
-      //     password_confirmation: this.state.password_confirmation,
-      //     Preferences: []
-      //   })
-      //   await AsyncStorage.setItem('@MeetupApp:token', response.data.token)
-
-      //   this.setState({ response.data })
-      //   console.tron.log(response.data.token)
-      //   const { navigation } = this.props
       this.props.navigation.navigate('Preferences', (user = this.state))
-      // } catch (_err) {
-      //   this.setState({
-      //     error: 'Houve um problema com o login, verifique suas credenciais!'
-      //   })
-      // }
     }
   }
   componentDidMount = async () => {

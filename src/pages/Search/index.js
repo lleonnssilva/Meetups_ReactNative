@@ -33,7 +33,7 @@ export default class Search extends Component {
             alignSelf: 'center',
             color: 'white'
           }}>
-          Pesquisar Meetups
+          Busca
         </Text>
       </View>
     ),
@@ -41,7 +41,8 @@ export default class Search extends Component {
       <TouchableOpacity
         style={{ paddingRight: 20 }}
         onPress={() => {
-          navigation.navigate('search')
+          AsyncStorage.clear()
+          navigation.navigate('SignIn')
         }}>
         <Icon name='person-outline' size={24} color={'white'} />
       </TouchableOpacity>

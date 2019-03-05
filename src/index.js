@@ -12,10 +12,8 @@ export default class App extends Component {
     userLogged: false
   }
   async componentDidMount () {
-    // AsyncStorage.clear()
     const token = await AsyncStorage.getItem('@MeetupApp:token')
-    const email = await AsyncStorage.getItem('@MeetupApp:email')
-    console.tron.log(email)
+
     this.setState({
       userChecked: true,
       userLogged: !!token
