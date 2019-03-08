@@ -47,7 +47,7 @@ export default class Meetups extends Component {
     }
   }
   _renderSeparator () {
-    return <View style={{ width: 20, backgroundColor: 'black' }} />
+    return <View style={{ width: 20, backgroundColor: '#1c1c1c' }} />
   }
   renderListItem = ({ item }) => (
     <MeetupItem
@@ -64,11 +64,11 @@ export default class Meetups extends Component {
       <View style={{ flex: 1, backgroundColor: 'black' }}>
         <StatusBar backgroundColor='#E5556E' barStyle='light-content' />
 
-        <View style={{ backgroundColor: 'black', flex: 1 }}>
+        <View style={{ backgroundColor: '#1c1c1c', flex: 1 }}>
           {!!error && (
             <Text
               style={{
-                color: colors.danger,
+                color: 'black',
                 fontSize: 12,
                 fontWeight: 'bold',
                 textAlign: 'center'

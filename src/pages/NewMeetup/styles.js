@@ -6,80 +6,74 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.colorPrimary,
-    padding: 30,
+    padding: metrics.basePadding,
     justifyContent: 'center',
     alignItems: 'stretch',
     flexDirection: 'column'
   },
-  form: {
-    marginTop: metrics.baseMargin * 2
-  },
-  textInput: {
-    marginTop: 10,
-    opacity: fonts.fontOpacity,
-    fontFamily: fonts.fontSecundary,
-    fontSize: 20,
-    color: 'white',
-    textAlign: 'left'
-  },
-  button: {
-    // backgroundColor: colors.colorPrincipal,
-    // borderRadius: 60,
-    height: 44,
-    marginTop: metrics.baseMargin,
-    justifyContent: 'center',
-    alignItems: 'center'
-    // fontFamily: fonts.fontPrimary,
-    // color: colors.colorTitlePrimary
-  },
+
   buttonSave: {
     backgroundColor: colors.colorPrincipal,
     borderRadius: 60,
     height: 44,
-    marginTop: metrics.baseMargin,
     justifyContent: 'center',
     alignItems: 'center',
-    fontFamily: fonts.fontPrimary,
-    color: colors.colorTitlePrimary
+    margin: metrics.marginMax
   },
   buttonText: {
-    color: colors.colorTitlePrimary,
+    color: colors.colorTxtPrimary,
     fontWeight: 'bold',
     fontSize: 16,
     fontFamily: fonts.fontPrimary
   },
-  textOpacity: {
-    opacity: 0.6,
-    fontFamily: fonts.fontSecundary,
+
+  labelGeral: {
+    fontFamily: fonts.FonteSecundary,
     fontSize: 16,
-    color: colors.colorTitleSecundary,
-    textAlign: 'center',
-    paddingTop: 20
+    color: colors.colorTxtPrimary,
+    paddingTop: metrics.marginMax,
+    paddingLeft: metrics.marginMax
   },
 
-  labelInput: {
-    fontFamily: fonts.fontPrimary,
-    fontSize: 22,
-    marginTop: 10,
-    color: 'white', // colors.colorSecundary,
-    textAlign: 'left'
+  textGeral: {
+    opacity: 0.5,
+    fontFamily: fonts.FontPrimary,
+    fontSize: 20,
+    color: colors.colorTxtPrimary,
+    marginTop: metrics.MarginMed,
+    marginLeft: metrics.marginMax
   },
-  logo: {
-    flexDirection: 'row',
+
+  image: {
+    width: 345,
+    height: 164
+  },
+  containerImage: {
+    width: 345,
+    height: 184,
+    alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 90
+    borderColor: 'gray',
+    borderRadius: 5,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    marginTop: metrics.MarginMed,
+    marginLeft: metrics.marginMax,
+    marginBottom: metrics.marginMedium
   },
-  CheckBox: {
-    borderBottomWidth: 0.3,
-    borderBottomColor: 'gray'
+
+  textItems: {
+    fontFamily: fonts.FonteSecundary,
+    fontSize: 16,
+    color: colors.colorTxtPrimary
   },
-  checkBox : {
-    backgroundColor: "#ffffff",
-    borderWidth: 0
-  },
-  text: {
-    flex: 0.95,
-    backgroundColor: "#ffffff"
+  containerItems: {
+    backgroundColor: 'transparent',
+    margin: 0,
+    padding: 5,
+    borderWidth: 0,
+    paddingLeft: 30,
+    paddingTop: 14
   }
 })
 

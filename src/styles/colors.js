@@ -1,7 +1,7 @@
 export default {
-  colorPrincipal: '#E5556E',
+  colorPrimary: '#1c1c1c',
   colorSecundary: '#222',
-  colorPrimary: 'black',
-  colorTitlePrimary: '#ffffff',
-  colorTitleSecundary: '#999999'
+  colorPrincipal: '#E5556E',
+  colorTxtPrimary: '#ffffff',
+  colorTxtSecundary: '#999999'
 }

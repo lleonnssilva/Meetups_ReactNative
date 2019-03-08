@@ -14,22 +14,37 @@ import SignIn from './pages/SignIn/index'
 import SignUp from './pages/SignUp/index'
 import Profile from './pages/Profile/index'
 import Preferences from './pages/Preferences/index'
-
+import Header from './components/Header'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import IconAwsome from 'react-native-vector-icons/FontAwesome'
 
 const SearchStack = createStackNavigator({
-  Search: { screen: Search }
+  Search: {
+    screen: Search,
+    navigationOptions: () => ({
+      header: <Header title='Busca' />
+    })
+  }
 })
 const NewMeetupStack = createStackNavigator({
-  NewMeetup: { screen: NewMeetup }
+  NewMeetup: {
+    screen: NewMeetup,
+    navigationOptions: () => ({
+      header: <Header title='New Meetup' />
+    })
+  }
 })
 const DashboardStack = createStackNavigator({
-  Dashboard: { screen: Dashboard },
+  Dashboard: {
+    screen: Dashboard,
+    navigationOptions: () => ({
+      header: <Header title='Início' />
+    })
+  },
   Meetup: {
     screen: Meetup,
     navigationOptions: () => ({
-      tabBarLabel: 'Meetup'
+      header: <Header title='Meetup' />
     })
   }
 })
@@ -85,7 +100,12 @@ const Routes = (userLogged = false) =>
         SignIn: { screen: SignIn },
         SignUp: { screen: SignUp },
         Profile: createStackNavigator({
-          Profile: { screen: Profile }
+          Profile: {
+            screen: Profile,
+            navigationOptions: () => ({
+              header: <Header title='Profile' />
+            })
+          }
         }),
         Preferences: { screen: Preferences }
       },

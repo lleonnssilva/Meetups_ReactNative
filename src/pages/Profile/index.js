@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  ScrollView,
   AsyncStorage
 } from 'react-native'
 import { CheckBox } from 'react-native-elements'
@@ -23,43 +24,6 @@ export default class Login extends Component {
     preferences: [],
     preferences_user: []
   }
-  static navigationOptions = ({ navigation }) => ({
-    headerTintColor: 'white',
-    headerStyle: {
-      backgroundColor: '#E5556E'
-    },
-
-    headerTitle: () => (
-      <View style={{ flex: 1 }}>
-        <Text
-          adjustsFontSizeToFit
-          style={{
-            textAlign: 'center',
-            alignSelf: 'center',
-            color: 'white'
-          }}>
-          Perfil
-        </Text>
-      </View>
-    ),
-    headerRight: (
-      <TouchableOpacity
-        style={{ paddingRight: 20 }}
-        onPress={() => {
-          AsyncStorage.clear()
-          navigation.navigate('SignIn')
-        }}>
-        <Icon name='person-outline' size={24} color={'white'} />
-      </TouchableOpacity>
-    ),
-    headerLeft: (
-      <TouchableOpacity
-        style={{ paddingLeft: 20 }}
-        onPress={() => navigation.navigate('Dashboard')}>
-        <Icon name='chevron-left' size={24} color={'white'} />
-      </TouchableOpacity>
-    )
-  })
 
   handleNameChange = (username) => {
     this.setState({ username })
@@ -125,6 +89,7 @@ export default class Login extends Component {
   }
 
   componentDidMount = async () => {
+    const ip = await AsyncStorage.getItem('@MeetupApp:ip')
     const { data } = await api.get('/users/profile')
     this.setState({
       password_original: data[0].password,
@@ -132,7 +97,8 @@ export default class Login extends Component {
       username: data[0].username,
       password: '',
       password_confirmation: '',
-      preferences_user: data[0].preferences
+      preferences_user: data[0].preferences,
+      ip: ip
     })
     this.comparePreferences()
   }
@@ -140,58 +106,52 @@ export default class Login extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor='#E5556E' barStyle='light-content' />
-        <View style={styles.form}>
-          <Text style={styles.labelInput}>Nome</Text>
+        <ScrollView>
+          <StatusBar backgroundColor='#E5556E' barStyle='light-content' />
+
+          <Text style={styles.labelGeral}>Nome</Text>
           <TextInput
             value={this.state.username}
             onChangeText={this.handleNameChange}
-            style={styles.textInput}
-            placeholderTextColor='gray'
+            style={styles.textNome}
+            placeholderTextColor={styles.colorPlaceholder.color}
             autoCapitalize='none'
             autoCorrect={false}
             placeholder={this.state.username}
             underlineColorAndroid='transparent'
           />
-          <Text style={styles.labelInput}>Senha</Text>
+          <Text style={styles.labelGeral}>Senha</Text>
           <TextInput
             value={this.state.password}
             onChangeText={this.handlePasswordChange}
-            style={styles.textInput}
-            placeholderTextColor='gray'
+            style={styles.textGeral}
+            placeholderTextColor={styles.colorPlaceholder.color}
             autoCapitalize='none'
             autoCorrect={false}
             placeholder='Sua senha secreta'
             underlineColorAndroid='transparent'
             secureTextEntry
           />
-          <Text style={styles.labelInput}>Confirme a senha</Text>
+          <Text style={styles.labelGeral}>Confirmação de senha</Text>
           <TextInput
             value={this.state.password_confirmation}
             onChangeText={this.handlePasswordConfirmChange}
-            style={styles.textInput}
-            placeholderTextColor='gray'
+            style={styles.textGeral}
+            placeholderTextColor={styles.colorPlaceholder.color}
             autoCapitalize='none'
             autoCorrect={false}
             placeholder='Sua senha secreta'
             underlineColorAndroid='transparent'
             secureTextEntry
           />
-          <Text style={styles.labelInput}>Preferências:</Text>
+          <Text style={styles.labelGeral}>Preferências</Text>
           {this.state.preferences.map((item, key) => {
             return (
               <CheckBox
-                borderStyle={{ borderWidth: 0 }}
-                containerStyle={{
-                  backgroundColor: 'transparent',
-                  margin: 0,
-                  padding: 5,
-                  borderWidth: 0
-                }}
-                color='red'
+                containerStyle={styles.containerItems}
+                textStyle={styles.textItems}
                 key={key}
                 title={item.title}
-                textStyle={{ color: 'white' }}
                 checkedIcon={
                   <Image
                     style={{ width: 24, height: 24 }}
@@ -211,13 +171,13 @@ export default class Login extends Component {
           })}
 
           <TouchableOpacity
-            style={styles.button}
+            style={styles.buttonSave}
             onPress={() => {
               this.handleUpdate()
             }}>
             <Text style={styles.buttonText}>Salvar</Text>
           </TouchableOpacity>
-        </View>
+        </ScrollView>
       </View>
     )
   }

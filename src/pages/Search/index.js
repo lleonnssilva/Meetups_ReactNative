@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import {
   View,
   TextInput,
@@ -18,41 +17,6 @@ export default class Search extends Component {
     meetups: [],
     text: ''
   }
-  static navigationOptions = ({ navigation }) => ({
-    headerTintColor: 'white',
-    headerStyle: {
-      backgroundColor: '#E5556E'
-    },
-
-    headerTitle: () => (
-      <View style={{ flex: 1 }}>
-        <Text
-          adjustsFontSizeToFit
-          style={{
-            textAlign: 'center',
-            alignSelf: 'center',
-            color: 'white'
-          }}>
-          Busca
-        </Text>
-      </View>
-    ),
-    headerRight: (
-      <TouchableOpacity
-        style={{ paddingRight: 20 }}
-        onPress={() => {
-          AsyncStorage.clear()
-          navigation.navigate('SignIn')
-        }}>
-        <Icon name='person-outline' size={24} color={'white'} />
-      </TouchableOpacity>
-    ),
-    headerLeft: (
-      <TouchableOpacity style={{ paddingLeft: 20 }} onPress={this.signOut}>
-        <Icon name='chevron-left' size={24} color={'white'} />
-      </TouchableOpacity>
-    )
-  })
 
   search = async () => {
     try {
@@ -74,22 +38,31 @@ export default class Search extends Component {
     />
   )
 
-  renderSeparator = () => (
-    <View style={{ height: 20, backgroundColor: 'black' }} />
-  )
+  renderSeparator = () => <View style={styles.separator} />
 
   render () {
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor='#E5556E' barStyle='light-content' />
-        <TextInput
-          style={{ color: 'white', backgroundColor: 'gray' }}
-          placeholder='Buscar Meetups'
-          onChangeText={(text) => this.setState({ text })}
-          value={this.state.text}
-          onEndEditing={this.search}
-        />
+        {/* <StatusBar backgroundColor='#E5556E' barStyle='light-content' /> */}
 
+        <View style={styles.searchSection}>
+          <Icon
+            style={styles.searchIcon}
+            name='search'
+            size={20}
+            color='#8e8e93'
+          />
+
+          <TextInput
+            style={styles.input}
+            placeholder='Buscar Meetups'
+            placeholderTextColor='#8e8e93'
+            onChangeText={(text) => this.setState({ text })}
+            value={this.state.text}
+            onEndEditing={this.search}
+            maxLength={40}
+          />
+        </View>
         <FlatList
           data={this.state.meetups}
           keyExtractor={(item) => String(item.id)}

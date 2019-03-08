@@ -17,6 +17,7 @@ import { CheckBox } from 'react-native-elements'
 import styles from './styles'
 import api from '../../services/api'
 
+const app_url = 'http://192.168.208.102:3333'
 export default class newMeetup extends Component {
   state = {
     img: null,
@@ -28,43 +29,6 @@ export default class newMeetup extends Component {
     numLimitSubscriptions: 1000,
     preferences: []
   }
-
-  static navigationOptions = ({ navigation }) => ({
-    headerTintColor: 'white',
-    headerStyle: {
-      backgroundColor: '#E5556E'
-    },
-    headerTitle: () => (
-      <View style={{ flex: 1 }}>
-        <Text
-          adjustsFontSizeToFit
-          style={{
-            textAlign: 'center',
-            alignSelf: 'center',
-            color: 'white'
-          }}>
-          Novo Meetup
-        </Text>
-      </View>
-    ),
-    headerRight: (
-      <TouchableOpacity
-        style={{ paddingRight: 20 }}
-        onPress={() => {
-          AsyncStorage.clear()
-          navigation.navigate('SignIn')
-        }}>
-        <Icon name='person-outline' size={24} color={'white'} />
-      </TouchableOpacity>
-    ),
-    headerLeft: (
-      <TouchableOpacity
-        style={{ paddingLeft: 20 }}
-        onPress={() => navigation.goBack()}>
-        <Icon name='chevron-left' size={24} color={'white'} />
-      </TouchableOpacity>
-    )
-  })
 
   handleChoosePhoto = () => {
     const options = {
@@ -92,14 +56,13 @@ export default class newMeetup extends Component {
     })
 
     const file = await api.post(`/files`, imageMeetup)
-
+    console.tron.log(file.data.id)
     const response = await api.post('/meetups', {
       title: this.state.title,
       place: this.state.place,
       description: this.state.description,
       event_date: this.state.event_date,
-      image: file.data.url,
-      // image: `${Env.get('APP_URL')}/files/${file.id}`,
+      image: `${app_url}/files/${file.data.id}`,
       numLimitSubscriptions: this.state.numLimitSubscriptions,
       preferences: itensPreferences
     })
@@ -121,31 +84,28 @@ export default class newMeetup extends Component {
     let { preferences } = this.state
     preferences[key].checked = !preferences[key].checked
     this.setState({ preferences })
-    // console.tron.log(this.state.checks)
   }
   componentDidMount = async () => {
     try {
       const { data } = await api.get('/preferences')
 
       this.setState({ preferences: data })
-
-      // console.tron.log(this.state.checks)
-      // console.tron.log(this.state.preferences)
     } catch (_err) {
       this.setState({ error: 'Erro ao recuperar os meetups recomendados' })
     } finally {
       this.setState({ loading: false, refreshing: false })
     }
   }
+
   render () {
     const { img } = this.state
     return (
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.form}>
-            <Text style={styles.labelInput}>Título</Text>
+            <Text style={styles.labelGeral}>Título</Text>
             <TextInput
-              style={styles.textInput}
+              style={styles.textGeral}
               placeholderTextColor='gray'
               autoCapitalize='none'
               autoCorrect={false}
@@ -154,9 +114,9 @@ export default class newMeetup extends Component {
               value={this.state.title}
               onChangeText={this.handletitleChange}
             />
-            <Text style={styles.labelInput}>Descrição</Text>
+            <Text style={styles.labelGeral}>Descrição</Text>
             <TextInput
-              style={styles.textInput}
+              style={styles.textGeral}
               placeholderTextColor='gray'
               autoCapitalize='none'
               autoCorrect={false}
@@ -165,30 +125,12 @@ export default class newMeetup extends Component {
               value={this.state.description}
               onChangeText={this.handleDescriptionChange}
             />
-            <Text style={styles.labelInput}>Imagem</Text>
+            <Text style={styles.labelGeral}>Imagem</Text>
 
-            <View
-              style={{
-                width: 375,
-                height: 164,
-                backgroundColor: 'black',
-                alignItems: 'center',
-                justifyContent: 'center',
-                // marginVertical: 200,
-                // marginHorizontal: 20,
-                borderColor: 'gray',
-                borderRadius: 5,
-                borderWidth: 1,
-                borderStyle: 'dashed'
-              }}>
+            <View style={styles.containerImage}>
               {img && (
                 <Fragment>
-                  <Image
-                    source={{ uri: img.uri }}
-                    style={{ width: 375, height: 164 }}
-                  />
-
-                  {/* <Button title='Upload' onPress={this.handleUpload} /> */}
+                  <Image source={{ uri: img.uri }} style={styles.image} />
                 </Fragment>
               )}
 
@@ -204,9 +146,9 @@ export default class newMeetup extends Component {
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.labelInput}>Localização</Text>
+            <Text style={styles.labelGeral}>Localização</Text>
             <TextInput
-              style={styles.textInput}
+              style={styles.textGeral}
               placeholderTextColor='gray'
               autoCapitalize='none'
               autoCorrect={false}
@@ -215,28 +157,16 @@ export default class newMeetup extends Component {
               value={this.state.place}
               onChangeText={this.handleplaceChange}
             />
-            <Text style={styles.labelInput}>Tema do meetup</Text>
+            <Text style={styles.labelGeral}>Tema do meetup</Text>
 
             {this.state.preferences.map((item, key) => {
               return (
-                //   <CheckBox
-                //   checkedIcon={<Image source={require('../checked.png')} />}
-                //   uncheckedIcon={<Image source={require('../unchecked.png')} />}
-                //   checked={this.state.checked}
-                //   onPress={() => this.setState({checked: !this.state.checked})}
-                // />
                 <CheckBox
                   borderStyle={{ borderWidth: 0 }}
-                  containerStyle={{
-                    backgroundColor: 'transparent',
-                    margin: 0,
-                    padding: 5,
-                    borderWidth: 0
-                  }}
-                  color='red'
+                  containerStyle={styles.containerItems}
                   key={key}
                   title={item.title}
-                  textStyle={{ color: 'white' }}
+                  textStyle={styles.textItems}
                   checkedIcon={
                     <Image
                       style={{ width: 24, height: 24 }}
@@ -253,7 +183,6 @@ export default class newMeetup extends Component {
                   onPress={() => this.onChange(key)}
                 />
               )
-            //  console.tron.log(item)
             })}
 
             <TouchableOpacity

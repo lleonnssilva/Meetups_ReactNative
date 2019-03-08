@@ -15,14 +15,12 @@ const MeetupItem = ({ props, meetup, registered, subscriptions }) => (
     }}>
     <Image
       style={{
-        width: 335,
+        width: '100%',
         height: 146,
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10
       }}
-      // source={require('../../assets/default.png')}
       source={{ uri: meetup.image }}
-      // http://192.168.208.104:3333/files/10
     />
 
     <View

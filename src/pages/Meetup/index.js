@@ -6,50 +6,13 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
-  AsyncStorage
+  ScrollView
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import styles from './styles'
 import api from '../../services/api'
 
 export default class Index extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerTintColor: 'white',
-    headerStyle: {
-      backgroundColor: '#E5556E'
-    },
-
-    headerTitle: () => (
-      <View style={{ flex: 1 }}>
-        <Text
-          adjustsFontSizeToFit
-          style={{
-            textAlign: 'center',
-            alignSelf: 'center',
-            color: 'white'
-          }}>
-          Detalhes Meetup
-        </Text>
-      </View>
-    ),
-    headerRight: (
-      <TouchableOpacity
-        style={{ paddingRight: 20 }}
-        onPress={() => {
-          AsyncStorage.clear()
-          navigation.navigate('SignIn')
-        }}>
-        <Icon name='person-outline' size={24} color={'white'} />
-      </TouchableOpacity>
-    ),
-    headerLeft: (
-      <TouchableOpacity
-        style={{ paddingLeft: 20 }}
-        onPress={() => navigation.goBack()}>
-        <Icon name='chevron-left' size={24} color={'white'} />
-      </TouchableOpacity>
-    )
-  })
   state = {
     meetup: [],
     registered: true,
@@ -83,40 +46,39 @@ export default class Index extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor='#E5556E' barStyle='light-content' />
-        <Image
-          style={{
-            width: '100%',
-            height: 146
-          }}
-          source={{ uri: this.state.meetup.image }}
-        />
+        <ScrollView>
+          <Image
+            style={styles.image}
+            resizeMode='cover'
+            source={{ uri: this.state.meetup.image }}
+          />
 
-        <View>
-          <Text style={styles.labelInput}>{this.state.meetup.title}</Text>
-          <Text style={styles.textOpacity}>
-            {this.state.subscriptions} membro(s)
-          </Text>
-          <Text style={styles.textOpacity}>
-            {this.state.meetup.description}
-          </Text>
-          <Text style={styles.textOpacity}>Realizado em:</Text>
-          <Text style={styles.labelInput}>{this.state.meetup.place}</Text>
-          {this.state.registered === true ? (
-            <TouchableOpacity
-              disabled
-              style={styles.buttonDisable}
-              onPress={this.subscriptionIn}>
-              <Text style={styles.buttonText}>Já inscrito</Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              style={styles.button}
-              onPress={this.subscriptionIn}>
-              <Text style={styles.buttonText}>Inscreva-se</Text>
-            </TouchableOpacity>
-          )}
-        </View>
+          <View>
+            <Text style={styles.labeTitle}>{this.state.meetup.title}</Text>
+            <Text style={styles.labelMembers}>
+              {this.state.subscriptions} membro(s)
+            </Text>
+            <Text style={styles.labelDesc}>
+              {this.state.meetup.description}
+            </Text>
+            <Text style={styles.labelRealizacao}>Realizado em:</Text>
+            <Text style={styles.labelLocal}>{this.state.meetup.place}</Text>
+            {this.state.registered === true ? (
+              <TouchableOpacity
+                disabled
+                style={styles.button}
+                onPress={this.subscriptionIn}>
+                <Text style={styles.textButton}>Já inscrito</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={this.subscriptionIn}>
+                <Text style={styles.textButton}>Inscreva-se</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </ScrollView>
       </View>
     )
   }

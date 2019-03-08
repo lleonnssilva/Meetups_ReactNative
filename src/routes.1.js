@@ -20,7 +20,14 @@ const Routes = (userLogged = false) =>
       {
         SignIn: { screen: SignIn },
         SignUp: { screen: SignUp },
-        Profile: { screen: Profile },
+        Profile: {
+          screen: Profile,
+          navigationOptions: {
+            navigationOptions: ({ navigation }) => ({
+              title: `${navigation.state.params.name}'s Profile'`
+            })
+          }
+        },
         Preferences: { screen: Preferences },
         Abas: createBottomTabNavigator(
           {
@@ -32,12 +39,6 @@ const Routes = (userLogged = false) =>
             Dashboard: createStackNavigator({
               Meetups: {
                 screen: Dashboard
-                // navigationOptions: {
-                //   tabBarLabel: 'Profile',
-                //   tabBarIcon: ({ tintColor, activeTintColor }) => (
-                //     <Icon name='home' size={30} color={tintColor} />
-                //   )
-                // }
               },
               Meetup: { screen: Meetup }
             }),

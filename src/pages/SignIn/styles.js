@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   form: {
-    marginTop: metrics.baseMargin * 2
+    marginTop: 10
   },
   textInput: {
     marginTop: 10,

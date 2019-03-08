@@ -1,5 +1,4 @@
 export default {
-  fontPrimary: 'Helvetica-Bold',
-  fontSecundary: 'Helvetica',
-  fontOpacity: 0.5
+  fontPrimary: 'Helvetica',
+  fontSecundary: 'Helvetica-Bold'
 }

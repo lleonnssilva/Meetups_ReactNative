@@ -6,58 +6,61 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.colorPrimary,
-    padding: 30,
     justifyContent: 'center',
     alignItems: 'stretch',
     flexDirection: 'column'
   },
-  form: {
-    marginTop: metrics.baseMargin * 2
-  },
-  textInput: {
-    marginTop: 10,
-    opacity: fonts.fontOpacity,
-    fontFamily: fonts.fontSecundary,
-    fontSize: 20,
-    color: 'white', // colors.colorPrimary,
-    textAlign: 'left'
-  },
-  button: {
+  buttonSave: {
     backgroundColor: colors.colorPrincipal,
     borderRadius: 60,
     height: 44,
-    marginTop: metrics.baseMargin,
     justifyContent: 'center',
     alignItems: 'center',
-    fontFamily: fonts.fontPrimary,
-    color: colors.colorTitlePrimary
+    margin: metrics.marginMax
   },
   buttonText: {
-    color: colors.colorTitlePrimary,
+    color: colors.colorTxtPrimary,
     fontWeight: 'bold',
     fontSize: 16,
     fontFamily: fonts.fontPrimary
   },
-  textOpacity: {
-    opacity: 0.6,
-    fontFamily: fonts.fontSecundary,
+  labelGeral: {
+    fontFamily: fonts.FonteSecundary,
     fontSize: 16,
-    color: colors.colorTitleSecundary,
-    textAlign: 'center',
-    paddingTop: 20
+    color: colors.colorTxtPrimary,
+    paddingTop: metrics.marginMax,
+    paddingLeft: metrics.marginMax
   },
-
-  labelInput: {
-    fontFamily: fonts.fontPrimary,
-    fontSize: 22,
-    marginTop: 10,
-    color: 'white', // colors.colorSecundary,
-    textAlign: 'left'
+  textNome: {
+    fontFamily: fonts.FontPrimary,
+    fontSize: 20,
+    color: colors.colorTxtPrimary,
+    marginTop: metrics.MarginMed,
+    marginLeft: metrics.marginMax
   },
-  logo: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingTop: 90
+  textGeral: {
+    opacity: 0.5,
+    fontFamily: fonts.FontPrimary,
+    fontSize: 20,
+    color: colors.colorTxtPrimary,
+    marginTop: metrics.MarginMed,
+    marginLeft: metrics.marginMax
+  },
+  colorPlaceholder: {
+    color: colors.colorTxtPrimary
+  },
+  textItems: {
+    fontFamily: fonts.FonteSecundary,
+    fontSize: 18,
+    color: colors.colorTxtPrimary
+  },
+  containerItems: {
+    backgroundColor: 'transparent',
+    margin: 0,
+    padding: 5,
+    borderWidth: 0,
+    paddingLeft: 30,
+    paddingTop: 14
   }
 })
 

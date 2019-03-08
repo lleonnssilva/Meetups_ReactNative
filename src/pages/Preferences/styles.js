@@ -12,11 +12,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   form: {
-    marginTop: metrics.baseMargin * 2
+    marginTop: metrics.marginMax
   },
   textInput: {
     marginTop: 10,
-    opacity: fonts.fontOpacity,
+
     fontFamily: fonts.fontSecundary,
     fontSize: 20,
     color: colors.colorPrimary,
@@ -26,14 +26,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.colorPrincipal,
     borderRadius: 60,
     height: 44,
-    marginTop: metrics.baseMargin,
+    marginTop: metrics.marginMax,
     justifyContent: 'center',
     alignItems: 'center',
     fontFamily: fonts.fontPrimary,
-    color: colors.colorTitlePrimary
+    color: colors.colorPrimary
   },
   buttonText: {
-    color: colors.colorTitlePrimary,
+    color: colors.colorPrimary,
     fontWeight: 'bold',
     fontSize: 16,
     fontFamily: fonts.fontPrimary
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     fontFamily: fonts.fontSecundary,
     fontSize: 16,
-    color: colors.colorTitleSecundary,
+    color: colors.colorTxtSecundary,
     textAlign: 'center',
     paddingTop: 20
   },
