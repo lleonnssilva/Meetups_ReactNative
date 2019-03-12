@@ -5,7 +5,7 @@ import {
   createBottomTabNavigator,
   createSwitchNavigator
 } from 'react-navigation'
-
+import {Button,Text} from 'react-native'
 import Search from './pages/Search/index'
 import NewMeetup from './pages/NewMeetup/index'
 import Dashboard from './pages/Dashboard/index'
@@ -18,11 +18,20 @@ import Header from './components/Header'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import IconAwsome from 'react-native-vector-icons/FontAwesome'
 
+const ProfileStack=createStackNavigator({
+  Profile: {
+    screen: Profile,
+     navigationOptions: () => ({
+      header: <Header title='Perfil' />
+    })
+    
+  }
+})
 const SearchStack = createStackNavigator({
   Search: {
     screen: Search,
     navigationOptions: () => ({
-      header: <Header title='Busca' />
+       header: <Header title='Busca' />
     })
   }
 })
@@ -43,9 +52,20 @@ const DashboardStack = createStackNavigator({
   },
   Meetup: {
     screen: Meetup,
-    navigationOptions: () => ({
-      header: <Header title='Meetup' />
+    navigationOptions: ({navigation}) => {
+      if(navigation.state.params) {
+          return {
+              header: <Header title={navigation.state.params.title} />
+          }
+      }
+  },
+  },
+  Profile: {
+    screen: Profile,
+     navigationOptions: () => ({
+      header: <Header title='Perfil' />
     })
+    
   }
 })
 
@@ -99,14 +119,7 @@ const Routes = (userLogged = false) =>
         ),
         SignIn: { screen: SignIn },
         SignUp: { screen: SignUp },
-        Profile: createStackNavigator({
-          Profile: {
-            screen: Profile,
-            navigationOptions: () => ({
-              header: <Header title='Profile' />
-            })
-          }
-        }),
+        
         Preferences: { screen: Preferences }
       },
       {

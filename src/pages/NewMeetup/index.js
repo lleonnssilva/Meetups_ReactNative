@@ -17,7 +17,7 @@ import { CheckBox } from 'react-native-elements'
 import styles from './styles'
 import api from '../../services/api'
 
-const app_url = 'http://192.168.208.102:3333'
+const app_url = 'http://10.0.0.5:3333'
 export default class newMeetup extends Component {
   state = {
     img: null,

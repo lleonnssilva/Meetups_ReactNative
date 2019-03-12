@@ -1,21 +1,113 @@
+
+
+
 import React, { Component } from 'react'
 
-import { View, ScrollView, StatusBar } from 'react-native'
+import { View, StatusBar, FlatList, ActivityIndicator, Text ,ScrollView} from 'react-native'
 
+import api from '../../services/api'
+import MeetupItem from '../../components/MeetupItem'
 import ListInscritos from './components/inscritosList'
 import ListProximos from './components/proximosList'
 import ListRecomendados from './components/recomendosList'
+import { withNavigation } from 'react-navigation';
 import styles from './styles'
-export default class Meetups extends Component {
-  render () {
+//class Meetups extends Component {
+  // state = {
+  //   meetups: [],
+  //   loading: true,
+  //   error: '',
+  //   refreshing: false,
+  //   page: 1,
+  //   lastPage: 1
+  // }
+  // async componentDidMount () {
+  //   this.setState({ page: 1, lastPage: 1 })
+  //   this.loadMeetups()
+  // }
+  // loadMeetups = async () => {
+  //   if (this.state.page <= this.state.lastPage) {
+  //     this.setState({ refreshing: true })
+  //     try {
+  //       const response = await api.get(`/meetups/unsigned/${this.state.page}`)
+  //       // console.tron.log(response)
+  //       this.setState({
+  //         meetups:
+  //           this.state.page == 1
+  //             ? response.data.data
+  //             : [...this.state.meetups, ...response.data.data],
+  //         page: response.data.page + 1,
+  //         lastPage: response.data.lastPage
+  //       })
+  //       //  console.tron.log(this.state)
+  //     } catch (_err) {
+  //       this.setState({ error: 'Erro ao recuperar os meetups próximos' })
+  //     } finally {
+  //       this.setState({ loading: false, refreshing: false })
+  //     }
+  //   }
+  // }
+  // _renderSeparator () {
+  //   return <View style={{ height: 10,width:10, backgroundColor: '#1c1c1c' }} />
+  // }
+  // renderListItem = ({ item }) => (
+  //   <MeetupItem
+  //     meetup={item}
+  //     registered={false}
+  //     subscriptions={item.__meta__.subscriptions_count}
+  //   />
+  // )
+  //render () {
+   const meetups = ()=>{
     return (
       <View style={styles.container}>
         <ScrollView>
-          <ListInscritos props={this.props} />
-          <ListProximos props={this.props} />
-          <ListRecomendados props={this.props} />
+          <ListInscritos/>
+          <ListProximos />
+          <ListRecomendados  />
         </ScrollView>
       </View>
     )
-  }
-}
+   }
+ 
+  //}
+//   render () {
+//     const { loading, error, activeFilter } = this.state
+//     return (
+//       <View style={{ flex: 1, backgroundColor: '#1c1c1c' }}>
+//         <StatusBar backgroundColor='#E5556E' barStyle='light-content' />
+
+//         <View style={{ backgroundColor: '#1c1c1c', flex: 1 }}>
+//           {!!error && (
+//             <Text
+//               style={{
+//                 color: 'black',
+//                 fontSize: 12,
+//                 fontWeight: 'bold',
+//                 textAlign: 'center'
+//               }}>
+//               {error}
+//             </Text>
+//           )}
+//           {loading ? (
+//             <ActivityIndicator size='large' style={{ marginTop: 30 }} />
+//           ) : (
+//             <View style={{padding:10}}>
+            
+//               <FlatList
+//                 data={this.state.meetups}
+//                 keyExtractor={(item) => String(item.id)}
+//                ItemSeparatorComponent={this._renderSeparator}
+//                 renderItem={this.renderListItem}
+//                // style={{ paddingHorizontal: 20 }}
+//                 horizontal
+//                 //numColumns={1}
+//               />
+//             </View>
+//           )}
+//         </View>
+//       </View>
+//     )
+//   }
+// }
+export default  withNavigation(meetups)

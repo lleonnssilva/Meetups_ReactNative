@@ -3,17 +3,20 @@ import React from 'react'
 import { View, Text, TouchableOpacity, Image, Linking } from 'react-native'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
-
+import { withNavigation } from 'react-navigation';
 import styles from './styles'
 
-const MeetupItem = ({ props, meetup, registered, subscriptions }) => (
-  <View
+
+const MeetupItem = ({ meetup,registered, subscriptions, navigation: { navigate } }) => (
+
+
+    <View
     style={{
       flex: 1,
       flexDirection: 'column',
       height: 210
     }}>
-    <Image
+     <Image
       style={{
         width: '100%',
         height: 146,
@@ -67,17 +70,19 @@ const MeetupItem = ({ props, meetup, registered, subscriptions }) => (
 
       <View
         style={{
-          // backgroundColor: 'black',
           width: '25%',
           justifyContent: 'center',
           paddingRigth: 20
         }}>
         <TouchableOpacity
-          onPress={() => {
-            const { navigation } = props.props
+  
+        onPress={() =>
 
-            navigation.navigate('Meetup', meetup.id)
-          }}
+          navigate('Meetup', {
+            id: meetup.id,
+            title: meetup.title,
+          })}
+
           style={{
             backgroundColor: '#E5556E',
             alignItems: 'center',
@@ -92,8 +97,12 @@ const MeetupItem = ({ props, meetup, registered, subscriptions }) => (
           <Icon tintColor={'white'} name='chevron-right' color={'white'} />
         </TouchableOpacity>
       </View>
-    </View>
+    </View> 
   </View>
-)
+  )
 
-export default MeetupItem
+
+
+
+export default withNavigation(MeetupItem);
+

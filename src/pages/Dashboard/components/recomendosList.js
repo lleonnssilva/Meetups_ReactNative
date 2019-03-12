@@ -4,10 +4,10 @@ import { View, StatusBar, FlatList, ActivityIndicator, Text } from 'react-native
 
 import api from '../../../services/api'
 import MeetupItem from '../../../components/MeetupItem'
-
+import { withNavigation } from 'react-navigation'
 // import styles from './../styles'
 
-export default class Meetups extends Component {
+ class Meetups extends Component {
   state = {
     meetups: [],
     loading: true,
@@ -47,11 +47,11 @@ export default class Meetups extends Component {
     }
   }
   _renderSeparator () {
-    return <View style={{ width: 20, backgroundColor: '#1c1c1c' }} />
+    return <View style={{ height: 10,width:10, backgroundColor: '#1c1c1c' }} />
   }
   renderListItem = ({ item }) => (
     <MeetupItem
-      props={this.props}
+      navigation={this.props.navigation}
       meetup={item}
       registered={false}
       subscriptions={item.__meta__.subscriptions_count}
@@ -79,14 +79,14 @@ export default class Meetups extends Component {
           {loading ? (
             <ActivityIndicator size='large' style={{ marginTop: 30 }} />
           ) : (
-            <View style={{ padding: 0 }}>
-              <Text style={{ color: 'white', padding: 20 }}>Recomendados</Text>
+            <View style={{ paddingLeft: 30,paddingRight:30 ,paddingBottom:10}}>
+              <Text style={{ color: 'white', paddingTop: 10}}>Recomendados</Text>
               <FlatList
                 data={this.state.meetups}
                 keyExtractor={(item) => String(item.id)}
                 ItemSeparatorComponent={this._renderSeparator}
                 renderItem={this.renderListItem}
-                style={{ paddingHorizontal: 20 }}
+             //   style={{ paddingHorizontal: 20 }}
                 horizontal
               />
             </View>
@@ -96,3 +96,4 @@ export default class Meetups extends Component {
     )
   }
 }
+export default withNavigation(Meetups)

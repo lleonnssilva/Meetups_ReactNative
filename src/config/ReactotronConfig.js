@@ -1,7 +1,7 @@
 import Reactotron from 'reactotron-react-native'
-
+import ip from '../config/getIp'
 if (__DEV__) {
-  const tron = Reactotron.configure({ host: '192.168.208.102' })
+  const tron = Reactotron.configure({ host: ip.IpReactotron() })
     .useReactNative()
     .connect()
 
