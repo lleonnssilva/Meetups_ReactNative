@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from "react-native";
 
-import { colors, metrics, fonts } from '../../styles'
+import { colors, metrics, fonts } from "../../styles";
 
 const styles = StyleSheet.create({
   container: {
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.colorPrimary
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 212
   },
   labeTitle: {
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.colorPrincipal,
     borderRadius: 60,
     height: 44,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     fontFamily: fonts.fontPrimary,
     color: colors.colorTxtSecundary,
     margin: 30,
@@ -71,6 +71,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.colorTxtPrimary
   }
-})
+});
 
-export default styles
+export default styles;

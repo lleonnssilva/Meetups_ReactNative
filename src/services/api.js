@@ -3,7 +3,6 @@ import axios from 'axios'
 import { AsyncStorage } from 'react-native'
 import ip from '../config/getIp'
 const api = axios.create({
-  // baseURL: 'http://10.0.0.5:3333'
   baseURL:ip.IpApi()
 })
 

@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from "react-native";
 
-import { colors, metrics } from '../../styles/index'
+import { colors, metrics } from "../../styles/index";
 
 const styles = StyleSheet.create({
   // author: {
@@ -15,31 +15,31 @@ const styles = StyleSheet.create({
   // },
 
   container: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    flexDirection: 'row',
+    alignItems: "center",
+    backgroundColor: "white",
+    flexDirection: "row",
     marginBottom: 30,
     padding: 30
   },
 
   icon: {
-    fontFamily: 'material',
+    fontFamily: "material",
     fontSize: 20,
-    textAlign: 'left',
-    color: '#ffffff'
+    textAlign: "left",
+    color: "#ffffff"
   },
 
   infoContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     marginLeft: 30
   },
 
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 3
   }
-})
+});
 
-export default styles
+export default styles;
