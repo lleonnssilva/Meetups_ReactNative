@@ -1,13 +1,7 @@
-let ip='10.0.0.10'
+const ip = '10.0.0.11';
 
-const IpApi = () =>{
-    return `http://${ip}:3333`
-}
-const IpReactotron = () =>{
-    return ip
-}
-const IpFiles = () =>{
-    return `http://${ip}:3333/files`
-}
+const IpApi = () => `http://${ip}:3333`;
+const IpReactotron = () => ip;
+const IpFiles = () => `http://${ip}:3333/files`;
 
-export default {IpApi ,IpReactotron,IpFiles}
+export default { IpApi, IpReactotron, IpFiles };

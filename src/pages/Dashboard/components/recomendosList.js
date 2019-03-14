@@ -1,19 +1,20 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import { View, FlatList, ActivityIndicator, Text } from "react-native";
+import {
+  View, FlatList, ActivityIndicator, Text,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { withNavigation } from 'react-navigation';
+import api from '../../../services/api';
+import MeetupItem from '../../../components/MeetupItem';
 
-import api from "../../../services/api";
-import MeetupItem from "../../../components/MeetupItem";
-import { withNavigation } from "react-navigation";
-
-class Meetups extends Component {
+class Proximos extends Component {
   state = {
     meetups: [],
     loading: true,
-    error: "",
-    refreshing: false,
+    error: '',
     page: 1,
-    lastPage: 1
+    lastPage: 1,
   };
 
   async componentDidMount() {
@@ -22,35 +23,28 @@ class Meetups extends Component {
   }
 
   loadMeetups = async () => {
-    if (this.state.page <= this.state.lastPage) {
-      this.setState({ refreshing: true });
+    const { page, meetups, lastPage } = this.state;
+    if (page <= lastPage) {
       try {
-        const response = await api.get(
-          `/meetups/recommended/${this.state.page}`
-        );
+        const response = await api.get(`/meetups/recommended/${page}`);
+
         this.setState({
-          meetups:
-            this.state.page == 1
-              ? response.data.data
-              : [...this.state.meetups, ...response.data.data],
+          meetups: page === 1 ? response.data.data : [meetups, ...response.data.data],
           page: response.data.page + 1,
-          lastPage: response.data.lastPage
+          lastPage: response.data.lastPage,
         });
       } catch (_err) {
-        this.setState({ error: "Erro ao recuperar os meetups próximos" });
+        this.setState({ error: 'Erro ao recuperar os meetups ' });
       } finally {
-        this.setState({ loading: false, refreshing: false });
+        this.setState({ loading: false });
       }
     }
   };
-  _renderSeparator() {
-    return (
-      <View style={{ height: 10, width: 10, backgroundColor: "#1c1c1c" }} />
-    );
-  }
+
+  renderSeparator = () => <View style={{ height: 20, width: 20, backgroundColor: '#1c1c1c' }} />;
+
   renderListItem = ({ item }) => (
     <MeetupItem
-      navigation={this.props.navigation}
       meetup={item}
       registered={false}
       subscriptions={item.__meta__.subscriptions_count}
@@ -58,43 +52,37 @@ class Meetups extends Component {
   );
 
   render() {
-    const { loading, error, activeFilter } = this.state;
+    const { loading, error, meetups } = this.state;
     return (
-      <View style={{ flex: 1, backgroundColor: "black" }}>
-        <View style={{ backgroundColor: "#1c1c1c", flex: 1 }}>
-          {!!error && (
-            <Text
-              style={{
-                color: "black",
-                fontSize: 12,
-                fontWeight: "bold",
-                textAlign: "center"
-              }}
-            >
-              {error}
-            </Text>
-          )}
-          {loading ? (
-            <ActivityIndicator size="large" style={{ marginTop: 30 }} />
-          ) : (
-            <View
-              style={{ paddingLeft: 30, paddingRight: 30, paddingBottom: 10 }}
-            >
-              <Text style={{ color: "white", paddingTop: 10 }}>
-                Recomendados
-              </Text>
-              <FlatList
-                data={this.state.meetups}
-                keyExtractor={item => String(item.id)}
-                ItemSeparatorComponent={this._renderSeparator}
-                renderItem={this.renderListItem}
-                horizontal
-              />
-            </View>
-          )}
-        </View>
+      <View style={{ paddingLeft: 20, paddingRight: 20, paddingButtom: 20 }}>
+        {!!error && (
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 12,
+              fontWeight: 'bold',
+              textAlign: 'center',
+            }}
+          >
+            <Icon tintColor="white" size={50} name="exclamation-triangle" color="white" />
+          </Text>
+        )}
+        {loading ? (
+          <ActivityIndicator size="large" style={{ marginTop: 20 }} />
+        ) : (
+          <View>
+            <Text style={{ color: 'white', paddingBottom: 10 }}>Recomendados</Text>
+            <FlatList
+              data={meetups}
+              keyExtractor={item => String(item.id)}
+              ItemSeparatorComponent={this.renderSeparator}
+              renderItem={this.renderListItem}
+              horizontal
+            />
+          </View>
+        )}
       </View>
     );
   }
 }
-export default withNavigation(Meetups);
+export default withNavigation(Proximos);

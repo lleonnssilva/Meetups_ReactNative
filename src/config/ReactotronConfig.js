@@ -1,11 +1,12 @@
-import Reactotron from 'reactotron-react-native'
-import ip from '../config/getIp'
+import Reactotron from 'reactotron-react-native';
+import ip from './getIp';
+
 if (__DEV__) {
   const tron = Reactotron.configure({ host: ip.IpReactotron() })
     .useReactNative()
-    .connect()
+    .connect();
 
-  tron.clear()
+  tron.clear();
 
-  console.tron = tron
+  console.tron = tron;
 }

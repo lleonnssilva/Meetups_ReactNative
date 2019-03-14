@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
-import { View, TextInput, FlatList } from 'react-native';
+import {
+  View, TextInput, FlatList, Dimensions, ToastAndroid,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 import api from '../../services/api';
-import MeetupItem from '../../components/MeetupItem/index';
+import MeetupItem from '../../components/ItemSearch/index';
 
 export default class Search extends Component {
   state = {
     meetups: [],
     text: '',
+    orientation: '',
+  };
+
+  getOrientation = () => {
+    if (this.refs.rootView) {
+      if (Dimensions.get('window').width < Dimensions.get('window').height) {
+        this.setState({ orientation: 'portrait' });
+      } else {
+        this.setState({ orientation: 'landscape' });
+      }
+    }
   };
 
   search = async () => {
@@ -16,8 +29,15 @@ export default class Search extends Component {
       const response = await api.get(`/meetups/filter/${this.state.text}`);
 
       this.setState({ meetups: response.data.rows });
+      if (this.state.meetups.length <= 0) {
+        ToastAndroid.showWithGravity(
+          'Nenhum registro localizado!!',
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+        );
+      }
     } catch (_err) {
-      // this.setState({ error: 'Erro ao recuperar os meetups recomendados' })
+      ToastAndroid.showWithGravity(String(_err), ToastAndroid.SHORT, ToastAndroid.CENTER);
     } finally {
       // this.setState({ loading: false, refreshing: false })
     }
@@ -32,11 +52,19 @@ export default class Search extends Component {
     />
   );
 
-  renderSeparator = () => <View style={styles.separator} />;
+  componentDidMount() {
+    this.getOrientation();
+
+    Dimensions.addEventListener('change', () => {
+      this.getOrientation();
+    });
+  }
+
+  renderSeparator = () => <View style={{ height: 20, width: 20, backgroundColor: '#1c1c1c' }} />;
 
   render() {
     return (
-      <View style={styles.container}>
+      <View ref="rootView" style={styles.container}>
         <View style={styles.searchSection}>
           <Icon style={styles.searchIcon} name="search" size={20} color="#8e8e93" />
 
@@ -56,6 +84,7 @@ export default class Search extends Component {
           ItemSeparatorComponent={this.renderSeparator}
           renderItem={this.renderListItems}
           style={styles.listContainer}
+          horizontal={this.state.orientation !== 'portrait'}
         />
       </View>
     );

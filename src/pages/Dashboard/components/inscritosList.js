@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   View, FlatList, ActivityIndicator, Text,
 } from 'react-native';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { withNavigation } from 'react-navigation';
 import api from '../../../services/api';
 import MeetupItem from '../../../components/MeetupItem';
@@ -23,71 +23,60 @@ class Proximos extends Component {
   }
 
   loadMeetups = async () => {
-    if (this.state.page <= this.state.lastPage) {
-      this.setState({ refreshing: true });
+    const { page, meetups, lastPage } = this.state;
+    if (page <= lastPage) {
       try {
-        const response = await api.get(`/meetups/signed/${this.state.page}`);
+        const response = await api.get(`/meetups/signed/${page}`);
 
         this.setState({
-          meetups:
-            this.state.page == 1
-              ? response.data.data
-              : [...this.state.meetups, ...response.data.data],
+          meetups: page === 1 ? response.data.data : [meetups, ...response.data.data],
           page: response.data.page + 1,
           lastPage: response.data.lastPage,
         });
       } catch (_err) {
-        this.setState({ error: 'Erro ao recuperar os meetups próximos' });
+        this.setState({ error: 'Erro ao recuperar os meetups' });
       } finally {
         this.setState({ loading: false });
       }
     }
   };
 
-  _renderSeparator() {
-    return <View style={{ height: 10, width: 10, backgroundColor: '#1c1c1c' }} />;
-  }
+  renderSeparator = () => <View style={{ height: 20, width: 20, backgroundColor: '#1c1c1c' }} />;
 
   renderListItem = ({ item }) => (
-    <MeetupItem
-      meetup={item}
-      registered={false}
-      subscriptions={item.__meta__.subscriptions_count}
-    />
+    <MeetupItem meetup={item} registered subscriptions={item.__meta__.subscriptions_count} />
   );
 
   render() {
-    const { loading, error, activeFilter } = this.state;
+    const { loading, error, meetups } = this.state;
     return (
-      <View style={{ flex: 1, backgroundColor: '#1c1c1c' }}>
-        <View style={{ backgroundColor: '#1c1c1c', flex: 1 }}>
-          {!!error && (
-            <Text
-              style={{
-                color: 'black',
-                fontSize: 12,
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-            >
-              {error}
-            </Text>
-          )}
-          {loading ? (
-            <ActivityIndicator size="large" style={{ marginTop: 30 }} />
-          ) : (
-            <View style={{ paddingLeft: 30, paddingRight: 30 }}>
-              <Text style={{ color: 'white', paddingBottom: 10 }}>Inscritos</Text>
-              <FlatList
-                data={this.state.meetups}
-                keyExtractor={item => String(item.id)}
-                ItemSeparatorComponent={this._renderSeparator}
-                renderItem={this.renderListItem}
-                horizontal
-              />
-            </View>
-          )}
-        </View>
+      <View style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 20 }}>
+        {!!error && (
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 12,
+              fontWeight: 'bold',
+              textAlign: 'center',
+            }}
+          >
+            <Icon tintColor="white" size={50} name="exclamation-triangle" color="white" />
+          </Text>
+        )}
+        {loading ? (
+          <ActivityIndicator size="large" style={{ marginTop: 20 }} />
+        ) : (
+          <View>
+            <Text style={{ color: 'white', paddingBottom: 10 }}>Inscrições</Text>
+            <FlatList
+              data={meetups}
+              keyExtractor={item => String(item.id)}
+              ItemSeparatorComponent={this.renderSeparator}
+              renderItem={this.renderListItem}
+              horizontal
+            />
+          </View>
+        )}
       </View>
     );
   }
