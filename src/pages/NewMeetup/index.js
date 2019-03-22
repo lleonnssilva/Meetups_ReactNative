@@ -1,14 +1,7 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment } from 'react'
 
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  ScrollView
-} from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import { View, Text, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+
 import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 import ImagePicker from "react-native-image-picker";
 import { CheckBox } from "react-native-elements";
@@ -53,7 +46,7 @@ export default class newMeetup extends Component {
     });
 
     const file = await api.post(`/files`, imageMeetup);
-    console.tron.log(file.data.id);
+  //  console.tron.log(file.data.id);
     const response = await api.post("/meetups", {
       title: this.state.title,
       place: this.state.place,

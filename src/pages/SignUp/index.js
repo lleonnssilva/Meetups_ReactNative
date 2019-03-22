@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 
 import {
-  View, Text, TextInput, TouchableOpacity, Image,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  StatusBar,
+  ActivityIndicator,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators } from '../../store/ducks/signUp';
 import styles from './styles';
 
-export default class SigUp extends Component {
+class SigUp extends Component {
   state = {
     email: '',
     password: '',
@@ -29,35 +38,25 @@ export default class SigUp extends Component {
     this.setState({ password_confirmation });
   };
 
-  handleCreateAccountPress = async () => {
-    if (this.state.email.length === 0 || this.state.password.length === 0) {
-    }
-  };
+  handleSignUpPress = async () => {
+    const { username, email, password } = this.state;
+    const { signUpRequest } = this.props;
 
-  handleCreateAccountPress = async () => {
-    if (this.state.email.length === 0 || this.state.password.length === 0) {
-      this.setState({ error: 'Preencha usuário e senha para continuar!' }, () => false);
-    } else {
-      this.props.navigation.navigate('Preferences', (user = this.state));
-    }
-  };
-
-  componentDidMount = async () => {
-    const user = await this.props.navigation.state.params;
-    if (user) {
-      this.setState({
-        email: user.email,
-        username: user.username,
-        password: user.password,
-        password_confirmation: user.password_confirmation,
-        preferences: user.preferences,
-      });
-    }
+    signUpRequest({
+      username,
+      email,
+      password,
+    });
   };
 
   render() {
+    const {
+      username, email, password, password_confirmation,
+    } = this.state;
+    const { error, loading, navigation } = this.props;
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor={styles.container.backgroundColor} barStyle="light-content" />
         <View style={styles.logo}>
           <Image source={require('../../assets/logo.png')} resizeMode="stretch" />
         </View>
@@ -66,31 +65,31 @@ export default class SigUp extends Component {
           <Text style={styles.labelInput}>Nome</Text>
           <TextInput
             style={styles.textInput}
-            placeholderTextColor="gray"
+            placeholderTextColor={styles.textInput.color}
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="Digite seu nome"
             underlineColorAndroid="transparent"
-            value={this.state.username}
+            value={username}
             onChangeText={this.handleNameChange}
           />
           <Text style={styles.labelInput}>Email</Text>
           <TextInput
             style={styles.textInput}
-            placeholderTextColor="gray"
+            placeholderTextColor={styles.textInput.color}
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="Digite seu e-mail"
             underlineColorAndroid="transparent"
-            value={this.state.email}
+            value={email}
             onChangeText={this.handleEmailChange}
           />
           <Text style={styles.labelInput}>Senha</Text>
           <TextInput
-            value={this.state.password}
+            value={password}
             onChangeText={this.handlePasswordChange}
             style={styles.textInput}
-            placeholderTextColor="gray"
+            placeholderTextColor={styles.textInput.color}
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="Sua senha secreta"
@@ -99,28 +98,31 @@ export default class SigUp extends Component {
           />
           <Text style={styles.labelInput}>Confirme a senha</Text>
           <TextInput
-            value={this.state.password_confirmation}
+            value={password_confirmation}
             onChangeText={this.handlePasswordConfirmChange}
             style={styles.textInput}
-            placeholderTextColor="gray"
+            placeholderTextColor={styles.textInput.color}
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="Sua senha secreta"
             underlineColorAndroid="transparent"
             secureTextEntry
           />
-
+          {error && <Text style={styles.textError}>Erro ao cadastrar usuário!.</Text>}
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              this.handleCreateAccountPress();
+              this.handleSignUpPress();
             }}
           >
-            <Text style={styles.buttonText}>Criar conta</Text>
+            {loading ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Criar conta</Text>
+            )}
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              const { navigation } = this.props;
               navigation.navigate('SignIn');
             }}
           >
@@ -131,3 +133,12 @@ export default class SigUp extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  error: state.signUp.error,
+  loading: state.signUp.loading,
+});
+const mapDispatchToProps = dispatch => bindActionCreators(Creators, dispatch);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SigUp);

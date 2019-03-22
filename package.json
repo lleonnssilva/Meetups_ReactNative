@@ -17,7 +17,10 @@
     "react-native-picker-checkbox": "^1.0.8",
     "react-native-select-multiple": "^1.2.0",
     "react-native-vector-icons": "^6.3.0",
-    "react-navigation": "^3.3.0"
+    "react-navigation": "^3.3.0",
+    "react-redux": "^6.0.1",
+    "redux": "^4.0.1",
+    "redux-saga": "^1.0.2"
   },
   "devDependencies": {
     "babel-core": "7.0.0-bridge.0",
@@ -32,7 +35,9 @@
     "metro-react-native-babel-preset": "0.52.0",
     "react-devtools": "^3.6.0",
     "react-test-renderer": "16.6.3",
-    "reactotron-react-native": "^2.2.0"
+    "reactotron-react-native": "^2.2.0",
+    "reactotron-redux": "^3.1.0",
+    "reactotron-redux-saga": "^4.2.1"
   },
   "jest": {
     "preset": "react-native"

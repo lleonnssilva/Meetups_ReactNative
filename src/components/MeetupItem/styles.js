@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { colors, metrics } from '../../styles/index';
+import { colors, metrics, fonts } from '../../styles/index';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,11 +19,11 @@ const styles = StyleSheet.create({
     width: '75%',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    paddingLeft: 20,
+    paddingLeft: metrics.marginMedium,
   },
   footer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: colors.colorTerciary,
     flexDirection: 'row',
     width: 290,
     justifyContent: 'center',
@@ -31,25 +31,25 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
   },
   title: {
-    fontFamily: 'Helvetica-Bold',
+    fontFamily: fonts.fontSecundary,
     fontSize: 16,
-    color: '#222222',
+    color: colors.colorPrimary,
     textAlign: 'left',
-    paddingTop: 10,
+    paddingTop: metrics.marginMin,
   },
   subscription: {
-    fontFamily: 'Helvetica',
+    fontFamily: fonts.fontPrimary,
     fontSize: 14,
-    color: '#999999',
+    color: colors.colorTxtSecundary,
     textAlign: 'left',
   },
   containerButtom: {
     width: '25%',
     justifyContent: 'center',
-    padding: 20,
+    padding: metrics.marginMedium,
   },
   btn: {
-    backgroundColor: '#E5556E',
+    backgroundColor: colors.colorPrincipal,
     alignItems: 'center',
     justifyContent: 'center',
     width: 40,
@@ -58,11 +58,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
-    // justifyContent: 'center',
-    // alignItems: 'flex-end',
-    //  left: 10 * 0.93,
-    // marginLeft: width * 0.18,
-    paddingTop: 35,
+    paddingTop: metrics.marginMax,
     paddingLeft: 121,
   },
 });

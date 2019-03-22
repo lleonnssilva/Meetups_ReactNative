@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     width: '75%',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    paddingLeft: 20,
+    paddingLeft: metrics.marginMedium,
   },
   footer: {
     flex: 1,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#222222',
     textAlign: 'left',
-    paddingTop: 10,
+    paddingTop: metrics.marginMin,
   },
   subscription: {
     fontFamily: 'Helvetica',
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   containerButtom: {
     width: '25%',
     justifyContent: 'center',
-    padding: 20,
+    padding: metrics.marginMedium,
   },
   btn: {
     backgroundColor: '#E5556E',
@@ -60,11 +60,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
-    // justifyContent: 'center',
-    // alignItems: 'flex-end',
-    //  left: 10 * 0.93,
-    // marginLeft: width * 0.18,
-    paddingTop: 35,
+    paddingTop: metrics.marginMax,
     paddingLeft: 121,
   },
 });

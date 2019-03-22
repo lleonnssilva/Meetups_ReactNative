@@ -1,9 +1,13 @@
 import Reactotron from 'reactotron-react-native';
-import ip from './getIp';
+import { reactotronRedux } from 'reactotron-redux';
+import reactotronSaga from 'reactotron-redux-saga';
+import { UrlReactotron } from './Url';
 
 if (__DEV__) {
-  const tron = Reactotron.configure({ host: ip.IpReactotron() })
+  const tron = Reactotron.configure({ host: UrlReactotron() })
     .useReactNative()
+    .use(reactotronRedux())
+    .use(reactotronSaga())
     .connect();
 
   tron.clear();

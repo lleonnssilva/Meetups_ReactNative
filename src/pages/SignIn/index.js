@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 import {
   View,
@@ -6,98 +6,89 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  AsyncStorage
-} from "react-native";
-import styles from "./styles";
-import api from "../../services/api";
-export default class Login extends Component {
+  ActivityIndicator,
+  StatusBar,
+} from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as CreatorsLogin } from '../../store/ducks/login';
+import styles from './styles';
+
+class Login extends Component {
   state = {
-    email: "",
-    password: ""
+    email: '',
+    password: '',
   };
+
   handleSignInPress = async () => {
-    if (this.state.email.length === 0 || this.state.password.length === 0) {
-      this.setState(
-        { error: "Preencha usuário e senha para continuar!" },
-        () => false
-      );
-    } else {
-      try {
-        const response = await api.post("/sessions", {
-          email: this.state.email,
-          password: this.state.password
-        });
+    const { email, password } = this.state;
+    const { loginRequest } = this.props;
 
-        await AsyncStorage.setItem("@MeetupApp:token", response.data.token);
-        const { navigation } = this.props;
-        navigation.navigate("Dashboard");
-      } catch (_err) {
-        this.setState({
-          error: "Houve um problema com o login, verifique suas credenciais!"
-        });
-      }
-    }
+    loginRequest({
+      email,
+      password,
+    });
   };
 
-  handleEmailChange = email => {
+  handleEmailChange = (email) => {
     this.setState({ email });
   };
 
-  handlePasswordChange = password => {
+  handlePasswordChange = (password) => {
     this.setState({ password });
   };
 
-  handleCreateAccountPress = () => {
-    this.props.navigation.navigate("SignUp");
-  };
-  componentDidMount = () => {
-    // AsyncStorage.clear()
-  };
   render() {
+    const { email, password } = this.state;
+    const { error, loading, navigation } = this.props;
+
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor={styles.container.backgroundColor} barStyle="light-content" />
         <View style={styles.logo}>
-          <Image
-            source={require("../../assets/logo.png")}
-            resizeMode="stretch"
-          />
+          <Image source={require('../../assets/logo.png')} resizeMode="stretch" />
         </View>
 
-        <View style={styles.form}>
+        <View>
           <Text style={styles.labelInput}>Email</Text>
           <TextInput
             style={styles.textInput}
-            placeholderTextColor="gray"
+            placeholderTextColor={styles.textInput.color}
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="Digite seu e-mail"
             underlineColorAndroid="transparent"
-            value={this.state.email}
+            value={email}
             onChangeText={this.handleEmailChange}
           />
           <Text style={styles.labelInput}>Senha</Text>
           <TextInput
-            value={this.state.password}
+            value={password}
             onChangeText={this.handlePasswordChange}
             style={styles.textInput}
-            placeholderTextColor="gray"
+            placeholderTextColor={styles.textInput.color}
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="Sua senha secreta"
             underlineColorAndroid="transparent"
             secureTextEntry
           />
+          {error && <Text style={styles.textError}>Usuário não localizado!.</Text>}
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
               this.handleSignInPress();
             }}
           >
-            <Text style={styles.buttonText}>Entrar</Text>
+            {loading ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Entrar</Text>
+            )}
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              this.handleCreateAccountPress();
+              navigation.navigate('SignUp');
             }}
           >
             <Text style={styles.textOpacity}>Criar conta grátis</Text>
@@ -107,3 +98,13 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  error: state.login.error,
+  loading: state.login.loading,
+});
+const mapDispatchToProps = dispatch => bindActionCreators(CreatorsLogin, dispatch);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);

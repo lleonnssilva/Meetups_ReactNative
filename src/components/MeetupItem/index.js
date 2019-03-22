@@ -7,39 +7,45 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { withNavigation } from 'react-navigation';
 import styles from './styles';
-import IpFiles from '../../config/getIp';
+import { UrlFiles } from '../../config/Url';
 
-const MeetupItem = ({
-  meetup, registered, subscriptions, navigation: { navigate },
-}) => (
-  <View style={styles.container}>
-    <Image style={styles.image} source={{ uri: `${IpFiles.IpFiles()}/${meetup.image}` }} />
+const MeetupItem = (props) => {
+  const {
+    meetup,
+    subscriptions,
+    navigation: { navigate },
+  } = props;
+  return (
+    <View style={styles.container}>
+      <Image style={styles.image} source={{ uri: `${UrlFiles()}/${meetup.image}` }} />
 
-    <View style={styles.footer}>
-      <View style={styles.containerFooter}>
-        <Text style={styles.title}>{meetup.title}</Text>
-        <Text style={styles.subscription}>
-          {subscriptions}
-          {' '}
+      <View style={styles.footer}>
+        <View style={styles.containerFooter}>
+          <Text numberOfLines={1} style={styles.title}>
+            {meetup.title}
+          </Text>
+          <Text style={styles.subscription}>
+            {subscriptions}
+            {' '}
 membros(s)
-        </Text>
-        {registered === true ? <Icon style={styles.icon} name="check" size={15} /> : null}
-      </View>
+          </Text>
+        </View>
 
-      <View style={styles.containerButtom}>
-        <TouchableOpacity
-          onPress={() => navigate('Meetup', {
-            id: meetup.id,
-            title: meetup.title,
-          })
-          }
-          style={styles.btn}
-        >
-          <Icon tintColor="white" name="chevron-right" color="white" />
-        </TouchableOpacity>
+        <View style={styles.containerButtom}>
+          <TouchableOpacity
+            onPress={() => navigate('Meetup', {
+              id: meetup.id,
+              title: meetup.title,
+            })
+            }
+            style={styles.btn}
+          >
+            <Icon tintColor="white" name="chevron-right" color="white" />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
-  </View>
-);
+  );
+};
 
 export default withNavigation(MeetupItem);

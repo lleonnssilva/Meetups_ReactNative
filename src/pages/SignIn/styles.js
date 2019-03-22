@@ -1,6 +1,5 @@
-import { StyleSheet } from 'react-native'
-
-import { colors, metrics, fonts } from '../../styles/index'
+import { StyleSheet } from 'react-native';
+import { colors, metrics, fonts } from '../../styles/index';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,56 +8,64 @@ const styles = StyleSheet.create({
     padding: 30,
     justifyContent: 'center',
     alignItems: 'stretch',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
-  form: {
-    marginTop: 10
-  },
+  // form: {
+  //   marginTop: 10,
+  // },
   textInput: {
-    marginTop: 10,
-    opacity: fonts.fontOpacity,
+    marginTop: metrics.marginMin,
+    opacity: 0.5,
     fontFamily: fonts.fontSecundary,
     fontSize: 20,
-    color: 'white', // colors.colorPrimary,
-    textAlign: 'left'
+    color: colors.colorTxtPrimary,
+    textAlign: 'left',
   },
   button: {
     backgroundColor: colors.colorPrincipal,
-    borderRadius: 60,
-    height: 44,
+    borderRadius: 30,
+    height: 50,
     marginTop: metrics.baseMargin,
     justifyContent: 'center',
     alignItems: 'center',
     fontFamily: fonts.fontPrimary,
-    color: colors.colorTitlePrimary
+    color: colors.colorTitlePrimary,
   },
   buttonText: {
-    color: colors.colorTitlePrimary,
+    color: colors.colorTxtPrimary,
     fontWeight: 'bold',
     fontSize: 16,
-    fontFamily: fonts.fontPrimary
+    fontFamily: fonts.fontSecundary,
   },
   textOpacity: {
     opacity: 0.6,
     fontFamily: fonts.fontSecundary,
     fontSize: 16,
-    color: colors.colorTitleSecundary,
+    color: colors.colorTxtPrimary,
     textAlign: 'center',
-    paddingTop: 20
+    paddingTop: metrics.marginMedium,
+  },
+  textError: {
+    opacity: 0.6,
+    fontFamily: fonts.fontSecundary,
+    fontSize: 12,
+    color: colors.colorPrincipal,
+    textAlign: 'center',
+    paddingBottom: metrics.marginMedium,
   },
 
   labelInput: {
     fontFamily: fonts.fontPrimary,
     fontSize: 22,
-    marginTop: 10,
-    color: 'white', // colors.colorSecundary,
-    textAlign: 'left'
+    marginTop: metrics.marginMin,
+    color: colors.colorTxtPrimary,
+    textAlign: 'left',
   },
   logo: {
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingTop: 90
-  }
-})
+    paddingBottom: metrics.marginMax,
+  },
+});
 
-export default styles
+export default styles;

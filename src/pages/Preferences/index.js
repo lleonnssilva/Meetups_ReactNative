@@ -1,124 +1,137 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from 'react';
+import {
+  View, Text, TouchableOpacity, Image, ScrollView, ActivityIndicator,
+} from 'react-native';
+import { CheckBox } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as ProfileActions } from '../../store/ducks/profile';
+import styles from './styles';
 
-import { Button, View, Text, Image, TouchableOpacity } from "react-native";
+class Preference extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: null,
+      preferences: [],
+      error: false,
+      loading: false,
+    };
+  }
 
-import { CheckBox } from "react-native-elements";
-import styles from "./styles";
-import api from "../../services/api";
-export default class Login extends Component {
-  state = {
-    email: "",
-    password: "",
-    password_confirmation: "",
-    username: "",
-    preferences: []
-  };
-  handleBack = () => {
-    this.props.navigation.navigate("SignUp", (user = this.state));
-  };
-  handleSignInPress = async () => {
+  handleUpdate = async () => {
     try {
-      const preferences = await this.state.preferences
-        .filter(function(item) {
-          return item.checked == true;
-        })
-        .map(e => e.id);
-      const response = await api.post("/users", {
-        email: this.state.email,
-        username: this.state.username,
-        password: this.state.password,
-        password_confirmation: this.state.password_confirmation,
-        preferences: preferences
+      const { profileCreateRequest } = this.props;
+      const { preferences } = this.state;
+      this.props.profileCreateRequest({
+        preferences: preferences.filter(item => item.checked === true).map(e => e.id),
       });
-
-      this.props.navigation.navigate("SignIn");
     } catch (_err) {
+      console.tron.log('erro');
       this.setState({
-        error: "Houve um problema com o login, verifique suas credenciais!"
+        error: 'Houve um problema com o login, verifique suas credenciais!',
       });
     }
   };
 
-  onChange = key => {
-    let { preferences } = this.state;
+  onSelectPreference = (key) => {
+    const { preferences } = this.state;
     preferences[key].checked = !preferences[key].checked;
     this.setState({ preferences });
   };
 
-  componentDidMount = async () => {
-    const user = await this.props.navigation.state.params;
+  componentWillReceiveProps = (data) => {
+    const { profile } = data;
+    if (profile.userProfile !== null) {
+      this.setState({
+        username: profile.userProfile[0].username,
+        preferences: profile.userProfile[0].preferences,
+      });
+    }
+  };
 
-    const preferences = await api.get("/preferences");
-    this.setState({
-      email: user.email,
-      username: user.username,
-      password: user.password,
-      password_confirmation: user.password,
-      preferences: preferences.data
-    });
+  componentDidMount = () => {
+    const { profileShowRequest } = this.props;
+    profileShowRequest();
   };
 
   render() {
+    const {
+      username, preferences, error, loading,
+    } = this.state;
+
     return (
       <View style={styles.container}>
-        <View style={styles.form}>
-          <Text style={styles.labelInput}>Olá, {this.state.username} </Text>
+        {error && <Text style={styles.labelGeral}>{error}</Text>}
+        {username == null ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <ScrollView>
+            <View style={styles.form}>
+              <Text style={styles.labelInput}>
+                Olá,
+                {username}
+              </Text>
 
-          <Text style={styles.textOpacity}>
-            Parece que é seu primeiro acesso por aqui, comece escolhendo algumas
-            preferências para selecionarmos os melhores meetups pra você:
-          </Text>
-          <Text style={styles.labelInput}>Preferências:</Text>
-          {this.state.preferences.map((item, key) => {
-            return (
-              <CheckBox
-                borderStyle={{ borderWidth: 0 }}
-                containerStyle={{
-                  backgroundColor: "transparent",
-                  margin: 0,
-                  padding: 5,
-                  borderWidth: 0
+              <Text style={styles.textOpacity}>
+                Parece que é seu primeiro acesso por aqui, comece escolhendo algumas preferências
+                para selecionarmos os melhores meetups pra você:
+              </Text>
+              <Text style={styles.labelInput}>Preferências:</Text>
+              {preferences.map((item, key) => (
+                <CheckBox
+                  borderStyle={{ borderWidth: 0 }}
+                  containerStyle={{
+                    backgroundColor: 'transparent',
+                    margin: 0,
+                    padding: 5,
+                    borderWidth: 0,
+                  }}
+                  color="red"
+                  key={key}
+                  title={item.title}
+                  textStyle={{ color: 'white' }}
+                  checkedIcon={(
+                    <Image
+                      style={{ width: 24, height: 24 }}
+                      source={require('../../assets/checked.png')}
+                    />
+)}
+                  uncheckedIcon={(
+                    <Image
+                      style={{ width: 24, height: 24 }}
+                      source={require('../../assets/unchcked.png')}
+                    />
+)}
+                  checked={item.checked}
+                  onPress={() => this.onSelectPreference(key)}
+                />
+              ))}
+
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  this.handleUpdate();
                 }}
-                color="red"
-                key={key}
-                title={item.title}
-                textStyle={{ color: "white" }}
-                checkedIcon={
-                  <Image
-                    style={{ width: 24, height: 24 }}
-                    source={require("../../assets/checked.png")}
-                  />
-                }
-                uncheckedIcon={
-                  <Image
-                    style={{ width: 24, height: 24 }}
-                    source={require("../../assets/unchcked.png")}
-                  />
-                }
-                checked={item.checked}
-                onPress={() => this.onChange(key)}
-              />
-            );
-          })}
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              this.handleBack();
-            }}
-          >
-            <Text style={styles.buttonText}>Voltar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              this.handleSignInPress();
-            }}
-          >
-            <Text style={styles.buttonText}>Continuar</Text>
-          </TouchableOpacity>
-        </View>
+              >
+                {loading ? (
+                  <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                  <Text style={styles.buttonText}>Continuar</Text>
+                )}
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        )}
       </View>
     );
   }
 }
+const mapStateToProps = state => ({
+  profile: state.profile,
+});
+const mapDispatchToProps = dispatch => bindActionCreators(ProfileActions, dispatch);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Preference);

@@ -7,17 +7,19 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { withNavigation } from 'react-navigation';
 import styles from './styles';
-import IpFiles from '../../config/getIp';
+import { UrlFiles } from '../../config/Url';
 
 const MeetupItem = ({
   meetup, registered, subscriptions, navigation: { navigate },
 }) => (
   <View style={styles.container}>
-    <Image style={styles.image} source={{ uri: `${IpFiles.IpFiles()}/${meetup.image}` }} />
+    <Image style={styles.image} source={{ uri: `${UrlFiles()}/${meetup.image}` }} />
 
     <View style={styles.footer}>
       <View style={styles.containerFooter}>
-        <Text style={styles.title}>{meetup.title}</Text>
+        <Text numberOfLines={1} style={styles.title}>
+          {meetup.title}
+        </Text>
         <Text style={styles.subscription}>
           {subscriptions}
           {' '}

@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
 
-import { colors, metrics, fonts } from '../../styles/index'
+import { colors, metrics, fonts } from '../../styles/index';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,22 +9,22 @@ const styles = StyleSheet.create({
     padding: metrics.basePadding,
     justifyContent: 'center',
     alignItems: 'stretch',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
 
   buttonSave: {
     backgroundColor: colors.colorPrincipal,
-    borderRadius: 60,
+    borderRadius: 30,
     height: 44,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: metrics.marginMax
+    margin: metrics.marginMax,
   },
   buttonText: {
     color: colors.colorTxtPrimary,
     fontWeight: 'bold',
     fontSize: 16,
-    fontFamily: fonts.fontPrimary
+    fontFamily: fonts.fontPrimary,
   },
 
   labelGeral: {
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.colorTxtPrimary,
     paddingTop: metrics.marginMax,
-    paddingLeft: metrics.marginMax
+    paddingLeft: metrics.marginMax,
   },
 
   textGeral: {
@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: colors.colorTxtPrimary,
     marginTop: metrics.MarginMed,
-    marginLeft: metrics.marginMax
+    marginLeft: metrics.marginMax,
   },
 
   image: {
     width: 345,
-    height: 164
+    height: 164,
   },
   containerImage: {
     width: 345,
@@ -59,22 +59,22 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
     marginTop: metrics.MarginMed,
     marginLeft: metrics.marginMax,
-    marginBottom: metrics.marginMedium
+    marginBottom: metrics.marginMedium,
   },
 
   textItems: {
     fontFamily: fonts.FonteSecundary,
     fontSize: 16,
-    color: colors.colorTxtPrimary
+    color: colors.colorTxtPrimary,
   },
   containerItems: {
     backgroundColor: 'transparent',
     margin: 0,
     padding: 5,
     borderWidth: 0,
-    paddingLeft: 30,
-    paddingTop: 14
-  }
-})
+    paddingLeft: metrics.marginMax,
+    paddingTop: 14,
+  },
+});
 
-export default styles
+export default styles;

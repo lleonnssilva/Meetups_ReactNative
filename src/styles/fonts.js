@@ -1,4 +1,4 @@
 export default {
   fontPrimary: 'Helvetica',
-  fontSecundary: 'Helvetica-Bold'
-}
+  fontSecundary: 'Helvetica-Bold',
+};

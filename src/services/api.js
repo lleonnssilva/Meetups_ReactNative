@@ -1,23 +1,24 @@
-import axios from 'axios'
+import axios from 'axios';
 
-import { AsyncStorage } from 'react-native'
-import ip from '../config/getIp'
+import { AsyncStorage } from 'react-native';
+import { UrlApi } from '../config/Url';
+
 const api = axios.create({
-  baseURL:ip.IpApi()
-})
+  baseURL: UrlApi(),
+});
 
 api.interceptors.request.use(async (config) => {
   try {
-    const token = await AsyncStorage.getItem('@MeetupApp:token')
+    const token = await AsyncStorage.getItem('@MeetupApp:token');
 
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      config.headers.Authorization = `Bearer ${token}`;
     }
 
-    return config
+    return config;
   } catch (err) {
-    alert(err)
+    alert(err);
   }
-})
+});
 
-export default api
+export default api;

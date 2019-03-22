@@ -1,15 +1,15 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
-import { colors, metrics, fonts } from "../../styles";
+import { colors, metrics, fonts } from '../../styles';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.colorPrimary
+    backgroundColor: colors.colorPrimary,
   },
   image: {
-    width: "100%",
-    height: 212
+    width: '100%',
+    height: 212,
   },
   labeTitle: {
     marginTop: metrics.marginMax,
@@ -17,14 +17,14 @@ const styles = StyleSheet.create({
     fontFamily: fonts.FonteSecundary,
     fontSize: 16,
     color: colors.colorTxtPrimary,
-    marginRight: metrics.marginMax
+    marginRight: metrics.marginMax,
   },
   labelMembers: {
     fontFamily: fonts.FontPrimary,
     fontSize: 14,
     color: colors.colorTxtSecundary,
     paddingTop: metrics.marginMin,
-    paddingLeft: metrics.marginMax
+    paddingLeft: metrics.marginMax,
   },
   labelDesc: {
     opacity: 0.8,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     lineHeight: 28,
     marginTop: metrics.marginMedium,
     marginLeft: metrics.marginMax,
-    marginRight: metrics.marginMax
+    marginRight: metrics.marginMax,
   },
 
   labelRealizacao: {
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.colorTxtSecundary,
     marginTop: metrics.marginMax,
-    marginLeft: metrics.marginMax
+    marginLeft: metrics.marginMax,
   },
   labelLocal: {
     opacity: 0.8,
@@ -52,25 +52,26 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginTop: metrics.marginMin,
     marginLeft: metrics.marginMax,
-    marginRight: metrics.marginMax
+    marginRight: metrics.marginMax,
   },
   button: {
     backgroundColor: colors.colorPrincipal,
-    borderRadius: 60,
+    borderRadius: 30,
     height: 44,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     fontFamily: fonts.fontPrimary,
     color: colors.colorTxtSecundary,
-    margin: 30,
+    margin: metrics.marginMax,
     paddingLeft: metrics.marginMax,
-    paddingRight: metrics.marginMax
+    paddingRight: metrics.marginMax,
   },
+
   textButton: {
     fontFamily: fonts.FonteSecundary,
     fontSize: 16,
-    color: colors.colorTxtPrimary
-  }
+    color: colors.colorTxtPrimary,
+  },
 });
 
 export default styles;

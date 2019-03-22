@@ -1,82 +1,88 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
+import {
+  View, Text, TouchableOpacity, Image, ScrollView, ActivityIndicator,
+} from 'react-native';
 
-import styles from "./styles";
-import api from "../../services/api";
-import IpFiles from "../../config/getIp";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import styles from './styles';
+import { UrlFiles } from '../../config/Url';
+import { Creators as MeetupActions } from '../../store/ducks/meetup';
 
-export default class Index extends Component {
-  state = {
-    meetup: [],
-    registered: true,
-    subscriptions: 0
-  };
+class Meetup extends Component {
   componentDidMount = async () => {
-    const id = this.props.navigation.getParam("id");
-
-    const { data } = await api.get(`/meetups/${id}`);
-
-    this.setState({
-      meetup: data.meetup,
-      registered: data.registered,
-      subscriptions: data.meetup.__meta__.subscriptions_count
-    });
+    const id = await this.props.navigation.getParam('id');
+    const { meetupShowRequest } = this.props;
+    await meetupShowRequest({ id });
   };
 
   subscriptionIn = async () => {
     try {
-      const { data } = await api.post(`/subscriptions/${this.state.meetup.id}`);
-      this.setState({
-        meetup: data.meetup,
-        registered: data.registered,
-        subscriptions: data.meetup.__meta__.subscriptions_count
+      const { meetupSubscriptionRequest } = this.props;
+      meetupSubscriptionRequest({
+        id: this.props.meetup.meetup.id,
       });
     } catch (_err) {
-      this.setState({ error: "Erro ao se increver" });
+      // this.setState({ error: 'Erro ao se increver' });
     } finally {
-      this.setState({ loading: false, refreshing: false });
+      // this.setState({ loading: false });
     }
   };
+
   render() {
+    const { meetup, error, loading } = this.props;
     return (
       <View style={styles.container}>
-        <ScrollView>
-          <Image
-            style={styles.image}
-            resizeMode="stretch"
-            source={{ uri: `${IpFiles.IpFiles()}/${this.state.meetup.image}` }}
-          />
+        {error && <Text style={styles.labelGeral}>{error}</Text>}
+        {meetup.meetup == null ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <ScrollView>
+            <Image
+              style={styles.image}
+              resizeMode="stretch"
+              source={{ uri: `${UrlFiles()}/${meetup.meetup.image}` }}
+            />
 
-          <View>
-            <Text style={styles.labeTitle}>{this.state.meetup.title}</Text>
-            <Text style={styles.labelMembers}>
-              {this.state.subscriptions} membro(s)
-            </Text>
-            <Text style={styles.labelDesc}>
-              {this.state.meetup.description}
-            </Text>
-            <Text style={styles.labelRealizacao}>Realizado em:</Text>
-            <Text style={styles.labelLocal}>{this.state.meetup.place}</Text>
-            {this.state.registered === true ? (
-              <TouchableOpacity
-                disabled
-                style={styles.button}
-                onPress={this.subscriptionIn}
-              >
-                <Text style={styles.textButton}>Já inscrito</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.button}
-                onPress={this.subscriptionIn}
-              >
-                <Text style={styles.textButton}>Inscreva-se</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </ScrollView>
+            <View>
+              <Text style={styles.labeTitle}>{meetup.meetup.title}</Text>
+              <Text style={styles.labelMembers}>
+                {meetup.meetup.__meta__.subscriptions_count}
+                {' '}
+membro(s)
+              </Text>
+              <Text style={styles.labelDesc}>{meetup.meetup.description}</Text>
+              <Text style={styles.labelRealizacao}>Realizado em:</Text>
+              <Text style={styles.labelLocal}>{meetup.meetup.place}</Text>
+
+              {meetup.registered === true ? (
+                <TouchableOpacity disabled style={[styles.button, { backgroundColor: 'gray' }]}>
+                  <Text style={styles.textButton}>Já inscrito</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity style={styles.button} onPress={this.subscriptionIn}>
+                  {loading ? (
+                    <ActivityIndicator size="small" color="black" />
+                  ) : (
+                    <Text style={styles.textButton}>Inscreva-se</Text>
+                  )}
+                </TouchableOpacity>
+              )}
+            </View>
+          </ScrollView>
+        )}
       </View>
     );
   }
 }
+const mapStateToProps = state => ({
+  meetup: state.meetup,
+  error: state.meetup.error,
+  loading: state.meetup.loading,
+});
+const mapDispatchToProps = dispatch => bindActionCreators(MeetupActions, dispatch);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Meetup);
