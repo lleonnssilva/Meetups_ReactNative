@@ -144,13 +144,13 @@ class Profile extends Component {
                 title={item.title}
                 checkedIcon={(
                   <Image
-                    style={{ width: 24, height: 24 }}
+                    style={{ width: 20, height: 20 }}
                     source={require('../../assets/checked.png')}
                   />
 )}
                 uncheckedIcon={(
                   <Image
-                    style={{ width: 24, height: 24 }}
+                    style={{ width: 20, height: 20 }}
                     source={require('../../assets/unchcked.png')}
                   />
 )}

@@ -11,3 +11,6 @@ export const profileUpdate = params => api.put('/users', params);
 export const profileCreate = params => api.put('/users/profile', params);
 export const meetupShow = params => api.get(`/meetups/${params.id}`, params);
 export const subscription = params => api.post(`/subscriptions/${params.id}`, params);
+export const meetupCreate = params => api.post('/meetups', params);
+export const fileCreate = params => api.post('/files', params);
+export const meetupsFilter = params => api.get(`meetups/filter/${params.criterio}`, params);

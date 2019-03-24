@@ -8,6 +8,8 @@ import meetupsRecommendeds from './meetupsRecommendeds';
 import profile from './profile';
 import preferences from './preferences';
 import meetup from './meetup';
+import meetupsFilter from './meetupsFilter';
+import file from './file';
 
 export default combineReducers({
   login,
@@ -18,4 +20,6 @@ export default combineReducers({
   profile,
   preferences,
   meetup,
+  meetupsFilter,
+  file,
 });

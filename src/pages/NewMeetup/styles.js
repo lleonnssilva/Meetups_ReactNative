@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
 
   buttonSave: {
     backgroundColor: colors.colorPrincipal,
-    borderRadius: 30,
-    height: 44,
+    borderRadius: metrics.borderRadius,
+    height: metrics.bootomHeight,
     justifyContent: 'center',
     alignItems: 'center',
     margin: metrics.marginMax,
@@ -40,26 +40,34 @@ const styles = StyleSheet.create({
     fontFamily: fonts.FontPrimary,
     fontSize: 20,
     color: colors.colorTxtPrimary,
-    marginTop: metrics.MarginMed,
-    marginLeft: metrics.marginMax,
+    paddingTop: metrics.MarginMed,
+    paddingLeft: metrics.marginMax,
   },
-
+  button: {
+    position: 'absolute',
+    justifyContent: 'center',
+  },
   image: {
-    width: 345,
+    width: 310,
     height: 164,
+    // borderRadius: 5,
+    // borderWidth: 1,
+    // paddingLeft: 5,
   },
   containerImage: {
-    width: 345,
-    height: 184,
+    backgroundColor: 'transparent',
+    width: 305,
+    height: 164,
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: 'gray',
     borderRadius: 5,
     borderWidth: 1,
     borderStyle: 'dashed',
-    marginTop: metrics.MarginMed,
+    marginTop: metrics.marginMedium,
     marginLeft: metrics.marginMax,
-    marginBottom: metrics.marginMedium,
+    paddingRight: metrics.marginMax,
+    paddingBottom: metrics.marginMedium,
   },
 
   textItems: {
@@ -70,10 +78,8 @@ const styles = StyleSheet.create({
   containerItems: {
     backgroundColor: 'transparent',
     margin: 0,
-    padding: 5,
     borderWidth: 0,
-    paddingLeft: metrics.marginMax,
-    paddingTop: 14,
+    paddingLeft: 23,
   },
 });
 

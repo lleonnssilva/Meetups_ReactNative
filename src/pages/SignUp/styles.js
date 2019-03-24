@@ -6,13 +6,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.colorPrimary,
-    padding: 30,
+    padding: metrics.marginMax,
     justifyContent: 'center',
     alignItems: 'stretch',
     flexDirection: 'column',
   },
   textError: {
-    opacity: 0.6,
+    opacity: 0.5,
     fontFamily: fonts.fontSecundary,
     fontSize: 12,
     color: colors.colorPrincipal,
@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: colors.colorPrincipal,
-    borderRadius: 30,
-    height: 50,
+    borderRadius: metrics.borderRadius,
+    height: metrics.bootomHeight,
     marginTop: metrics.marginMax,
     justifyContent: 'center',
     alignItems: 'center',
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   labelInput: {
     fontFamily: fonts.fontPrimary,
     fontSize: 22,
-    marginTop: 10,
+    marginTop: metrics.marginMin,
     color: colors.colorTxtPrimary,
     textAlign: 'left',
   },

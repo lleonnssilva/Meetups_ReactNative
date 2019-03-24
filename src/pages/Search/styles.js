@@ -12,15 +12,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.colorSecundary,
     height: 40,
-    borderRadius: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 10,
-    marginBottom: 10,
+    borderRadius: metrics.marginMin,
+    marginLeft: metrics.marginMedium,
+    marginRight: metrics.marginMedium,
+    marginTop: metrics.marginMin,
+    marginBottom: metrics.marginMin,
   },
   searchIcon: {
-    marginRight: 10,
-    marginLeft: 10,
+    marginRight: metrics.marginMin,
+    marginLeft: metrics.marginMin,
   },
   input: {
     backgroundColor: colors.colorSecundary,
@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.colorPrimary,
   },
   listContainer: {
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: metrics.marginMedium,
+    paddingRight: metrics.marginMedium,
   },
 });
 

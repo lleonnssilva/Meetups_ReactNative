@@ -8,14 +8,27 @@ import ListRecomendados from './components/recomendosList';
 
 import styles from './styles';
 
-const meetups = () => (
-  <View style={styles.container}>
-    <ScrollView>
-      <ListInscritos />
-      <ListProximos />
-      <ListRecomendados />
-    </ScrollView>
-  </View>
-);
+export default class Meetups extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <ScrollView>
+          <ListInscritos />
+          <ListProximos />
+          <ListRecomendados />
+        </ScrollView>
+      </View>
+    );
+  }
+}
+// const meetups = () => (
+//   <View style={styles.container}>
+//     <ScrollView>
+//       <ListInscritos />
+//       <ListProximos />
+//       <ListRecomendados />
+//     </ScrollView>
+//   </View>
+// );
 
-export default meetups;
+// export default meetups;

@@ -18,7 +18,7 @@ const INITIAL_STATE = {
   error: false,
 };
 
-export default function profile(state = INITIAL_STATE, action) {
+export default function meetups(state = INITIAL_STATE, action) {
   switch (action.type) {
     case Types.MEETUP_SHOW_REQUEST:
       return { ...state, loading: true };

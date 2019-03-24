@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: colors.colorPrincipal,
-    borderRadius: 30,
-    height: 50,
+    borderRadius: metrics.borderRadius,
+    height: metrics.bootomHeight,
     marginTop: metrics.baseMargin,
     justifyContent: 'center',
     alignItems: 'center',

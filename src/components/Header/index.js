@@ -7,7 +7,7 @@ import {
 import { withNavigation } from 'react-navigation';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
 
 const Header = (props) => {
@@ -17,7 +17,7 @@ const Header = (props) => {
       <StatusBar backgroundColor={styles.statusbar.backgroundColor} barStyle="light-content" />
       <View style={styles.container}>
         <View style={styles.iconLeft}>
-          {title !== 'Início' && title !== 'Busca' ? (
+          {title !== 'Início' && title !== 'Busca' && title !== 'Novo meetup' ? (
             <TouchableOpacity onPress={() => navigation.goBack(null)}>
               <Icon name="chevron-left" size={24} color="white" />
             </TouchableOpacity>
@@ -35,7 +35,8 @@ const Header = (props) => {
                 navigation.navigate('SignIn');
               }}
             >
-              <Icon name="person-outline" size={24} color="white" />
+              {/* rocket */}
+              <IconFontAwesome name="power-off" size={24} color="white" />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity

@@ -38,7 +38,7 @@ const NewMeetupStack = createStackNavigator({
   NewMeetup: {
     screen: NewMeetup,
     navigationOptions: () => ({
-      header: <Header title="New Meetup" />,
+      header: <Header title="Novo meetup" />,
     }),
   },
 });

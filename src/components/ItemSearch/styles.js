@@ -29,8 +29,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: 335,
     justifyContent: 'center',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
   },
   title: {
     fontFamily: 'Helvetica-Bold',

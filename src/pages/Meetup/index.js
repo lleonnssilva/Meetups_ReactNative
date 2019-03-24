@@ -12,6 +12,7 @@ import { Creators as MeetupActions } from '../../store/ducks/meetup';
 
 class Meetup extends Component {
   componentDidMount = async () => {
+    console.tron.log('ok');
     const id = await this.props.navigation.getParam('id');
     const { meetupShowRequest } = this.props;
     await meetupShowRequest({ id });

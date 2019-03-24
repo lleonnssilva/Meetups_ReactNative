@@ -1,10 +1,11 @@
 import { AsyncStorage } from 'react-native';
 import {
-  all, takeLatest, call, put, select,
+  all, takeLatest, call, put,
 } from 'redux-saga/effects';
-import api from '../../services/api';
 
 import { navigate } from '../../services/navigator';
+import * as apiConfig from '../../services/apiConfig';
+
 import { Creators as LoginActions, Types as LoginTypes } from '../ducks/login';
 import { Creators as SignUpActions, Types as SignUpTypes } from '../ducks/signUp';
 import { Creators as SignedsActions, Types as SignedsTypes } from '../ducks/meetupsSigneds';
@@ -16,8 +17,12 @@ import {
 import { Creators as PofileActions, Types as ProfileTypes } from '../ducks/profile';
 import { Creators as PreferencesActions, Types as PreferencesTypes } from '../ducks/preferences';
 import { Creators as MeetupActions, Types as MeetupTypes } from '../ducks/meetup';
+import {
+  Creators as MeetupsFilterActions,
+  Types as MeetupFilterTypes,
+} from '../ducks/meetupsFilter';
+import { Creators as FileActions, Types as FileTypes } from '../ducks/file';
 
-import * as apiConfig from '../../services/apiConfig';
 
 export const getUserFromState = state => state.preferences;
 function* login(action) {
@@ -80,22 +85,39 @@ function* profileShow() {
 function* meetupShow(action) {
   try {
     const data = yield call(apiConfig.meetupShow, action.params);
-    // console.tron.log(data.data);
     yield put(MeetupActions.meetupShowSuccess(data.data));
   } catch (err) {
-    // console.tron.log(err);
     yield put(MeetupActions.meetupShowFailure());
+  }
+}
+function* fileCreate(action) {
+  try {
+    const data = yield call(apiConfig.fileCreate, action.params);
+    yield put(FileActions.fileuploadSuccess(data.data));
+  } catch (err) {
+    yield put(FileActions.fileuploadFailure());
+  }
+}
+function* meetupCreate(action) {
+  try {
+    const id = yield call(apiConfig.fileCreate, action.params.imageMeetup);
+    const newMeetup = {
+      image: id.data,
+      ...action.params,
+    };
+
+    const data = yield call(apiConfig.meetupCreate, newMeetup);
+    yield put(MeetupActions.meetupCreateSuccess(data.data));
+    navigate('Dashboard');
+  } catch (err) {
+    yield put(MeetupActions.meetupCreateFailure());
   }
 }
 function* meetupSubscription(action) {
   try {
     const data = yield call(apiConfig.subscription, action.params);
-    // console.tron.log('data');
-    // console.tron.log(data);
-    // console.tron.log('data');
     yield put(MeetupActions.meetupSubscriptionSuccess(data.data));
   } catch (err) {
-    // console.tron.log(err);
     yield put(MeetupActions.meetupShowFailure());
   }
 }
@@ -126,10 +148,17 @@ function* loadMeetupsRecommededs() {
 function* loadPreferences() {
   try {
     const response = yield call(apiConfig.preferences);
-
     yield put(PreferencesActions.preferencesSuccess(response.data));
   } catch (err) {
     yield put(PreferencesActions.preferencesFailure());
+  }
+}
+function* loadMeetupsFilter(action) {
+  try {
+    const response = yield call(apiConfig.meetupsFilter, action.params);
+    yield put(MeetupsFilterActions.meetupsFilterSuccess(response.data.rows));
+  } catch (err) {
+    yield put(MeetupsFilterActions.meetupsFilterFailure());
   }
 }
 export default function* sagaRoot() {
@@ -139,11 +168,14 @@ export default function* sagaRoot() {
     takeLatest(SignedsTypes.MEETUPS_SIGNEDS_REQUEST, loadMeetupsSigneds),
     takeLatest(UnsignedsTypes.MEETUPS_UNSIGNEDS_REQUEST, loadMeetupsUnsigneds),
     takeLatest(RecommendedsTypes.MEETUPS_RECOMMENDEDS_REQUEST, loadMeetupsRecommededs),
+    takeLatest(MeetupFilterTypes.MEETUPS_FILTER_REQUEST, loadMeetupsFilter),
     takeLatest(PreferencesTypes.PREFERENCES_REQUEST, loadPreferences),
     takeLatest(ProfileTypes.PROFILE_UPDATE_REQUEST, profileUpdate),
     takeLatest(ProfileTypes.PROFILE_SHOW_REQUEST, profileShow),
     takeLatest(ProfileTypes.PROFILE_CREATE_REQUEST, profileCreate),
     takeLatest(MeetupTypes.MEETUP_SHOW_REQUEST, meetupShow),
     takeLatest(MeetupTypes.MEETUP_SUBSCRIPTION_REQUEST, meetupSubscription),
+    takeLatest(MeetupTypes.MEETUP_CREATE_REQUEST, meetupCreate),
+    takeLatest(FileTypes.FILE_UPLOAD_REQUEST, fileCreate),
   ]);
 }

@@ -13,9 +13,7 @@ import styles from '../styles';
 class Recomendados extends Component {
   renderSeparator = () => <View style={{ height: 20, width: 20, backgroundColor: '#1c1c1c' }} />;
 
-  renderListItem = ({ item }) => (
-    <MeetupItem meetup={item} subscriptions={item.__meta__.subscriptions_count} />
-  );
+  renderListItem = ({ item }) => <MeetupItem meetup={item} />;
 
   async componentDidMount() {
     const { meetupsRecommendedsRequest } = this.props;

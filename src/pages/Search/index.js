@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import {
-  View, TextInput, FlatList, Dimensions, ToastAndroid,
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  Dimensions,
+  ToastAndroid,
+  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import styles from './styles';
-import api from '../../services/api';
 import MeetupItem from '../../components/ItemSearch/index';
+import { Creators as CreatorsMeetups } from '../../store/ducks/meetupsFilter';
 
-export default class Search extends Component {
+class Search extends Component {
   state = {
-    meetups: [],
     text: '',
     orientation: '',
   };
@@ -26,16 +33,11 @@ export default class Search extends Component {
 
   search = async () => {
     try {
-      const response = await api.get(`/meetups/filter/${this.state.text}`);
-
-      this.setState({ meetups: response.data.rows });
-      if (this.state.meetups.length <= 0) {
-        ToastAndroid.showWithGravity(
-          'Nenhum registro localizado!!',
-          ToastAndroid.SHORT,
-          ToastAndroid.CENTER,
-        );
-      }
+      const { text } = this.state;
+      const { meetupsFilterRequest } = this.props;
+      await meetupsFilterRequest({
+        criterio: text.toLowerCase(),
+      });
     } catch (_err) {
       ToastAndroid.showWithGravity(String(_err), ToastAndroid.SHORT, ToastAndroid.CENTER);
     } finally {
@@ -47,14 +49,13 @@ export default class Search extends Component {
     <MeetupItem
       props={this.props}
       meetup={item}
-      registered={item.registered != null}
-      subscriptions={item.subscriptions == null ? 0 : item.subscriptions}
+      // registered={item.registered != null}
+      // subscriptions={item.subscriptions == null ? 0 : item.subscriptions}
     />
   );
 
   componentDidMount() {
     this.getOrientation();
-
     Dimensions.addEventListener('change', () => {
       this.getOrientation();
     });
@@ -63,8 +64,10 @@ export default class Search extends Component {
   renderSeparator = () => <View style={{ height: 20, width: 20, backgroundColor: '#1c1c1c' }} />;
 
   render() {
+    const { meetups, loading, error } = this.props;
     return (
       <View ref="rootView" style={styles.container}>
+        {error && <Text style={styles.labelGeral}>{error}</Text>}
         <View style={styles.searchSection}>
           <Icon style={styles.searchIcon} name="search" size={20} color="#8e8e93" />
 
@@ -78,15 +81,29 @@ export default class Search extends Component {
             maxLength={40}
           />
         </View>
-        <FlatList
-          data={this.state.meetups}
-          keyExtractor={item => String(item.id)}
-          ItemSeparatorComponent={this.renderSeparator}
-          renderItem={this.renderListItems}
-          style={styles.listContainer}
-          horizontal={this.state.orientation !== 'portrait'}
-        />
+        {meetups.rows.length > 0 && loading ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <FlatList
+            data={meetups.rows}
+            keyExtractor={item => String(item.id)}
+            ItemSeparatorComponent={this.renderSeparator}
+            renderItem={this.renderListItems}
+            style={styles.listContainer}
+            horizontal={this.state.orientation !== 'portrait'}
+          />
+        )}
       </View>
     );
   }
 }
+const mapStateToProps = state => ({
+  meetups: state.meetupsFilter,
+  error: state.meetupsFilter.error,
+  loading: state.meetupsFilter.loading,
+});
+const mapDispatchToProps = dispatch => bindActionCreators(CreatorsMeetups, dispatch);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Search);

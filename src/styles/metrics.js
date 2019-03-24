@@ -8,6 +8,8 @@ export default {
   marginSubMedim: 14,
   marginMedium: 20,
   marginMax: 30,
+  borderRadius: 20,
+  bootomHeight: 45,
   screenWidth: width < height ? width : height,
   screenHeight: width < height ? height : width,
 };
