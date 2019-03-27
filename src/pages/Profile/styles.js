@@ -51,14 +51,15 @@ const styles = StyleSheet.create({
   },
   textItems: {
     fontFamily: fonts.FonteSecundary,
-    fontSize: 16,
+    fontSize: 18,
     color: colors.colorTxtPrimary,
   },
   containerItems: {
     backgroundColor: 'transparent',
-    margin: 0,
+    marginTop: 5,
+    padding: 0,
     borderWidth: 0,
-    paddingLeft: 23,
+    paddingLeft: metrics.marginMax,
   },
 });
 

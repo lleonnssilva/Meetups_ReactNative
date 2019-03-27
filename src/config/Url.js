@@ -1,4 +1,4 @@
-const ip = '10.0.0.5';
+const ip = '10.0.0.18';
 
 export const UrlApi = () => `http://${ip}:3333`;
 

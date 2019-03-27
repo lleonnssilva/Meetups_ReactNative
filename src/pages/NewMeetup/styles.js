@@ -6,10 +6,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.colorPrimary,
-    padding: metrics.basePadding,
     justifyContent: 'center',
     alignItems: 'stretch',
     flexDirection: 'column',
+    paddingTop: metrics.marginMax,
   },
 
   buttonSave: {
@@ -31,8 +31,9 @@ const styles = StyleSheet.create({
     fontFamily: fonts.FonteSecundary,
     fontSize: 16,
     color: colors.colorTxtPrimary,
-    paddingTop: metrics.marginMax,
+    paddingBottom: metrics.MarginMed,
     paddingLeft: metrics.marginMax,
+    paddingRight: metrics.marginMax,
   },
 
   textGeral: {
@@ -42,21 +43,21 @@ const styles = StyleSheet.create({
     color: colors.colorTxtPrimary,
     paddingTop: metrics.MarginMed,
     paddingLeft: metrics.marginMax,
+    paddingRight: metrics.marginMax,
   },
   button: {
     position: 'absolute',
     justifyContent: 'center',
   },
   image: {
-    width: 310,
-    height: 164,
-    // borderRadius: 5,
-    // borderWidth: 1,
-    // paddingLeft: 5,
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    borderRadius: 5,
+    borderWidth: 1,
   },
   containerImage: {
     backgroundColor: 'transparent',
-    width: 305,
     height: 164,
     alignItems: 'center',
     justifyContent: 'center',
@@ -64,22 +65,21 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderStyle: 'dashed',
-    marginTop: metrics.marginMedium,
     marginLeft: metrics.marginMax,
-    paddingRight: metrics.marginMax,
-    paddingBottom: metrics.marginMedium,
+    marginRight: metrics.marginMax,
   },
 
   textItems: {
     fontFamily: fonts.FonteSecundary,
-    fontSize: 16,
+    fontSize: 18,
     color: colors.colorTxtPrimary,
   },
   containerItems: {
     backgroundColor: 'transparent',
-    margin: 0,
+    marginTop: 5,
+    padding: 0,
     borderWidth: 0,
-    paddingLeft: 23,
+    paddingLeft: metrics.marginMax,
   },
 });
 

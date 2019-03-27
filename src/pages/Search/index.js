@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styles from './styles';
-import MeetupItem from '../../components/ItemSearch/index';
+import MeetupItem from '../../components/MeetupItem';
 import { Creators as CreatorsMeetups } from '../../store/ducks/meetupsFilter';
 
 class Search extends Component {
@@ -36,7 +36,7 @@ class Search extends Component {
       const { text } = this.state;
       const { meetupsFilterRequest } = this.props;
       await meetupsFilterRequest({
-        criterio: text.toLowerCase(),
+        criterio: text,
       });
     } catch (_err) {
       ToastAndroid.showWithGravity(String(_err), ToastAndroid.SHORT, ToastAndroid.CENTER);
@@ -49,8 +49,7 @@ class Search extends Component {
     <MeetupItem
       props={this.props}
       meetup={item}
-      // registered={item.registered != null}
-      // subscriptions={item.subscriptions == null ? 0 : item.subscriptions}
+      subscriptions={item.subscriptions == null ? 0 : item.subscriptions}
     />
   );
 
@@ -81,11 +80,11 @@ class Search extends Component {
             maxLength={40}
           />
         </View>
-        {meetups.rows.length > 0 && loading ? (
+        {meetups.length > 0 && loading ? (
           <ActivityIndicator size="large" />
         ) : (
           <FlatList
-            data={meetups.rows}
+            data={meetups.meetups}
             keyExtractor={item => String(item.id)}
             ItemSeparatorComponent={this.renderSeparator}
             renderItem={this.renderListItems}

@@ -12,6 +12,7 @@ import { UrlFiles } from '../../config/Url';
 const MeetupItem = (props) => {
   const {
     meetup,
+    subscriptions,
     navigation: { navigate },
   } = props;
   return (
@@ -24,7 +25,7 @@ const MeetupItem = (props) => {
             {meetup.title}
           </Text>
           <Text style={styles.subscription}>
-            {meetup.__meta__.subscriptions_count}
+            {subscriptions}
             {' '}
 membros(s)
           </Text>

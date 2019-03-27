@@ -3,6 +3,7 @@ import {
   all, takeLatest, call, put,
 } from 'redux-saga/effects';
 
+
 import { navigate } from '../../services/navigator';
 import * as apiConfig from '../../services/apiConfig';
 
@@ -22,7 +23,6 @@ import {
   Types as MeetupFilterTypes,
 } from '../ducks/meetupsFilter';
 import { Creators as FileActions, Types as FileTypes } from '../ducks/file';
-
 
 export const getUserFromState = state => state.preferences;
 function* login(action) {
@@ -50,9 +50,9 @@ function* signUp(action) {
 function* profileUpdate(action) {
   try {
     const response = yield call(apiConfig.profileUpdate, action.params);
-    yield put(PofileActions.profileUpdateSuccess(action.params));
+    yield put(PofileActions.profileUpdateSuccess());
   } catch (err) {
-    yield put(PofileActions.profileUpdateFailure());
+    yield put(PofileActions.profileUpdateFailure('iiiiiiiiiiii'));
   }
 }
 function* profileCreate(action) {
@@ -92,17 +92,17 @@ function* meetupShow(action) {
 }
 function* fileCreate(action) {
   try {
-    const data = yield call(apiConfig.fileCreate, action.params);
-    yield put(FileActions.fileuploadSuccess(data.data));
+    const response = yield call(apiConfig.fileCreate, action.params);
+    yield put(FileActions.fileuploadSuccess(response.data));
   } catch (err) {
     yield put(FileActions.fileuploadFailure());
   }
 }
 function* meetupCreate(action) {
   try {
-    const id = yield call(apiConfig.fileCreate, action.params.imageMeetup);
+    const response = yield call(apiConfig.fileCreate, action.params.imageMeetup);
     const newMeetup = {
-      image: id.data,
+      image: response.data,
       ...action.params,
     };
 
@@ -115,8 +115,8 @@ function* meetupCreate(action) {
 }
 function* meetupSubscription(action) {
   try {
-    const data = yield call(apiConfig.subscription, action.params);
-    yield put(MeetupActions.meetupSubscriptionSuccess(data.data));
+    const response = yield call(apiConfig.subscription, action.params);
+    yield put(MeetupActions.meetupSubscriptionSuccess(response.data));
   } catch (err) {
     yield put(MeetupActions.meetupShowFailure());
   }
@@ -124,7 +124,7 @@ function* meetupSubscription(action) {
 function* loadMeetupsSigneds() {
   try {
     const response = yield call(apiConfig.meetupsSigneds);
-    yield put(SignedsActions.meetupsSignedsSuccess(response.data));
+    yield put(SignedsActions.meetupsSignedsSuccess(response));
   } catch (err) {
     yield put(SignedsActions.meetupsSignedsFailure());
   }
@@ -132,7 +132,7 @@ function* loadMeetupsSigneds() {
 function* loadMeetupsUnsigneds() {
   try {
     const response = yield call(apiConfig.meetupsUnsigneds);
-    yield put(UnsignedsActions.meetupsUnsignedsSuccess(response.data));
+    yield put(UnsignedsActions.meetupsUnsignedsSuccess(response));
   } catch (err) {
     yield put(UnsignedsActions.meetupsUnsignedsFailure());
   }
@@ -140,7 +140,7 @@ function* loadMeetupsUnsigneds() {
 function* loadMeetupsRecommededs() {
   try {
     const response = yield call(apiConfig.meetupsRecommendeds);
-    yield put(RecommendedsActions.meetupsRecommendedSuccess(response.data));
+    yield put(RecommendedsActions.meetupsRecommendedSuccess(response));
   } catch (err) {
     yield put(RecommendedsActions.meetupsRecommendedsFailure());
   }
@@ -156,7 +156,7 @@ function* loadPreferences() {
 function* loadMeetupsFilter(action) {
   try {
     const response = yield call(apiConfig.meetupsFilter, action.params);
-    yield put(MeetupsFilterActions.meetupsFilterSuccess(response.data.rows));
+    yield put(MeetupsFilterActions.meetupsFilterSuccess(response.data));
   } catch (err) {
     yield put(MeetupsFilterActions.meetupsFilterFailure());
   }

@@ -86,7 +86,7 @@ class NewMeetup extends Component {
     this.setState({ description });
   };
 
-  onChange = (key) => {
+  onSelectPreference = (key) => {
     const { preferences } = this.state;
     preferences[key].checked = !preferences[key].checked;
     this.setState({ preferences });
@@ -123,92 +123,93 @@ class NewMeetup extends Component {
       preferences,
     } = this.state;
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          {error && <Text style={styles.labelGeral}>{error}</Text>}
-          <Text style={styles.labelGeral}>Título</Text>
-          <TextInput
-            style={styles.textGeral}
-            placeholderTextColor="gray"
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholder="Digite o título do meetup"
-            underlineColorAndroid="transparent"
-            value={title}
-            onChangeText={this.handletitleChange}
-          />
-          <Text style={styles.labelGeral}>Descrição</Text>
-          <TextInput
-            multiline
-            style={styles.textGeral}
-            placeholderTextColor="gray"
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholder="Descreva seu meetup"
-            underlineColorAndroid="transparent"
-            value={description}
-            onChangeText={this.handleDescriptionChange}
-          />
-          <Text style={styles.labelGeral}>Imagem</Text>
-          <View style={styles.containerImage}>
-            {img && (
-              <Fragment>
-                <Image resizeMode="contain" source={{ uri: img.uri }} style={styles.image} />
-              </Fragment>
-            )}
-            <TouchableOpacity onPress={this.handleChoosePhoto} style={styles.button}>
-              <IconFontAwesome visible={false} name="camera" size={24} color="white" />
+      <View style={styles.container}>
+        <ScrollView>
+          <View>
+            {error && <Text style={styles.labelGeral}>{error}</Text>}
+            <Text style={styles.labelGeral}>Título</Text>
+            <TextInput
+              style={styles.textGeral}
+              placeholderTextColor="gray"
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="Digite o título do meetup"
+              underlineColorAndroid="transparent"
+              value={title}
+              onChangeText={this.handletitleChange}
+            />
+            <Text style={styles.labelGeral}>Descrição</Text>
+            <TextInput
+              multiline
+              style={styles.textGeral}
+              placeholderTextColor="gray"
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="Descreva seu meetup"
+              underlineColorAndroid="transparent"
+              value={description}
+              onChangeText={this.handleDescriptionChange}
+            />
+            <Text style={styles.labelGeral}>Imagem</Text>
+            <View style={styles.containerImage}>
+              {img && (
+                <Fragment>
+                  <Image resizeMode="stretch" source={{ uri: img.uri }} style={styles.image} />
+                </Fragment>
+              )}
+              <TouchableOpacity onPress={this.handleChoosePhoto} style={styles.button}>
+                <IconFontAwesome visible={false} name="camera" size={24} color="white" />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.labelGeral}>Localização</Text>
+            <TextInput
+              style={styles.textGeral}
+              placeholderTextColor="gray"
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="Onde seu meetup irá acontecer?"
+              underlineColorAndroid="transparent"
+              value={place}
+              onChangeText={this.handleplaceChange}
+            />
+            <Text style={styles.labelGeral}>Tema do meetup</Text>
+            {preferences.map((item, key) => (
+              <CheckBox
+                containerStyle={styles.containerItems}
+                textStyle={styles.textItems}
+                key={key}
+                title={item.title}
+                checkedIcon={(
+                  <Image
+                    style={{ width: 20, height: 20 }}
+                    source={require('../../assets/checked.png')}
+                  />
+)}
+                uncheckedIcon={(
+                  <Image
+                    style={{ width: 20, height: 20 }}
+                    source={require('../../assets/unchcked.png')}
+                  />
+)}
+                checked={item.checked}
+                onPress={() => this.onSelectPreference(key)}
+              />
+            ))}
+            <TouchableOpacity
+              style={styles.buttonSave}
+              onPress={() => {
+                this.handleSave();
+              }}
+            >
+              {loading ? (
+                <ActivityIndicator size="small" color="#fff" />
+              ) : (
+                <Text style={styles.buttonText}>Salvar</Text>
+              )}
             </TouchableOpacity>
           </View>
-          <Text style={styles.labelGeral}>Localização</Text>
-          <TextInput
-            style={styles.textGeral}
-            placeholderTextColor="gray"
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholder="Onde seu meetup irá acontecer?"
-            underlineColorAndroid="transparent"
-            value={place}
-            onChangeText={this.handleplaceChange}
-          />
-          <Text style={styles.labelGeral}>Tema do meetup</Text>
-          {preferences.map((item, key) => (
-            <CheckBox
-              borderStyle={{ borderWidth: 0 }}
-              containerStyle={styles.containerItems}
-              key={key}
-              title={item.title}
-              textStyle={styles.textItems}
-              checkedIcon={(
-                <Image
-                  style={{ width: 20, height: 20 }}
-                  source={require('../../assets/checked.png')}
-                />
-)}
-              uncheckedIcon={(
-                <Image
-                  style={{ width: 20, height: 20 }}
-                  source={require('../../assets/unchcked.png')}
-                />
-)}
-              checked={item.checked}
-              onPress={() => this.onChange(key)}
-            />
-          ))}
-          <TouchableOpacity
-            style={styles.buttonSave}
-            onPress={() => {
-              this.handleSave();
-            }}
-          >
-            {loading ? (
-              <ActivityIndicator size="small" color="#fff" />
-            ) : (
-              <Text style={styles.buttonText}>Salvar</Text>
-            )}
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     );
   }
 }

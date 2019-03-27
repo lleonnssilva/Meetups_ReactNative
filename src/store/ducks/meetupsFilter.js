@@ -5,7 +5,7 @@ export const Types = {
 };
 
 const INITIAL_STATE = {
-  rows: [],
+  meetups: [],
   loading: false,
   error: false,
 };
@@ -16,7 +16,7 @@ export default function meetupsFilter(state = INITIAL_STATE, action) {
       return { ...state, loading: true };
     case Types.MEETUPS_FILTER_SUCCESS:
       return {
-        rows: action.payload.rows,
+        meetups: action.payload.meetups,
         loading: false,
         error: false,
       };
@@ -31,10 +31,10 @@ export const Creators = {
     type: Types.MEETUPS_FILTER_REQUEST,
     params,
   }),
-  meetupsFilterSuccess: rows => ({
+  meetupsFilterSuccess: meetups => ({
     type: Types.MEETUPS_FILTER_SUCCESS,
     payload: {
-      rows,
+      meetups,
       loading: false,
     },
   }),

@@ -39,13 +39,16 @@ class SigUp extends Component {
   };
 
   handleSignUpPress = async () => {
-    const { username, email, password } = this.state;
+    const {
+      username, email, password, password_confirmation,
+    } = this.state;
     const { signUpRequest } = this.props;
 
     signUpRequest({
       username,
       email,
       password,
+      password_confirmation,
     });
   };
 

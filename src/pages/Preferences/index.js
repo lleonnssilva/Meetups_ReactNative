@@ -79,18 +79,38 @@ class Preference extends Component {
               </Text>
               <Text style={styles.labelInput}>Preferências:</Text>
               {preferences.map((item, key) => (
+                //                 <CheckBox
+                //                   borderStyle={{ borderWidth: 0 }}
+                //                   containerStyle={{
+                //                     backgroundColor: 'transparent',
+                //                     margin: 0,
+                //                     //padding: 5,
+                //                     borderWidth: 0,
+                //                   }}
+                //                   color="red"
+                //                   key={key}
+                //                   title={item.title}
+                //                   textStyle={{ color: 'white' }}
+                //                   checkedIcon={(
+                //                     <Image
+                //                       style={{ width: 20, height: 20 }}
+                //                       source={require('../../assets/checked.png')}
+                //                     />
+                // )}
+                //                   uncheckedIcon={(
+                //                     <Image
+                //                       style={{ width: 20, height: 20 }}
+                //                       source={require('../../assets/unchcked.png')}
+                //                     />
+                // )}
+                //                   checked={item.checked}
+                //                   onPress={() => this.onSelectPreference(key)}
+                //                 />
                 <CheckBox
-                  borderStyle={{ borderWidth: 0 }}
-                  containerStyle={{
-                    backgroundColor: 'transparent',
-                    margin: 0,
-                    padding: 5,
-                    borderWidth: 0,
-                  }}
-                  color="red"
+                  containerStyle={styles.containerItems}
+                  textStyle={styles.textItems}
                   key={key}
                   title={item.title}
-                  textStyle={{ color: 'white' }}
                   checkedIcon={(
                     <Image
                       style={{ width: 20, height: 20 }}

@@ -5,14 +5,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.colorPrimary,
-    padding: 30,
     justifyContent: 'center',
     alignItems: 'stretch',
     flexDirection: 'column',
+    paddingLeft: metrics.marginMax,
+    paddingRight: metrics.marginMax,
   },
-  // form: {
-  //   marginTop: 10,
-  // },
+
   textInput: {
     marginTop: metrics.marginMin,
     opacity: 0.5,
@@ -25,11 +24,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.colorPrincipal,
     borderRadius: metrics.borderRadius,
     height: metrics.bootomHeight,
-    marginTop: metrics.baseMargin,
     justifyContent: 'center',
     alignItems: 'center',
     fontFamily: fonts.fontPrimary,
     color: colors.colorTitlePrimary,
+    marginTop: metrics.marginMedium,
+    marginBottom: metrics.marginMedium,
   },
   buttonText: {
     color: colors.colorTxtPrimary,
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.colorTxtPrimary,
     textAlign: 'center',
-    paddingTop: metrics.marginMedium,
   },
   textError: {
     opacity: 0.6,
@@ -51,7 +50,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.colorPrincipal,
     textAlign: 'center',
-    paddingBottom: metrics.marginMedium,
   },
 
   labelInput: {

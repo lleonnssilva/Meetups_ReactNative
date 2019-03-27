@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   username: null,
   email: null,
   password: null,
+  password_confirmation: null,
   loading: false,
   error: false,
 };
@@ -34,12 +35,13 @@ export const Creators = {
     type: Types.SIGNUP_REQUEST,
     params,
   }),
-  signUpSuccess: (username, email, password) => ({
+  signUpSuccess: (username, email, password, password_confirmation) => ({
     type: Types.SIGNUP_SUCCESS,
     payload: {
       username,
       email,
       password,
+      password_confirmation,
     },
   }),
   signUpFailure: error => ({

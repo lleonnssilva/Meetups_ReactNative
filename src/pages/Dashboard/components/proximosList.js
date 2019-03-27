@@ -18,7 +18,7 @@ class Proximos extends Component {
   renderSeparator = () => <View style={styles.separador} />;
 
   renderListItem = ({ item }) => (
-    <MeetupItem meetup={item} />
+    <MeetupItem meetup={item} subscriptions={item.__meta__.subscriptions_count} />
   );
 
   render() {

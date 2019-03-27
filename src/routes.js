@@ -17,15 +17,8 @@ import SignUp from './pages/SignUp/index';
 import Profile from './pages/Profile/index';
 import Preferences from './pages/Preferences/index';
 import Header from './components/Header';
+import { colors } from './styles';
 
-// const ProfileStack = createStackNavigator({
-//   Profile: {
-//     screen: Profile,
-//     navigationOptions: () => ({
-//       header: <Header title="Perfil" />,
-//     }),
-//   },
-// });
 const SearchStack = createStackNavigator({
   Search: {
     screen: Search,
@@ -106,7 +99,7 @@ const Routes = (userLogged = false) => createAppContainer(
             inactiveTintColor: 'white',
             showIcon: true,
             style: {
-              backgroundColor: '#E5556E',
+              backgroundColor: colors.colorPrincipal,
               borderTopWidth: 0,
             },
             showLabel: false,

@@ -8,13 +8,23 @@ const styles = StyleSheet.create({
     backgroundColor: colors.colorPrimary,
     padding: metrics.marginMax,
     justifyContent: 'center',
-    alignItems: 'stretch',
-    flexDirection: 'column',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   form: {
     marginTop: metrics.marginMax,
   },
-
+  textItems: {
+    fontFamily: fonts.FonteSecundary,
+    fontSize: 18,
+    color: colors.colorTxtPrimary,
+  },
+  containerItems: {
+    backgroundColor: 'transparent',
+    marginTop: 5,
+    padding: 0,
+    borderWidth: 0,
+  },
   button: {
     backgroundColor: colors.colorPrincipal,
     borderRadius: metrics.borderRadius,
@@ -36,7 +46,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.fontSecundary,
     fontSize: 16,
     color: colors.colorTxtSecundary,
-    textAlign: 'center',
+    textAlign: 'left',
     paddingTop: metrics.marginMedium,
   },
 

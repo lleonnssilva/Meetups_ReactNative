@@ -16,6 +16,7 @@ const INITIAL_STATE = {
   userProfile: null,
   loading: false,
   error: false,
+  messageError: 'nada',
 };
 
 export default function profile(state = INITIAL_STATE, action) {
@@ -30,7 +31,11 @@ export default function profile(state = INITIAL_STATE, action) {
         error: false,
       };
     case Types.PROFILE_SHOW_FAILURE:
-      return { ...state, loading: false, error: true };
+      return {
+        ...state,
+        loading: false,
+        error: true,
+      };
 
     case Types.PROFILE_UPDATE_REQUEST:
       return { ...state, loading: true };
@@ -41,7 +46,11 @@ export default function profile(state = INITIAL_STATE, action) {
         error: false,
       };
     case Types.PROFILE_UPDATE_FAILURE:
-      return { ...state, loading: false, error: true };
+      return {
+        ...state,
+        loading: false,
+        error: true,
+      };
     case Types.PROFILE_CREATE_REQUEST:
       return { ...state, loading: true };
     case Types.PROFILE_CREATE_SUCCESS:
@@ -67,9 +76,9 @@ export const Creators = {
       userProfile,
     },
   }),
-  profileShowFailure: error => ({
+  profileShowFailure: () => ({
     type: Types.PROFILE_SHOW_FAILURE,
-    error,
+    error: true,
   }),
 
   profileUpdateRequest: params => ({
@@ -81,9 +90,10 @@ export const Creators = {
     error: null,
     loading: false,
   }),
-  profileUpdateFailure: error => ({
+  profileUpdateFailure: msg => ({
     type: Types.PROFILE_UPDATE_FAILURE,
-    error,
+    error: true,
+    messageError: msg,
   }),
   profileCreateRequest: params => ({
     type: Types.PROFILE_CREATE_REQUEST,

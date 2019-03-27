@@ -28,6 +28,7 @@ class Profile extends Component {
       preferences: [],
       error: null,
       loading: false,
+      messageError: '',
     };
   }
 
@@ -56,9 +57,7 @@ class Profile extends Component {
         preferences: preferences.filter(item => item.checked === true).map(e => e.id),
       });
     } catch (_err) {
-      this.setState({
-        error: 'Houve um problema com o login, verifique suas credenciais!',
-      });
+      console.tron.log(_err);
     }
   };
 
@@ -69,6 +68,7 @@ class Profile extends Component {
   };
 
   componentWillReceiveProps = (data) => {
+    console.tron.log(data);
     const { profile } = data;
     if (profile.userProfile !== null) {
       this.setState({
@@ -79,6 +79,7 @@ class Profile extends Component {
         password_confirmation: '',
         preferences: profile.userProfile[0].preferences,
         error: profile.error,
+        messageError: profile.messageError,
         loading: profile.loading,
       });
     }
@@ -91,11 +92,17 @@ class Profile extends Component {
 
   render() {
     const {
-      username, password, password_confirmation, preferences, error, loading,
+      username,
+      password,
+      password_confirmation,
+      preferences,
+      error,
+      loading,
+      messageError,
     } = this.state;
     return (
       <View style={styles.container}>
-        {error && <Text style={styles.labelGeral}>{error}</Text>}
+        {error && <Text style={{ color: 'white' }}>{messageError}</Text>}
         {username == null ? (
           <ActivityIndicator size="large" />
         ) : (

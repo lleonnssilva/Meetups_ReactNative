@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, metrics, fonts } from '../../styles';
+import { colors, metrics } from '../../styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.colorPrimary,
   },
   listContainer: {
-    paddingLeft: metrics.marginMedium,
-    paddingRight: metrics.marginMedium,
+    paddingLeft: metrics.marginMax,
+    paddingRight: metrics.marginMax,
   },
 });
 
