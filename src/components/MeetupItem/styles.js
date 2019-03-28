@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   image: {
-    width: 350,
+    width: 315,
     height: 146,
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.colorTerciary,
     flexDirection: 'row',
     // width: 290,
-    width: 350,
+    width: 315,
     justifyContent: 'center',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,

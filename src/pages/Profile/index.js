@@ -56,9 +56,7 @@ class Profile extends Component {
         password: password === '' ? password_original : password,
         preferences: preferences.filter(item => item.checked === true).map(e => e.id),
       });
-    } catch (_err) {
-      console.tron.log(_err);
-    }
+    } catch (_err) {}
   };
 
   onSelectPreference = (key) => {
@@ -100,6 +98,7 @@ class Profile extends Component {
       loading,
       messageError,
     } = this.state;
+    console.tron.log(this.props);
     return (
       <View style={styles.container}>
         {error && <Text style={{ color: 'white' }}>{messageError}</Text>}

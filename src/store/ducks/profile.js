@@ -16,7 +16,7 @@ const INITIAL_STATE = {
   userProfile: null,
   loading: false,
   error: false,
-  messageError: 'nada',
+  messageError: 'null',
 };
 
 export default function profile(state = INITIAL_STATE, action) {
@@ -87,8 +87,10 @@ export const Creators = {
   }),
   profileUpdateSuccess: () => ({
     type: Types.PROFILE_UPDATE_SUCCESS,
-    error: null,
-    loading: false,
+    payload: {
+      error: true,
+      loading: false,
+    },
   }),
   profileUpdateFailure: msg => ({
     type: Types.PROFILE_UPDATE_FAILURE,

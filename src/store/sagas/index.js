@@ -50,9 +50,9 @@ function* signUp(action) {
 function* profileUpdate(action) {
   try {
     const response = yield call(apiConfig.profileUpdate, action.params);
-    yield put(PofileActions.profileUpdateSuccess());
+    yield put(PofileActions.profileUpdateSuccess({ msg: 'sucesso!!' }));
   } catch (err) {
-    yield put(PofileActions.profileUpdateFailure('iiiiiiiiiiii'));
+    yield put(PofileActions.profileUpdateFailure({ msg: 'erroou!!' }));
   }
 }
 function* profileCreate(action) {

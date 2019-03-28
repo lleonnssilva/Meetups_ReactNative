@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   containerItens: {
     paddingLeft: metrics.marginMedium,
     paddingTop: metrics.marginMedium,
+    paddingRight: metrics.marginMedium,
   },
 
   title: {

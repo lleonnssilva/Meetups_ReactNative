@@ -1,6 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { colors, metrics } from '../../styles';
 
+const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -13,27 +14,26 @@ const styles = StyleSheet.create({
     backgroundColor: colors.colorSecundary,
     height: 40,
     borderRadius: metrics.marginMin,
-    marginLeft: metrics.marginMedium,
-    marginRight: metrics.marginMedium,
+    marginLeft: metrics.marginMax,
+    marginRight: metrics.marginMax,
     marginTop: metrics.marginMin,
     marginBottom: metrics.marginMin,
   },
   searchIcon: {
-    marginRight: metrics.marginMin,
-    marginLeft: metrics.marginMin,
+    paddingLeft: metrics.marginMin,
   },
   input: {
     backgroundColor: colors.colorSecundary,
     color: '#8e8e93',
-    width: 300,
+    width: width - metrics.marginMax * 4,
   },
   separator: {
     height: 20,
     backgroundColor: colors.colorPrimary,
   },
   listContainer: {
-    paddingLeft: metrics.marginMax,
-    paddingRight: metrics.marginMax,
+    marginRight: metrics.marginMedium,
+    marginLeft: metrics.marginMax,
   },
 });
 
