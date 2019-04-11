@@ -1,68 +1,64 @@
-import { StyleSheet } from 'react-native';
-
-import { colors, metrics, fonts } from '../../styles/index';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    height: 210,
-    paddingRight: 5,
-  },
-  image: {
-    width: 315,
-    height: 146,
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-  },
-  containerFooter: {
-    flexDirection: 'column',
-    width: '75%',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    paddingLeft: metrics.marginMedium,
-  },
-  footer: {
-    flex: 1,
-    backgroundColor: colors.colorTerciary,
-    flexDirection: 'row',
-    // width: 290,
-    width: 315,
-    justifyContent: 'center',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-  },
-  title: {
-    fontFamily: fonts.fontSecundary,
-    fontSize: 16,
-    color: colors.colorPrimary,
-    textAlign: 'left',
-    paddingTop: metrics.marginMin,
-  },
-  subscription: {
-    fontFamily: fonts.fontPrimary,
-    fontSize: 14,
-    color: colors.colorTxtSecundary,
-    textAlign: 'left',
-  },
-  containerButtom: {
-    width: '25%',
-    justifyContent: 'center',
-    padding: metrics.marginMedium,
-  },
-  btn: {
-    backgroundColor: colors.colorPrincipal,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 40,
-    height: 40,
-    borderRadius: 40,
-  },
-  icon: {
-    position: 'absolute',
-    paddingTop: metrics.marginMax,
-    paddingLeft: 121,
-  },
-});
-
-export default styles;
+import { colors, metrics, fonts } from "~/styles/index";
+import styled from "styled-components/native";
+export const Container = styled.View`
+  flex: 1;
+  flex-direction: column;
+  height: 210;
+  padding-right: 5;
+`;
+export const Image = styled.Image`
+  width: 315;
+  height: 146;
+  border-top-right-radius: 10;
+  border-top-left-radius: 10;
+`;
+export const ContainerFooter = styled.View`
+  flex-direction: column;
+  width: 75%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-left: ${metrics.marginMedium};
+`;
+export const Footer = styled.View`
+  flex: 1;
+  background-color: ${colors.colorTerciary};
+  flex-direction: row;
+  width: 315;
+  justify-content: center;
+  border-bottom-left-radius: 10;
+  border-bottom-right-radius: 10;
+`;
+export const Title = styled.Text`
+  font-family: ${fonts.fontSecundary};
+  font-size: 16;
+  color: ${colors.colorPrimary};
+  text-align: left;
+  padding-top: ${metrics.marginMin};
+`;
+export const Subscription = styled.Text`
+  font-family: ${fonts.fontPrimary};
+  font-size: 14;
+  color: ${colors.colorTxtSecundary};
+  text-align: left;
+`;
+export const ContainerButtom = styled.View`
+  width: 25%;
+  justify-content: center;
+  padding-top: ${metrics.marginMedium};
+  padding-left: ${metrics.marginMedium};
+  padding-right: ${metrics.marginMedium};
+  padding-bottom: ${metrics.marginMedium};
+`;
+export const Button = styled.TouchableOpacity`
+  background-color: ${colors.colorPrincipal};
+  align-items: center;
+  justify-content: center;
+  width: 40;
+  height: 40;
+  border-radius: 40;
+`;
+export const Icon = styled.View`
+  position: absolute;
+  padding-top: ${metrics.marginMax};
+  padding-left: 121;
+`;

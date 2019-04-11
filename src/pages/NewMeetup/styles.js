@@ -1,86 +1,71 @@
-import { StyleSheet } from 'react-native';
+import styled from "styled-components/native";
+import { colors, metrics, fonts } from "~/styles";
 
-import { colors, metrics, fonts } from '../../styles/index';
+export const Container = styled.View`
+  padding-top: ${metrics.marginMax};
+  flex: 1;
+  background-color: ${colors.colorPrimary};
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+`;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.colorPrimary,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    flexDirection: 'column',
-    paddingTop: metrics.marginMax,
-  },
+export const ButtonSave = styled.TouchableOpacity`
+  background-color: ${colors.colorPrincipal};
+  border-radius: ${metrics.borderRadius};
+  height: ${metrics.bootomHeight};
+  justify-content: center;
+  align-items: center;
+  margin-left: ${metrics.marginMax};
+  margin-right: ${metrics.marginMax};
+  margin-top: ${metrics.marginMax};
+  margin-bottom: ${metrics.marginMax};
+`;
+export const ButtonText = styled.Text`
+  color: ${colors.colorTxtPrimary};
+  font-weight: bold;
+  font-size: 16;
+  font-family: ${fonts.fontPrimary};
+`;
 
-  buttonSave: {
-    backgroundColor: colors.colorPrincipal,
-    borderRadius: metrics.borderRadius,
-    height: metrics.bootomHeight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: metrics.marginMax,
-  },
-  buttonText: {
-    color: colors.colorTxtPrimary,
-    fontWeight: 'bold',
-    fontSize: 16,
-    fontFamily: fonts.fontPrimary,
-  },
+export const LabelGeral = styled.Text`
+  font-family: ${fonts.fontSecundary};
+  font-size: 16;
+  color: ${colors.colorTxtPrimary};
 
-  labelGeral: {
-    fontFamily: fonts.FonteSecundary,
-    fontSize: 16,
-    color: colors.colorTxtPrimary,
-    paddingBottom: metrics.MarginMed,
-    paddingLeft: metrics.marginMax,
-    paddingRight: metrics.marginMax,
-  },
+  padding-left: ${metrics.marginMax};
+  padding-right: ${metrics.marginMax};
+`;
 
-  textGeral: {
-    opacity: 0.5,
-    fontFamily: fonts.FontPrimary,
-    fontSize: 20,
-    color: colors.colorTxtPrimary,
-    paddingTop: metrics.MarginMed,
-    paddingLeft: metrics.marginMax,
-    paddingRight: metrics.marginMax,
-  },
-  button: {
-    position: 'absolute',
-    justifyContent: 'center',
-  },
-  image: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    borderRadius: 5,
-    borderWidth: 1,
-  },
-  containerImage: {
-    backgroundColor: 'transparent',
-    height: 164,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: 'gray',
-    borderRadius: 5,
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    marginLeft: metrics.marginMax,
-    marginRight: metrics.marginMax,
-  },
+export const TextGeral = styled.TextInput`
+  opacity: 0.5;
+  font-family: ${fonts.fontPrimary};
+  font-size: 20;
+  color: ${colors.colorTxtPrimary};
 
-  textItems: {
-    fontFamily: fonts.FonteSecundary,
-    fontSize: 18,
-    color: colors.colorTxtPrimary,
-  },
-  containerItems: {
-    backgroundColor: 'transparent',
-    marginTop: 5,
-    padding: 0,
-    borderWidth: 0,
-    paddingLeft: metrics.marginMax,
-  },
-});
+  padding-left: ${metrics.marginMax};
+  padding-right: ${metrics.marginMax};
+`;
 
-export default styles;
+export const ButtonImage = styled.TouchableOpacity`
+  position: absolute;
+  justify-content: center;
+`;
+export const Image = styled.Image`
+  width: 100%;
+  height: 100%;
+  border-radius: 5;
+  border-width: 1;
+`;
+export const ContainerImage = styled.View`
+  background-color: transparent;
+  height: 164;
+  align-items: center;
+  justify-content: center;
+  border-color: gray;
+  border-radius: 5;
+  border-width: 1;
+  border-style: dashed;
+  margin-left: ${metrics.marginMax};
+  margin-right: ${metrics.marginMax};
+`;

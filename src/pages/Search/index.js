@@ -1,33 +1,40 @@
-import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  FlatList,
-  Dimensions,
-  ToastAndroid,
-  ActivityIndicator,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import styles from './styles';
-import MeetupItem from '../../components/MeetupItem';
-import { Creators as CreatorsMeetups } from '../../store/ducks/meetupsFilter';
+import React, { Component } from "react";
+import { Dimensions, ToastAndroid, ActivityIndicator } from "react-native";
 
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import {
+  LabelGeral,
+  Container,
+  SearchSection,
+  InputText,
+  ListContainer,
+  Separator
+} from "./styles";
+import MeetupItem from "~/components/MeetupItem";
+import { Creators as CreatorsMeetups } from "~/store/ducks/meetups";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { metrics, colors } from "~/styles";
 class Search extends Component {
   state = {
-    text: '',
-    orientation: '',
+    text: "",
+    orientation: ""
   };
 
   getOrientation = () => {
     if (this.refs.rootView) {
-      if (Dimensions.get('window').width < Dimensions.get('window').height) {
-        this.setState({ orientation: 'portrait' });
+      if (Dimensions.get("window").width < Dimensions.get("window").height) {
+        this.setState({ orientation: "portrait" });
       } else {
-        this.setState({ orientation: 'landscape' });
+        this.setState({ orientation: "landscape" });
       }
+    }
+  };
+  loadMeetupsSearch = () => {
+    const { filterPage, filterLastPage, meetupsFilterRequest } = this.props;
+    const { text } = this.state;
+    if (filterPage < filterLastPage) {
+      meetupsFilterRequest({ criterio: text, page: filterPage + 1 });
     }
   };
 
@@ -37,41 +44,54 @@ class Search extends Component {
       const { meetupsFilterRequest } = this.props;
       await meetupsFilterRequest({
         criterio: text,
+        page: 1
       });
     } catch (_err) {
-      ToastAndroid.showWithGravity(String(_err), ToastAndroid.SHORT, ToastAndroid.CENTER);
+      ToastAndroid.showWithGravity(
+        String(_err),
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
     } finally {
       // this.setState({ loading: false, refreshing: false })
     }
   };
 
-  renderListItems = ({ item }) => (
+  renderItem = ({ item }) => (
     <MeetupItem
-      props={this.props}
       meetup={item}
-      subscriptions={item.subscriptions == null ? 0 : item.subscriptions}
+      subscriptions={item.__meta__.subscriptions_count}
     />
   );
 
   componentDidMount() {
+    this.loadMeetupsSearch();
     this.getOrientation();
-    Dimensions.addEventListener('change', () => {
+    Dimensions.addEventListener("change", () => {
       this.getOrientation();
     });
   }
 
-  renderSeparator = () => <View style={{ height: 20, width: 20, backgroundColor: '#1c1c1c' }} />;
+  renderSeparator = () => <Separator />;
 
   render() {
-    const { meetups, loading, error } = this.props;
+    const { meetups, loading, error, msgError } = this.props;
     return (
-      <View ref="rootView" style={styles.container}>
-        {error && <Text style={styles.labelGeral}>{error}</Text>}
-        <View style={styles.searchSection}>
-          <Icon style={styles.searchIcon} name="search" size={20} color="#8e8e93" />
+      <Container ref="rootView">
+        {!!error && <Error>{msgError}</Error>}
+        <SearchSection>
+          {loading ? (
+            <ActivityIndicator color={colors.colorPrincipal} size="small" />
+          ) : (
+            <Icon
+              style={{ paddingLeft: metrics.marginMin }}
+              name="search"
+              size={20}
+              color="#8e8e93"
+            />
+          )}
 
-          <TextInput
-            style={styles.input}
+          <InputText
             placeholder="Buscar Meetups"
             placeholderTextColor="#8e8e93"
             onChangeText={text => this.setState({ text })}
@@ -79,30 +99,32 @@ class Search extends Component {
             onEndEditing={this.search}
             maxLength={40}
           />
-        </View>
-        {meetups.length > 0 && loading ? (
-          <ActivityIndicator size="large" />
-        ) : (
-          <FlatList
-            data={meetups.meetups}
-            keyExtractor={item => String(item.id)}
-            ItemSeparatorComponent={this.renderSeparator}
-            renderItem={this.renderListItems}
-            style={styles.listContainer}
-            horizontal={this.state.orientation !== 'portrait'}
-          />
-        )}
-      </View>
+        </SearchSection>
+
+        <ListContainer
+          data={meetups}
+          keyExtractor={item => String(item.id)}
+          ItemSeparatorComponent={this.renderSeparator}
+          renderItem={this.renderItem}
+          onEndReached={this.loadMeetupsSearch}
+          onEndReachedThreshold={0.5}
+          horizontal={this.state.orientation !== "portrait"}
+        />
+      </Container>
     );
   }
 }
 const mapStateToProps = state => ({
-  meetups: state.meetupsFilter,
-  error: state.meetupsFilter.error,
-  loading: state.meetupsFilter.loading,
+  meetups: state.meetups.filters,
+  msgError: state.meetups.msgError,
+  error: state.meetups.error,
+  loading: state.meetups.loading,
+  filterPage: state.meetups.filterPage,
+  filterLastPage: state.meetups.filterLastPage
 });
-const mapDispatchToProps = dispatch => bindActionCreators(CreatorsMeetups, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CreatorsMeetups, dispatch);
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Search);

@@ -1,77 +1,90 @@
-import { StyleSheet } from 'react-native';
+import { colors, metrics, fonts } from "~/styles";
+import styled from "styled-components/native";
 
-import { colors, metrics, fonts } from '../../styles';
+export const Container = styled.View`
+  flex: 1;
+  background-color: ${colors.colorPrimary};
+`;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.colorPrimary,
-  },
-  image: {
-    width: '100%',
-    height: 212,
-  },
-  labeTitle: {
-    marginTop: metrics.marginMax,
-    marginLeft: metrics.marginMax,
-    fontFamily: fonts.FonteSecundary,
-    fontSize: 16,
-    color: colors.colorTxtPrimary,
-    marginRight: metrics.marginMax,
-  },
-  labelMembers: {
-    fontFamily: fonts.FontPrimary,
-    fontSize: 14,
-    color: colors.colorTxtSecundary,
-    paddingTop: metrics.marginMin,
-    paddingLeft: metrics.marginMax,
-  },
-  labelDesc: {
-    opacity: 0.8,
-    fontFamily: fonts.FontPrimary,
-    fontSize: 16,
-    color: colors.colorTxtPrimary,
-    lineHeight: 28,
-    marginTop: metrics.marginMedium,
-    marginLeft: metrics.marginMax,
-    marginRight: metrics.marginMax,
-  },
+export const Image = styled.Image`
+  width: 100%;
+  height: 212;
+`;
 
-  labelRealizacao: {
-    fontFamily: fonts.FontPrimary,
-    fontSize: 14,
-    color: colors.colorTxtSecundary,
-    marginTop: metrics.marginMax,
-    marginLeft: metrics.marginMax,
-  },
-  labelLocal: {
-    opacity: 0.8,
-    fontFamily: fonts.FontPrimary,
-    fontSize: 14,
-    color: colors.colorTxtPrimary,
-    lineHeight: 24,
-    marginTop: metrics.marginMin,
-    marginLeft: metrics.marginMax,
-    marginRight: metrics.marginMax,
-  },
-  button: {
-    backgroundColor: colors.colorPrincipal,
-    borderRadius: metrics.borderRadius,
-    height: 44,
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontFamily: fonts.fontPrimary,
-    color: colors.colorTxtSecundary,
-    margin: metrics.marginMax,
-    paddingLeft: metrics.marginMax,
-    paddingRight: metrics.marginMax,
-  },
+export const LabeTitle = styled.Text`
+  margin-top: ${metrics.marginMax};
+  margin-left: ${metrics.marginMax};
+  font-family: ${fonts.fontSecundary};
+  font-size: 16;
+  color: ${colors.colorTxtPrimary};
+  margin-right: ${metrics.marginMax};
+`;
 
-  textButton: {
-    fontFamily: fonts.FonteSecundary,
-    fontSize: 16,
-    color: colors.colorTxtPrimary,
-  },
-});
+export const LabelMembers = styled.Text`
+  font-family: ${fonts.fontPrimary};
+  font-size: 14;
+  color: ${colors.colorTxtSecundary};
+  padding-top: ${metrics.marginMin};
+  padding-left: ${metrics.marginMax};
+`;
 
-export default styles;
+export const LabelDesc = styled.Text`
+  opacity: 0.8;
+  font-family: ${fonts.fontPrimary};
+  font-size: 16;
+  color: ${colors.colorTxtPrimary};
+  line-height: 28;
+  margin-top: ${metrics.marginMedium};
+  margin-left: ${metrics.marginMax};
+  margin-right: ${metrics.marginMax};
+`;
+
+export const LabelRealizacao = styled.Text`
+  font-family: ${fonts.fontPrimary};
+  font-size: 14;
+  color: ${colors.colorTxtSecundary};
+  margin-top: ${metrics.marginMax};
+  margin-left: ${metrics.marginMax};
+`;
+
+export const LabelLocal = styled.Text`
+  opacity: 0.8;
+  font-family: ${fonts.fontPrimary};
+  font-size: 14;
+  color: ${colors.colorTxtPrimary};
+  line-height: 24;
+  margin-top: ${metrics.marginMin};
+  margin-left: ${metrics.marginMax};
+  margin-right: ${metrics.marginMax};
+`;
+export const ButtonSave = styled.TouchableOpacity`
+  background-color: ${colors.colorPrincipal};
+  border-radius: ${metrics.borderRadius};
+  height: 44;
+  justify-content: center;
+  align-items: center;
+  font-family: ${fonts.fontPrimary};
+  color: ${colors.colorTxtSecundary};
+  margin-top: ${metrics.marginMax};
+  margin-left: ${metrics.marginMax};
+  margin-right: ${metrics.marginMax};
+  margin-bottom: ${metrics.marginMax};
+`;
+export const ButtonInscrito = styled.View`
+  background-color: ${colors.colorSecundary};
+  border-radius: ${metrics.borderRadius};
+  height: 44;
+  justify-content: center;
+  align-items: center;
+  font-family: ${fonts.fontPrimary};
+  color: ${colors.colorTxtSecundary};
+  margin-top: ${metrics.marginMax};
+  margin-left: ${metrics.marginMax};
+  margin-right: ${metrics.marginMax};
+  margin-bottom: ${metrics.marginMax};
+`;
+export const TextButton = styled.Text`
+  font-family: ${fonts.fontSecundary};
+  font-size: 16;
+  color: ${colors.colorTxtPrimary};
+`;

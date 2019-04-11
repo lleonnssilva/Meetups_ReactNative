@@ -103,7 +103,7 @@ export const Creators = {
   }),
   profileCreateSuccess: () => ({
     type: Types.PROFILE_CREATE_SUCCESS,
-    error: null,
+    error: false,
     loading: false,
   }),
   profileCreateFailure: error => ({

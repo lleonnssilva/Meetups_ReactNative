@@ -1,66 +1,51 @@
-import { StyleSheet } from 'react-native';
+import { colors, metrics, fonts } from "~/styles";
+import styled from "styled-components/native";
 
-import { colors, metrics, fonts } from '../../styles/index';
+export const Container = styled.View`
+  flex: 1;
+  background-color: ${colors.colorPrimary};
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+`;
+export const ButtonSave = styled.TouchableOpacity`
+  flex: 1;
+  background-color: ${colors.colorPrincipal};
+  border-radius: ${metrics.borderRadius};
+  height: ${metrics.bootomHeight};
+  justify-content: center;
+  align-items: center;
+  margin-left: ${metrics.marginMax};
+  margin-right: ${metrics.marginMax};
+  margin-top: ${metrics.marginMax};
+  margin-bottom: ${metrics.marginMax};
+`;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.colorPrimary,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    flexDirection: 'column',
-  },
-  buttonSave: {
-    backgroundColor: colors.colorPrincipal,
-    borderRadius: metrics.borderRadius,
-    height: metrics.bootomHeight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: metrics.marginMax,
-  },
-  buttonText: {
-    color: colors.colorTxtPrimary,
-    fontWeight: 'bold',
-    fontSize: 16,
-    fontFamily: fonts.fontPrimary,
-  },
-  labelGeral: {
-    fontFamily: fonts.FonteSecundary,
-    fontSize: 16,
-    color: colors.colorTxtPrimary,
-    paddingTop: metrics.marginMax,
-    paddingLeft: metrics.marginMax,
-  },
-  textNome: {
-    fontFamily: fonts.FontPrimary,
-    fontSize: 20,
-    color: colors.colorTxtPrimary,
-    paddingTop: metrics.MarginMed,
-    paddingLeft: metrics.marginMax,
-  },
-  textGeral: {
-    opacity: 0.5,
-    fontFamily: fonts.FontPrimary,
-    fontSize: 20,
-    color: colors.colorTxtPrimary,
-    paddingTop: metrics.MarginMed,
-    paddingLeft: metrics.marginMax,
-  },
-  colorPlaceholder: {
-    color: colors.colorTxtPrimary,
-  },
-  textItems: {
-    fontFamily: fonts.FonteSecundary,
-    fontSize: 18,
-    color: colors.colorTxtPrimary,
-  },
-  containerItems: {
-    backgroundColor: 'transparent',
-    marginTop: 5,
-    padding: 0,
-    borderWidth: 0,
-    paddingLeft: metrics.marginMax,
-  },
-});
+export const ButtonText = styled.Text`
+  font-family: ${fonts.fontPrimary};
+  color: ${colors.colorTxtPrimary};
+  font-weight: bold;
+  font-size: 16;
+`;
 
-export default styles;
+export const LabelGeral = styled.Text`
+  font-size: 16;
+  color: ${colors.colorTxtPrimary};
+  font-family: ${fonts.fontSecundary};
+  padding-top: ${metrics.marginMax};
+  padding-left: ${metrics.marginMax};
+`;
+
+export const TextGeral = styled.TextInput`
+  font-family: ${fonts.fontPrimary};
+  padding-top: ${metrics.marginMedium};
+  opacity: 0.5;
+  font-size: 20;
+  color: ${colors.colorTxtPrimary};
+  padding-left: ${metrics.marginMax};
+`;
+
+export const Image = styled.Image`
+  width: 20;
+  height: 20;
+`;

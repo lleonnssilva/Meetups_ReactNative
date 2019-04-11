@@ -1,29 +1,20 @@
-import { StyleSheet } from 'react-native';
+import { colors, metrics, fonts } from "~/styles";
+import styled from "styled-components/native";
+export const Container = styled.View`
+  align-items: center;
+  background-color: ${colors.colorPrincipal};
+  border-bottom-width: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-horizontal: ${metrics.marginMax};
+  height: 55;
+`;
 
-import { colors, metrics, fonts } from '../../styles';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: colors.colorPrincipal,
-    borderBottomWidth: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: metrics.marginMax,
-  },
-
-  title: {
-    color: colors.colorTxtPrimary,
-    fontSize: 18,
-    fontFamily: fonts.fontSecundary,
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  statusbar: {
-    backgroundColor: colors.colorPrincipal,
-  },
-});
-
-export default styles;
+export const Title = styled.Text`
+  color: ${colors.colorTxtPrimary};
+  font-size: 18;
+  font-family: ${fonts.fontSecundary};
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+`;

@@ -15,7 +15,7 @@ const INITIAL_STATE = {
 export default function login(state = INITIAL_STATE, action) {
   switch (action.type) {
     case Types.LOGIN_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: false };
     case Types.LOGIN_SUCCESS:
       return {
         state: action.data,

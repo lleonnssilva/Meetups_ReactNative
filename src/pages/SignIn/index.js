@@ -1,23 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 import {
   View,
-  Text,
-  TextInput,
-  TouchableOpacity,
   Image,
+  TouchableOpacity,
   ActivityIndicator,
-  StatusBar,
-} from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Creators as CreatorsLogin } from '../../store/ducks/login';
-import styles from './styles';
+  StatusBar
+} from "react-native";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { Creators as CreatorsLogin } from "~/store/ducks/login";
+import { colors } from "~/styles";
+import {
+  Container,
+  Logo,
+  TextInput,
+  TextError,
+  ButtonText,
+  ButtonLogin,
+  LabelInput,
+  TextOpacity
+} from "./styles";
 
 class Login extends Component {
   state = {
-    email: '',
-    password: '',
+    email: "",
+    password: ""
   };
 
   handleSignInPress = async () => {
@@ -26,15 +34,15 @@ class Login extends Component {
 
     loginRequest({
       email,
-      password,
+      password
     });
   };
 
-  handleEmailChange = (email) => {
+  handleEmailChange = email => {
     this.setState({ email });
   };
 
-  handlePasswordChange = (password) => {
+  handlePasswordChange = password => {
     this.setState({ password });
   };
 
@@ -43,17 +51,19 @@ class Login extends Component {
     const { error, loading, navigation } = this.props;
 
     return (
-      <View style={styles.container}>
-        <StatusBar backgroundColor={styles.container.backgroundColor} barStyle="light-content" />
-        <View style={styles.logo}>
-          <Image source={require('../../assets/logo.png')} resizeMode="stretch" />
-        </View>
+      <Container>
+        {/* <StatusBar
+          backgroundColor={colors.colorPrincipal}
+          barStyle="light-content"
+        /> */}
+        <Logo>
+          <Image source={require("~/assets/logo.png")} resizeMode="stretch" />
+        </Logo>
 
         <View>
-          <Text style={styles.labelInput}>Email</Text>
+          <LabelInput>Email</LabelInput>
           <TextInput
-            style={styles.textInput}
-            placeholderTextColor={styles.textInput.color}
+            placeholderTextColor={colors.colorTxtPrimary}
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="Digite seu e-mail"
@@ -61,21 +71,19 @@ class Login extends Component {
             value={email}
             onChangeText={this.handleEmailChange}
           />
-          <Text style={styles.labelInput}>Senha</Text>
+          <LabelInput>Senha</LabelInput>
           <TextInput
             value={password}
             onChangeText={this.handlePasswordChange}
-            style={styles.textInput}
-            placeholderTextColor={styles.textInput.color}
+            placeholderTextColor={colors.colorTxtPrimary}
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="Sua senha secreta"
             underlineColorAndroid="transparent"
             secureTextEntry
           />
-          {error && <Text style={styles.textError}>Usuário não localizado!.</Text>}
-          <TouchableOpacity
-            style={styles.button}
+          {error && <TextError>Usuário não localizado!.</TextError>}
+          <ButtonLogin
             onPress={() => {
               this.handleSignInPress();
             }}
@@ -83,28 +91,29 @@ class Login extends Component {
             {loading ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
-              <Text style={styles.buttonText}>Entrar</Text>
+              <ButtonText>Entrar</ButtonText>
             )}
-          </TouchableOpacity>
+          </ButtonLogin>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('SignUp');
+              navigation.navigate("SignUp");
             }}
           >
-            <Text style={styles.textOpacity}>Criar conta grátis</Text>
+            <TextOpacity>Criar conta grátis</TextOpacity>
           </TouchableOpacity>
         </View>
-      </View>
+      </Container>
     );
   }
 }
 
 const mapStateToProps = state => ({
   error: state.login.error,
-  loading: state.login.loading,
+  loading: state.login.loading
 });
-const mapDispatchToProps = dispatch => bindActionCreators(CreatorsLogin, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CreatorsLogin, dispatch);
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Login);

@@ -1,50 +1,50 @@
-import React from 'react';
-
+import React from "react";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { withNavigation } from "react-navigation";
+import { colors, metrics, fonts } from "~/styles/index";
 import {
-  View, Text, TouchableOpacity, Image,
-} from 'react-native';
+  Image,
+  Footer,
+  Container,
+  ContainerFooter,
+  Title,
+  Subscription,
+  ContainerButtom,
+  Button
+} from "./styles";
+import { UrlFiles } from "~/config/baseURL";
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { withNavigation } from 'react-navigation';
-import styles from './styles';
-import { UrlFiles } from '../../config/Url';
-
-const MeetupItem = (props) => {
+const MeetupItem = props => {
   const {
     meetup,
     subscriptions,
-    navigation: { navigate },
+    navigation: { navigate }
   } = props;
+
   return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: `${UrlFiles()}/${meetup.image}` }} />
+    <Container>
+      <Image source={{ uri: `${UrlFiles()}/${meetup.image}` }} />
 
-      <View style={styles.footer}>
-        <View style={styles.containerFooter}>
-          <Text numberOfLines={1} style={styles.title}>
-            {meetup.title}
-          </Text>
-          <Text style={styles.subscription}>
-            {subscriptions}
-            {' '}
-membros(s)
-          </Text>
-        </View>
+      <Footer>
+        <ContainerFooter>
+          <Title numberOfLines={1}>{meetup.title}</Title>
+          <Subscription>{subscriptions} membros(s)</Subscription>
+        </ContainerFooter>
 
-        <View style={styles.containerButtom}>
-          <TouchableOpacity
-            onPress={() => navigate('Meetup', {
-              id: meetup.id,
-              title: meetup.title,
-            })
+        <ContainerButtom>
+          <Button
+            onPress={() =>
+              navigate("Meetup", {
+                id: meetup.id,
+                title: meetup.title || ""
+              })
             }
-            style={styles.btn}
           >
             <Icon tintColor="white" name="chevron-right" color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+          </Button>
+        </ContainerButtom>
+      </Footer>
+    </Container>
   );
 };
 

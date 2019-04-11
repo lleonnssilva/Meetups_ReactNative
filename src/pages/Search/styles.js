@@ -1,40 +1,35 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import { colors, metrics } from '../../styles';
+import { Dimensions } from "react-native";
+import { colors, metrics } from "~/styles";
+import styled from "styled-components/native";
+const { width } = Dimensions.get("window");
 
-const { width } = Dimensions.get('window');
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.colorPrimary,
-  },
-  searchSection: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: colors.colorSecundary,
-    height: 40,
-    borderRadius: metrics.marginMin,
-    marginLeft: metrics.marginMax,
-    marginRight: metrics.marginMax,
-    marginTop: metrics.marginMin,
-    marginBottom: metrics.marginMin,
-  },
-  searchIcon: {
-    paddingLeft: metrics.marginMin,
-  },
-  input: {
-    backgroundColor: colors.colorSecundary,
-    color: '#8e8e93',
-    width: width - metrics.marginMax * 4,
-  },
-  separator: {
-    height: 20,
-    backgroundColor: colors.colorPrimary,
-  },
-  listContainer: {
-    marginRight: metrics.marginMedium,
-    marginLeft: metrics.marginMax,
-  },
-});
+export const Container = styled.View`
+  flex: 1;
+  background-color: ${colors.colorPrimary};
+`;
+export const SearchSection = styled.View`
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: ${colors.colorSecundary};
+  height: 40;
+  border-radius: ${metrics.marginMin};
+  margin-left: ${metrics.marginMax};
+  margin-right: ${metrics.marginMax};
+  margin-top: ${metrics.marginMin};
+  margin-bottom: ${metrics.marginMin};
+`;
 
-export default styles;
+export const InputText = styled.TextInput`
+  background-color: ${colors.colorSecundary};
+  color: #8e8e93;
+  width: ${width - metrics.marginMax * 4};
+`;
+export const Separator = styled.View`
+  height: 20;
+  background-color: ${colors.colorPrimary};
+`;
+export const ListContainer = styled.FlatList`
+  margin-right: ${metrics.marginMedium};
+  margin-left: ${metrics.marginMax};
+`;

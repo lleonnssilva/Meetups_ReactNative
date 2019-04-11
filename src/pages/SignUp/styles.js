@@ -1,71 +1,71 @@
-import { StyleSheet } from 'react-native';
+import { colors, metrics, fonts } from "~/styles";
+import styled from "styled-components/native";
+export const Container = styled.View`
+  flex: 1;
+  background-color: ${colors.colorPrimary};
+  padding-top: ${metrics.marginMax};
 
-import { colors, metrics, fonts } from '../../styles/index';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.colorPrimary,
-    padding: metrics.marginMax,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    flexDirection: 'column',
-  },
-  textError: {
-    opacity: 0.5,
-    fontFamily: fonts.fontSecundary,
-    fontSize: 12,
-    color: colors.colorPrincipal,
-    textAlign: 'center',
-    paddingBottom: metrics.marginMedium,
-  },
-  form: {
-    marginTop: metrics.marginMax,
-  },
-  textInput: {
-    marginTop: metrics.marginMin,
-    opacity: 0.5,
-    fontFamily: fonts.fontSecundary,
-    fontSize: 20,
-    color: colors.colorTxtPrimary,
-    textAlign: 'left',
-  },
-  button: {
-    backgroundColor: colors.colorPrincipal,
-    borderRadius: metrics.borderRadius,
-    height: metrics.bootomHeight,
-    marginTop: metrics.marginMax,
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontFamily: fonts.fontPrimary,
-    color: colors.colorTitlePrimary,
-  },
-  buttonText: {
-    color: colors.colorTxtPrimary,
-    fontWeight: 'bold',
-    fontSize: 16,
-    fontFamily: fonts.fontPrimary,
-  },
-  textOpacity: {
-    opacity: 0.6,
-    fontFamily: fonts.fontPrimary,
-    fontSize: 16,
-    color: colors.colorTxtPrimary,
-    textAlign: 'center',
-    paddingTop: metrics.marginMedium,
-  },
-
-  labelInput: {
-    fontFamily: fonts.fontPrimary,
-    fontSize: 22,
-    marginTop: metrics.marginMin,
-    color: colors.colorTxtPrimary,
-    textAlign: 'left',
-  },
-  logo: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-});
-
-export default styles;
+  padding-right: ${metrics.marginMax};
+  padding-bottom: ${metrics.marginMax};
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+`;
+export const TextError = styled.Text`
+  opacity: 0.5;
+  font-family: ${fonts.fontSecundary};
+  font-size: 12;
+  color: ${colors.colorPrincipal};
+  text-align: center;
+  padding-bottom: ${metrics.marginMedium};
+`;
+export const Form = styled.View`
+  margin-top: ${metrics.marginMax};
+`;
+export const TextInput = styled.TextInput`
+  margin-top: ${metrics.marginMin};
+  opacity: 0.5;
+  font-family: ${fonts.fontSecundary};
+  font-size: 20;
+  color: ${colors.colorTxtPrimary};
+  padding-left: ${metrics.marginMax};
+  text-align: left;
+`;
+export const ButtonSave = styled.TouchableOpacity`
+  background-color: ${colors.colorPrincipal};
+  border-radius: ${metrics.borderRadius};
+  height: ${metrics.bootomHeight};
+  margin-top: ${metrics.marginMax};
+  justify-content: center;
+  align-items: center;
+  font-family: ${fonts.fontPrimary};
+  color: ${colors.colorTxtPrimary};
+  margin-left: ${metrics.marginMax};
+`;
+export const ButtonText = styled.Text`
+  color: ${colors.colorTxtPrimary};
+  font-weight: bold;
+  text-align: center;
+  font-size: 16;
+  font-family: ${fonts.fontPrimary};
+`;
+export const TextOpacity = styled.Text`
+  opacity: 0.6;
+  font-family: ${fonts.fontPrimary};
+  font-size: 16;
+  color: ${colors.colorTxtPrimary};
+  text-align: center;
+  padding-top: ${metrics.marginMedium};
+`;
+export const LabelInput = styled.Text`
+  font-family: ${fonts.fontPrimary};
+  font-size: 22;
+  margin-top: ${metrics.marginMin};
+  padding-left: ${metrics.marginMax};
+  color: ${colors.colorTxtPrimary};
+  text-align: left;
+`;
+export const Logo = styled.View`
+  flex-direction: row;
+  justify-content: center;
+`;

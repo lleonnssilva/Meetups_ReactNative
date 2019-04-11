@@ -16,6 +16,7 @@ const INITIAL_STATE = {
   meetup: null,
   loading: false,
   error: false,
+  registered: false,
 };
 
 export default function meetups(state = INITIAL_STATE, action) {

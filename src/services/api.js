@@ -1,15 +1,15 @@
-import axios from 'axios';
+import axios from "axios";
 
-import { AsyncStorage } from 'react-native';
-import { UrlApi } from '../config/Url';
+import { AsyncStorage } from "react-native";
+import { UrlApi } from "~/config/baseURL";
 
 const api = axios.create({
-  baseURL: UrlApi(),
+  baseURL: UrlApi()
 });
 
-api.interceptors.request.use(async (config) => {
+api.interceptors.request.use(async config => {
   try {
-    const token = await AsyncStorage.getItem('@MeetupApp:token');
+    const token = await AsyncStorage.getItem("@MeetupApp:token");
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
