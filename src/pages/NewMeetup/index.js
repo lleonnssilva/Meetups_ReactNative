@@ -1,7 +1,12 @@
 import React, { Component, Fragment } from "react";
 
-import { View, Image, ScrollView, ActivityIndicator } from "react-native";
-
+import {
+  View,
+  ScrollView,
+  ToastAndroid,
+  ActivityIndicator
+} from "react-native";
+import DatePicker from "react-native-datepicker";
 import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 import ImagePicker from "react-native-image-picker";
 import { CheckBox } from "react-native-elements";
@@ -18,7 +23,9 @@ import {
   ButtonSave,
   ButtonText,
   ContainerImage,
-  ButtonImage
+  ButtonImage,
+  TextError,
+  Image
 } from "./styles";
 
 class NewMeetup extends Component {
@@ -47,35 +54,48 @@ class NewMeetup extends Component {
   };
 
   handleSave = async () => {
-    const {
-      img,
-      title,
-      place,
-      description,
-      event_date,
-      numLimitSubscriptions,
-      preferences
-    } = this.state;
-    const { meetupCreateRequest } = this.props;
-    const imageMeetup = new FormData();
+    try {
+      const {
+        img,
+        title,
+        place,
+        description,
+        event_date,
+        numLimitSubscriptions,
+        preferences
+      } = this.state;
+      const { meetupCreateRequest } = this.props;
+      const imageMeetup = new FormData();
+      if (this.state.img == null)
+        ToastAndroid.showWithGravity(
+          String("Escolha uma imagem para o meetup!"),
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
+      imageMeetup.append("file", {
+        uri: img.uri,
+        type: img.type,
+        name: img.fileName
+      });
 
-    imageMeetup.append("file", {
-      uri: img.uri,
-      type: img.type,
-      name: img.fileName
-    });
-
-    meetupCreateRequest({
-      title,
-      place,
-      description,
-      event_date,
-      numLimitSubscriptions,
-      preferences: preferences
-        .filter(item => item.checked === true)
-        .map(e => e.id),
-      imageMeetup
-    });
+      meetupCreateRequest({
+        title,
+        place,
+        description,
+        event_date,
+        numLimitSubscriptions,
+        preferences: preferences
+          .filter(item => item.checked === true)
+          .map(e => e.id),
+        imageMeetup
+      });
+    } catch (_err) {
+      // ToastAndroid.showWithGravity(
+      //   String(_err),
+      //   ToastAndroid.SHORT,
+      //   ToastAndroid.CENTER
+      // );
+    }
   };
 
   handletitleChange = title => {
@@ -96,6 +116,10 @@ class NewMeetup extends Component {
     this.setState({ preferences });
   };
 
+  handleDateChange = date => {
+    this.setState({ event_date: date });
+  };
+
   componentWillReceiveProps = data => {
     if (data.preference.preferences !== null) {
       this.setState({ preferences: data.preference.preferences });
@@ -103,19 +127,12 @@ class NewMeetup extends Component {
   };
 
   componentDidMount = async () => {
-    try {
-      const { preferencesRequest } = this.props;
-      preferencesRequest();
-    } catch (_err) {
-      console.tron.log(_err);
-      this.setState({ error: "Erro ao recuperar os meetups recomendados" });
-    } finally {
-      this.setState({ loading: false, refreshing: false });
-    }
+    const { preferencesRequest } = this.props;
+    preferencesRequest();
   };
 
   render() {
-    const { error, loading } = this.props;
+    const { error, loading, msgError } = this.props;
 
     const {
       img,
@@ -131,7 +148,6 @@ class NewMeetup extends Component {
       <Container>
         <ScrollView>
           <View>
-            {error && <LabelGeral>{error}</LabelGeral>}
             <LabelGeral>Título</LabelGeral>
             <TextGeral
               placeholderTextColor="gray"
@@ -178,6 +194,27 @@ class NewMeetup extends Component {
               value={place}
               onChangeText={this.handleplaceChange}
             />
+            <LabelGeral>Data do evento</LabelGeral>
+            <DatePicker
+              style={{ width: 200 }}
+              date={this.state.event_date}
+              mode="date"
+              placeholder="Informe a data"
+              format="YYYY-MM-DD"
+              minDate="2019-04-013"
+              maxDate="2030-06-01"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                dateInput: {
+                  marginLeft: 30,
+                  paddingTop: 10
+                }
+              }}
+              onDateChange={date => {
+                this.setState({ event_date: date });
+              }}
+            />
             <LabelGeral>Tema do meetup</LabelGeral>
             {preferences.map((item, key) => (
               <CheckBox
@@ -212,6 +249,7 @@ class NewMeetup extends Component {
               />
             ))}
 
+            {error && <TextError>{msgError}</TextError>}
             <ButtonSave
               onPress={() => {
                 this.handleSave();
@@ -233,7 +271,8 @@ const mapStateToProps = state => ({
   meetup: state.meetup,
   error: state.meetup.error,
   loading: state.meetup.loading,
-  preference: state.preferences
+  preference: state.preferences,
+  msgError: state.meetup.msgError
 });
 
 const mapDispatchToProps = {

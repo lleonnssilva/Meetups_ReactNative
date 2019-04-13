@@ -1,8 +1,7 @@
 import styled from "styled-components/native";
 import { colors, metrics, fonts } from "~/styles";
-
+//padding-top: ${metrics.marginMax};
 export const Container = styled.View`
-  padding-top: ${metrics.marginMax};
   flex: 1;
   background-color: ${colors.colorPrimary};
   justify-content: center;
@@ -32,7 +31,7 @@ export const LabelGeral = styled.Text`
   font-family: ${fonts.fontSecundary};
   font-size: 16;
   color: ${colors.colorTxtPrimary};
-
+  padding-top: ${metrics.marginMin};
   padding-left: ${metrics.marginMax};
   padding-right: ${metrics.marginMax};
 `;
@@ -46,7 +45,13 @@ export const TextGeral = styled.TextInput`
   padding-left: ${metrics.marginMax};
   padding-right: ${metrics.marginMax};
 `;
-
+export const TextError = styled.Text`
+  opacity: 0.5;
+  font-family: ${fonts.fontSecundary};
+  font-size: 12;
+  color: ${colors.colorPrincipal};
+  text-align: center;
+`;
 export const ButtonImage = styled.TouchableOpacity`
   position: absolute;
   justify-content: center;

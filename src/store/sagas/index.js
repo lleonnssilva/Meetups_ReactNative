@@ -4,11 +4,6 @@ import { all, takeLatest, call, put } from "redux-saga/effects";
 import { navigate } from "~/services/navigator";
 import * as apiConfig from "~/services/apiConfig";
 
-import { Creators as LoginActions, Types as LoginTypes } from "../ducks/login";
-import {
-  Creators as SignUpActions,
-  Types as SignUpTypes
-} from "../ducks/signUp";
 import {
   Creators as PofileActions,
   Types as ProfileTypes
@@ -21,7 +16,6 @@ import {
   Creators as MeetupActions,
   Types as MeetupTypes
 } from "../ducks/meetup";
-import { Creators as FileActions, Types as FileTypes } from "../ducks/file";
 import {
   Creators as MeetupsActions,
   Types as MeetupsTypes
@@ -31,32 +25,47 @@ export const getUserFromState = state => state.preferences;
 function* login(action) {
   try {
     const data = yield call(apiConfig.login, action.params);
-    yield put(LoginActions.loginSuccess(action.params));
+    yield put(PofileActions.loginSuccess(action.params));
     yield AsyncStorage.setItem("@MeetupApp:token", data.data.token);
     navigate("Dashboard");
   } catch (err) {
-    yield put(LoginActions.loginFailure());
+    yield put({
+      type: "LOGIN_FAILURE",
+      payload: {
+        msgError:
+          err.response.status === 400
+            ? err.response.data[0].message
+            : "Email não localizado!"
+      }
+    });
   }
 }
 function* signUp(action) {
   try {
     const response = yield call(apiConfig.signup, action.params);
-    yield put(SignUpActions.signUpSuccess(action.params));
+    yield put(PofileActions.signUpSuccess(action.params));
     const data = yield call(apiConfig.login, action.params);
     yield AsyncStorage.setItem("@MeetupApp:token", data.data.token);
     navigate("Preferences");
   } catch (err) {
-    console.tron.log(err);
-    yield put(SignUpActions.signUpFailure());
+    yield put({
+      type: "SIGNUP_FAILURE",
+      payload: {
+        msgError: err.response.data[0].message
+      }
+    });
   }
 }
 
 function* profileUpdate(action) {
   try {
     const response = yield call(apiConfig.profileUpdate, action.params);
-    yield put(PofileActions.profileUpdateSuccess({ msg: "sucesso!!" }));
+    yield put(PofileActions.profileUpdateSuccess());
   } catch (err) {
-    yield put(PofileActions.profileUpdateFailure({ msg: "erroou!!" }));
+    yield put({
+      type: "PROFILE_UPDATE_FAILURE",
+      payload: { msgError: "Erro ao atualizar o perfil!." }
+    });
   }
 }
 function* profileCreate(action) {
@@ -65,7 +74,10 @@ function* profileCreate(action) {
     yield put(PofileActions.profileCreateSuccess(action.params));
     navigate("Dashboard");
   } catch (err) {
-    yield put(PofileActions.profileCreateFailure());
+    yield put({
+      type: "PROFILE_CREATE_FAILURE",
+      payload: { msgError: "Erro ao criar o perfil!." }
+    });
   }
 }
 function* profileShow() {
@@ -83,23 +95,33 @@ function* profileShow() {
     data[0].preferences = prefer.data;
     yield put(PofileActions.profileShowSuccess(data));
   } catch (err) {
-    yield put(PofileActions.profileShowFailure());
+    yield put({
+      type: "PROFILE_SHOW_FAILURE",
+      payload: { msgError: "Erro ao mostrar o perfil!." }
+    });
   }
 }
 function* meetupShow(action) {
   try {
     const data = yield call(apiConfig.meetupShow, action.params);
     yield put(MeetupActions.meetupShowSuccess(data.data));
+    navigate("Meetup", { title: data.data.meetup.title || "" });
   } catch (err) {
-    yield put(MeetupActions.meetupShowFailure());
+    yield put({
+      type: "MEETUP_SHOW_FAILURE",
+      payload: { msgError: "Erro ao mostrar o meetup!." }
+    });
   }
 }
 function* fileCreate(action) {
   try {
     const response = yield call(apiConfig.fileCreate, action.params);
-    yield put(FileActions.fileuploadSuccess(response.data));
+    yield put(MeetupActions.fileuploadSuccess(response.data));
   } catch (err) {
-    yield put(FileActions.fileuploadFailure());
+    yield put({
+      type: "FILE_UPLOAD_FAILURE",
+      payload: { msgError: "Erro ao criar o arquivo!." }
+    });
   }
 }
 function* meetupCreate(action) {
@@ -121,7 +143,12 @@ function* meetupCreate(action) {
 
     navigate("Dashboard");
   } catch (err) {
-    yield put(MeetupActions.meetupCreateFailure());
+    yield put({
+      type: "MEETUP_CREATE_FAILURE",
+      payload: {
+        msgError: err.response.data[0].message
+      }
+    });
   }
 }
 function* meetupSubscription(action) {
@@ -145,25 +172,11 @@ function* meetupSubscription(action) {
     yield put(
       MeetupsActions.meetupsRecommendedSuccess(meetupsRecommendeds.data)
     );
-    // yield call(
-    //   loadMeetupsSigneds({
-    //     id: 1
-    //   })
-    // );
-    // yield call(
-    //   loadMeetupsUnsigneds({
-    //     id: 1
-    //   })
-    // );
-    // yield call(
-    //   loadMeetupsRecommededs({
-    //     id: 1
-    //   })
-    // );
-    //navigate("Dashboard");
   } catch (err) {
-    console.tron.log(err);
-    yield put(MeetupActions.meetupShowFailure());
+    yield put({
+      type: "MEETUP_SUBSCRIPTION_FAILURE",
+      payload: { msgError: "Erro ao se inscrever no meetup!." }
+    });
   }
 }
 function* loadMeetupsSigneds(action) {
@@ -173,7 +186,7 @@ function* loadMeetupsSigneds(action) {
   } catch (err) {
     yield put({
       type: "MEETUPS_SIGNEDS_FAILURE",
-      payload: { msgError: err.response.data.error.message }
+      payload: { msgError: "Erro ao listar os meetups" }
     });
   }
 }
@@ -184,7 +197,7 @@ function* loadMeetupsUnsigneds(action) {
   } catch (err) {
     yield put({
       type: "MEETUPS_UNSIGNEDS_FAILURE",
-      payload: { msgError: err.response.data.error.message }
+      payload: { msgError: "Erro ao listar os meetups" }
     });
   }
 }
@@ -195,19 +208,20 @@ function* loadMeetupsRecommededs(action) {
   } catch (err) {
     yield put({
       type: "MEETUPS_RECOMMENDEDS_FAILURE",
-      payload: { msgError: err.response.data.error.message }
+      payload: { msgError: "Erro ao listar os meetups" }
     });
   }
 }
 function* loadPreferences() {
   try {
-    console.tron.log("loadPreferences");
     const response = yield call(apiConfig.preferences);
-    console.tron.log(response);
+
     yield put(PreferencesActions.preferencesSuccess(response.data));
   } catch (err) {
-    console.tron.log(err);
-    yield put(PreferencesActions.preferencesFailure());
+    yield put({
+      type: "PREFERENCES_FAILURE",
+      payload: { msgError: "Erro ao listar as preferências!." }
+    });
   }
 }
 function* loadMeetupsFilter(action) {
@@ -215,14 +229,20 @@ function* loadMeetupsFilter(action) {
     const response = yield call(apiConfig.meetupsFilter, action.params);
     yield put(MeetupsActions.meetupsFilterSuccess(response.data));
   } catch (err) {
-    yield put(MeetupsActions.meetupsFilterFailure());
+    yield put({
+      type: "MEETUPS_RECOMMENDEDS_FAILURE",
+      payload: { msgError: "Erro ao listar os meetups" }
+    });
   }
 }
 
 export default function* sagaRoot() {
   yield all([
-    takeLatest(LoginTypes.LOGIN_REQUEST, login),
-    takeLatest(SignUpTypes.SIGNUP_REQUEST, signUp),
+    takeLatest(ProfileTypes.LOGIN_REQUEST, login),
+    takeLatest(ProfileTypes.SIGNUP_REQUEST, signUp),
+    takeLatest(ProfileTypes.PROFILE_CREATE_REQUEST, profileCreate),
+    takeLatest(ProfileTypes.PROFILE_SHOW_REQUEST, profileShow),
+    takeLatest(ProfileTypes.PROFILE_UPDATE_REQUEST, profileUpdate),
 
     takeLatest(MeetupsTypes.MEETUPS_SIGNEDS_REQUEST, loadMeetupsSigneds),
     takeLatest(MeetupsTypes.MEETUPS_UNSIGNEDS_REQUEST, loadMeetupsUnsigneds),
@@ -233,12 +253,10 @@ export default function* sagaRoot() {
     takeLatest(MeetupsTypes.MEETUPS_FILTER_REQUEST, loadMeetupsFilter),
 
     takeLatest(PreferencesTypes.PREFERENCES_REQUEST, loadPreferences),
-    takeLatest(ProfileTypes.PROFILE_UPDATE_REQUEST, profileUpdate),
-    takeLatest(ProfileTypes.PROFILE_SHOW_REQUEST, profileShow),
-    takeLatest(ProfileTypes.PROFILE_CREATE_REQUEST, profileCreate),
+
     takeLatest(MeetupTypes.MEETUP_SHOW_REQUEST, meetupShow),
     takeLatest(MeetupTypes.MEETUP_SUBSCRIPTION_REQUEST, meetupSubscription),
     takeLatest(MeetupTypes.MEETUP_CREATE_REQUEST, meetupCreate),
-    takeLatest(FileTypes.FILE_UPLOAD_REQUEST, fileCreate)
+    takeLatest(MeetupTypes.FILE_UPLOAD_REQUEST, fileCreate)
   ]);
 }

@@ -39,7 +39,7 @@ const INITIAL_STATE = {
 export default function meetups(state = INITIAL_STATE, action) {
   switch (action.type) {
     case Types.MEETUPS_UNSIGNEDS_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, msgError: "" };
     case Types.MEETUPS_UNSIGNEDS_SUCCESS:
       return {
         ...state,
@@ -50,7 +50,8 @@ export default function meetups(state = INITIAL_STATE, action) {
         unsignedsLastPage: action.payload.unsigneds.lastPage,
         unsignedsPage: action.payload.unsigneds.page,
         loading: false,
-        error: false
+        error: false,
+        msgError: ""
       };
     case Types.MEETUPS_UNSIGNEDS_FAILURE:
       return {
@@ -60,7 +61,7 @@ export default function meetups(state = INITIAL_STATE, action) {
         msgError: action.payload.msgError
       };
     case Types.MEETUPS_FILTER_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, msgError: "" };
     case Types.MEETUPS_FILTER_SUCCESS:
       return {
         ...state,
@@ -71,12 +72,18 @@ export default function meetups(state = INITIAL_STATE, action) {
         filterLastPage: action.payload.filters.lastPage,
         filterPage: action.payload.filters.page,
         loading: false,
-        error: false
+        error: false,
+        msgError: ""
       };
     case Types.MEETUPS_FILTER_FAILURE:
-      return { ...state, loading: false, error: true };
+      return {
+        ...state,
+        loading: false,
+        error: true,
+        msgError: action.payload.msgError
+      };
     case Types.MEETUPS_RECOMMENDEDS_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, msgError: "" };
     case Types.MEETUPS_RECOMMENDEDS_SUCCESS:
       return {
         ...state,
@@ -87,7 +94,8 @@ export default function meetups(state = INITIAL_STATE, action) {
         recommendedsLastPage: action.payload.recommendeds.lastPage,
         recommendedsPage: action.payload.recommendeds.page,
         loading: false,
-        error: false
+        error: false,
+        msgError: ""
       };
     case Types.MEETUPS_RECOMMENDEDS_FAILURE:
       return {
@@ -97,7 +105,7 @@ export default function meetups(state = INITIAL_STATE, action) {
         msgError: action.payload.msgError
       };
     case Types.MEETUPS_SIGNEDS_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, msgError: "" };
     case Types.MEETUPS_SIGNEDS_SUCCESS:
       return {
         ...state,
@@ -108,10 +116,16 @@ export default function meetups(state = INITIAL_STATE, action) {
         signedsLastPage: action.payload.signeds.lastPage,
         signedsPage: action.payload.signeds.page,
         loading: false,
-        error: false
+        error: false,
+        msgError: ""
       };
     case Types.MEETUPS_SIGNEDS_FAILURE:
-      return { ...state, loading: false, error: true };
+      return {
+        ...state,
+        loading: false,
+        error: true,
+        msgError: action.payload.msgError
+      };
     default:
       return state;
   }
@@ -127,12 +141,12 @@ export const Creators = {
       unsigneds
     }
   }),
-  // meetupsUnsignedsFailure: msgError => ({
-  //   type: Types.MEETUPS_UNSIGNEDS_FAILURE,
-  //   payload: {
-  //     msgError: msgError
-  //   }
-  // }),
+  meetupsUnsignedsFailure: msgError => ({
+    type: Types.MEETUPS_UNSIGNEDS_FAILURE,
+    payload: {
+      msgError: msgError
+    }
+  }),
   meetupsFilterRequest: params => ({
     type: Types.MEETUPS_FILTER_REQUEST,
     params

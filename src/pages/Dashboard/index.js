@@ -3,17 +3,27 @@ import React from "react";
 import { ScrollView, FlatList, ActivityIndicator, View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import MeetupItem from "~/components/MeetupItem";
-import { Creators } from "~/store/ducks/meetups";
-
+import Icon from "react-native-vector-icons/FontAwesome";
+import { Creators as MeetupsActions } from "~/store/ducks/meetups";
+import { Creators as MeetupActions } from "~/store/ducks/meetup";
 import {
-  ContainerDiv,
+  Container,
   ContainerItens,
   Separador,
   Title,
-  Error
+  Error,
+  Image,
+  Footer,
+  ContainerItem,
+  ContainerFooter,
+  TitleItem,
+  Subscription,
+  ContainerButtom,
+  ButtonDetail
 } from "./styles";
 import { colors } from "~/styles";
+import { UrlFiles } from "~/config/baseURL";
+
 class Index extends React.Component {
   async componentDidMount() {
     const {
@@ -32,10 +42,26 @@ class Index extends React.Component {
   renderSeparator = () => <Separador />;
 
   renderItem = ({ item }) => (
-    <MeetupItem
-      meetup={item}
-      subscriptions={item.__meta__.subscriptions_count}
-    />
+    <ContainerItem>
+      <Image source={{ uri: `${UrlFiles()}/${item.image}` }} />
+
+      <Footer>
+        <ContainerFooter>
+          <TitleItem numberOfLines={1}>{item.title}</TitleItem>
+          <Subscription>
+            {item.__meta__.subscriptions_count} membros(s)
+          </Subscription>
+        </ContainerFooter>
+
+        <ContainerButtom>
+          <ButtonDetail
+            onPress={() => this.props.meetupShowRequest({ id: item.id })}
+          >
+            <Icon tintColor="white" name="chevron-right" color="white" />
+          </ButtonDetail>
+        </ContainerButtom>
+      </Footer>
+    </ContainerItem>
   );
   loadMeetupsInscritos = () => {
     const { signedsPage, signedsLastPage, meetupsSignedsRequest } = this.props;
@@ -74,8 +100,9 @@ class Index extends React.Component {
       signeds,
       unsigneds
     } = this.props;
+    console.tron.log(this.props);
     return (
-      <ContainerDiv>
+      <Container>
         {loading ? (
           <ActivityIndicator color={colors.colorPrincipal} size="small" />
         ) : null}
@@ -124,7 +151,7 @@ class Index extends React.Component {
             </ContainerItens>
           </View>
         </ScrollView>
-      </ContainerDiv>
+      </Container>
     );
   }
 }
@@ -145,8 +172,11 @@ const mapStateToProps = state => ({
   error: state.meetups.error,
   loading: state.meetups.loading
 });
-const mapDispatchToProps = dispatch => bindActionCreators(Creators, dispatch);
 
+const mapDispatchToProps = {
+  ...MeetupsActions,
+  ...MeetupActions
+};
 export default connect(
   mapStateToProps,
   mapDispatchToProps

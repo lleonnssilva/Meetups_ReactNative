@@ -43,7 +43,7 @@ const DashboardStack = createStackNavigator({
   },
   Meetup: {
     screen: Meetup,
-    navigationOptions: ({ navigation }) => {
+    navigationOptions: () => {
       if (navigation.state.params) {
         return {
           header: <Header title={navigation.state.params.title} />

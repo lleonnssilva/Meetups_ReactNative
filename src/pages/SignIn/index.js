@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Creators as CreatorsLogin } from "~/store/ducks/login";
+import { Creators as CreatorsLogin } from "~/store/ducks/profile";
 import { colors } from "~/styles";
 import {
   Container,
@@ -48,14 +48,10 @@ class Login extends Component {
 
   render() {
     const { email, password } = this.state;
-    const { error, loading, navigation } = this.props;
+    const { error, loading, msgError, navigation } = this.props;
 
     return (
       <Container>
-        {/* <StatusBar
-          backgroundColor={colors.colorPrincipal}
-          barStyle="light-content"
-        /> */}
         <Logo>
           <Image source={require("~/assets/logo.png")} resizeMode="stretch" />
         </Logo>
@@ -82,7 +78,7 @@ class Login extends Component {
             underlineColorAndroid="transparent"
             secureTextEntry
           />
-          {error && <TextError>Usuário não localizado!.</TextError>}
+          {error && <TextError>{msgError}</TextError>}
           <ButtonLogin
             onPress={() => {
               this.handleSignInPress();
@@ -108,8 +104,9 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  error: state.login.error,
-  loading: state.login.loading
+  error: state.profile.error,
+  loading: state.profile.loading,
+  msgError: state.profile.msgError
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CreatorsLogin, dispatch);

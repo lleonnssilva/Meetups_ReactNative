@@ -53,7 +53,7 @@ class Profile extends Component {
   componentWillReceiveProps = data => {
     console.tron.log("componentWillReceiveProps");
     const { profile } = data;
-    if (profile.userProfile !== null) {
+    if (profile.userProfile) {
       this.setState({
         username: profile.userProfile[0].username,
         preferences: profile.userProfile[0].preferences
@@ -73,11 +73,11 @@ class Profile extends Component {
       <Container>
         {error && <LabelGeral>{error}</LabelGeral>}
         {username == null ? (
-          <ActivityIndicator size="large" />
+          <ActivityIndicator color={colors.colorPrincipal} size="small" />
         ) : (
           <ScrollView>
             <LabelInput>
-              Olá,
+              Olá,s
               {username}
             </LabelInput>
 

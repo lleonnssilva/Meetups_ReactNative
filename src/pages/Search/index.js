@@ -4,17 +4,29 @@ import { Dimensions, ToastAndroid, ActivityIndicator } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
-  LabelGeral,
   Container,
   SearchSection,
   InputText,
   ListContainer,
-  Separator
+  Separator,
+  Image,
+  Footer,
+  ContainerItem,
+  ContainerFooter,
+  TitleItem,
+  Subscription,
+  ContainerButtom,
+  ButtonDetail
 } from "./styles";
-import MeetupItem from "~/components/MeetupItem";
-import { Creators as CreatorsMeetups } from "~/store/ducks/meetups";
+
+import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 import Icon from "react-native-vector-icons/MaterialIcons";
+
+import { Creators as MeetupsActions } from "~/store/ducks/meetups";
+import { Creators as MeetupActions } from "~/store/ducks/meetup";
+
 import { metrics, colors } from "~/styles";
+import { UrlFiles } from "~/config/baseURL";
 class Search extends Component {
   state = {
     text: "",
@@ -38,30 +50,46 @@ class Search extends Component {
     }
   };
 
-  search = async () => {
-    try {
-      const { text } = this.state;
-      const { meetupsFilterRequest } = this.props;
-      await meetupsFilterRequest({
-        criterio: text,
-        page: 1
-      });
-    } catch (_err) {
-      ToastAndroid.showWithGravity(
-        String(_err),
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER
-      );
-    } finally {
-      // this.setState({ loading: false, refreshing: false })
-    }
+  search = () => {
+    const { text } = this.state;
+    const { meetupsFilterRequest } = this.props;
+    !!text
+      ? meetupsFilterRequest({
+          criterio: text,
+          page: 1
+        })
+      : ToastAndroid.showWithGravity(
+          String("Infome um título para pesquisar!!"),
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
   };
 
   renderItem = ({ item }) => (
-    <MeetupItem
-      meetup={item}
-      subscriptions={item.__meta__.subscriptions_count}
-    />
+    <ContainerItem>
+      <Image source={{ uri: `${UrlFiles()}/${item.image}` }} />
+
+      <Footer>
+        <ContainerFooter>
+          <TitleItem numberOfLines={1}>{item.title}</TitleItem>
+          <Subscription>
+            {item.__meta__.subscriptions_count} membros(s)
+          </Subscription>
+        </ContainerFooter>
+
+        <ContainerButtom>
+          <ButtonDetail
+            onPress={() => this.props.meetupShowRequest({ id: item.id })}
+          >
+            <IconFontAwesome
+              tintColor="white"
+              name="chevron-right"
+              color="white"
+            />
+          </ButtonDetail>
+        </ContainerButtom>
+      </Footer>
+    </ContainerItem>
   );
 
   componentDidMount() {
@@ -76,6 +104,7 @@ class Search extends Component {
 
   render() {
     const { meetups, loading, error, msgError } = this.props;
+    console.tron.log(this.props);
     return (
       <Container ref="rootView">
         {!!error && <Error>{msgError}</Error>}
@@ -122,8 +151,13 @@ const mapStateToProps = state => ({
   filterPage: state.meetups.filterPage,
   filterLastPage: state.meetups.filterLastPage
 });
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(CreatorsMeetups, dispatch);
+// const mapDispatchToProps = dispatch =>
+//   bindActionCreators(CreatorsMeetups, dispatch);
+
+const mapDispatchToProps = {
+  ...MeetupsActions,
+  ...MeetupActions
+};
 export default connect(
   mapStateToProps,
   mapDispatchToProps

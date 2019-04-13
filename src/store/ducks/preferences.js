@@ -1,28 +1,30 @@
 export const Types = {
-  PREFERENCES_REQUEST: 'PREFERENCES_REQUEST',
-  PREFERENCES_SUCCESS: 'PREFERENCES_SUCCESS',
-  PREFERENCES_FAILURE: 'PREFERENCES_FAILURE',
+  PREFERENCES_REQUEST: "PREFERENCES_REQUEST",
+  PREFERENCES_SUCCESS: "PREFERENCES_SUCCESS",
+  PREFERENCES_FAILURE: "PREFERENCES_FAILURE"
 };
 
 const INITIAL_STATE = {
   preferences: [],
   loading: false,
   error: false,
+  msgError: ""
 };
 
 export default function preference(state = INITIAL_STATE, action) {
   switch (action.type) {
     case Types.PREFERENCES_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, msgError: "" };
     case Types.PREFERENCES_SUCCESS:
       return {
         ...state,
         preferences: action.payload.preferences,
         loading: false,
         error: false,
+        msgError: ""
       };
     case Types.PREFERENCES_FAILURE:
-      return { loading: false, error: true };
+      return { loading: false, error: true, msgError: action.payload.msgError };
     default:
       return state;
   }
@@ -30,16 +32,16 @@ export default function preference(state = INITIAL_STATE, action) {
 
 export const Creators = {
   preferencesRequest: () => ({
-    type: Types.PREFERENCES_REQUEST,
+    type: Types.PREFERENCES_REQUEST
   }),
   preferencesSuccess: preferences => ({
     type: Types.PREFERENCES_SUCCESS,
     payload: {
-      preferences,
-    },
+      preferences
+    }
   }),
   preferencesFailure: error => ({
     type: Types.PREFERENCES_FAILURE,
-    error,
-  }),
+    error
+  })
 };

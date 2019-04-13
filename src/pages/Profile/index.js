@@ -27,7 +27,7 @@ class Profile extends Component {
       preferences: [],
       error: null,
       loading: false,
-      messageError: ""
+      msgError: ""
     };
   }
 
@@ -65,9 +65,8 @@ class Profile extends Component {
   };
 
   componentWillReceiveProps = data => {
-    console.tron.log(data);
     const { profile } = data;
-    if (profile.userProfile !== null) {
+    if (profile.userProfile) {
       this.setState({
         password_original: profile.userProfile[0].password,
         email: profile.userProfile[0].email,
@@ -76,7 +75,7 @@ class Profile extends Component {
         password_confirmation: "",
         preferences: profile.userProfile[0].preferences,
         error: profile.error,
-        messageError: profile.messageError,
+        msgError: profile.msgError,
         loading: profile.loading
       });
     }
@@ -95,13 +94,13 @@ class Profile extends Component {
       preferences,
       error,
       loading,
-      messageError
+      msgError
     } = this.state;
     return (
       <Container>
-        {error && <Error>{messageError}</Error>}
+        {error && <Error>{msgError}</Error>}
         {username == null ? (
-          <ActivityIndicator size="large" />
+          <ActivityIndicator color={colors.colorPrincipal} size="small" />
         ) : (
           <ScrollView>
             <LabelGeral>Nome</LabelGeral>

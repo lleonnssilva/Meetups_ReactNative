@@ -57,6 +57,16 @@ export const LabelLocal = styled.Text`
   margin-left: ${metrics.marginMax};
   margin-right: ${metrics.marginMax};
 `;
+export const LabelData = styled.Text`
+  opacity: 0.8;
+  font-family: ${fonts.fontPrimary};
+  font-size: 14;
+  color: ${colors.colorTxtPrimary};
+  line-height: 24;
+  margin-top: ${metrics.marginMin};
+  margin-left: ${metrics.marginMax};
+  margin-right: ${metrics.marginMax};
+`;
 export const ButtonSave = styled.TouchableOpacity`
   background-color: ${colors.colorPrincipal};
   border-radius: ${metrics.borderRadius};

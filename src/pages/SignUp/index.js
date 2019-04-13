@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Creators } from "~/store/ducks/signUp";
+import { Creators } from "~/store/ducks/profile";
 import { colors, metrics, fonts } from "~/styles/index";
 import {
   Container,
@@ -60,7 +60,7 @@ class SigUp extends Component {
 
   render() {
     const { username, email, password, password_confirmation } = this.state;
-    const { error, loading, navigation } = this.props;
+    const { error, loading, msgError, navigation } = this.props;
 
     return (
       <Container>
@@ -114,7 +114,7 @@ class SigUp extends Component {
           underlineColorAndroid="transparent"
           secureTextEntry
         />
-        {error && <TextError>Erro ao cadastrar usuário!.</TextError>}
+        {error && <TextError>{msgError}</TextError>}
         <ButtonSave
           onPress={() => {
             this.handleSignUpPress();
@@ -138,8 +138,9 @@ class SigUp extends Component {
   }
 }
 const mapStateToProps = state => ({
-  error: state.signUp.error,
-  loading: state.signUp.loading
+  error: state.profile.error,
+  loading: state.profile.loading,
+  msgError: state.profile.msgError
 });
 const mapDispatchToProps = dispatch => bindActionCreators(Creators, dispatch);
 export default connect(
