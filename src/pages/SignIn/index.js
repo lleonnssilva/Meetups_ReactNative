@@ -5,7 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  StatusBar
+  ScrollView
 } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -52,51 +52,58 @@ class Login extends Component {
 
     return (
       <Container>
-        <Logo>
-          <Image source={require("~/assets/logo.png")} resizeMode="stretch" />
-        </Logo>
-
         <View>
-          <LabelInput>Email</LabelInput>
-          <TextInput
-            placeholderTextColor={colors.colorTxtPrimary}
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholder="Digite seu e-mail"
-            underlineColorAndroid="transparent"
-            value={email}
-            onChangeText={this.handleEmailChange}
-          />
-          <LabelInput>Senha</LabelInput>
-          <TextInput
-            value={password}
-            onChangeText={this.handlePasswordChange}
-            placeholderTextColor={colors.colorTxtPrimary}
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholder="Sua senha secreta"
-            underlineColorAndroid="transparent"
-            secureTextEntry
-          />
-          {error && <TextError>{msgError}</TextError>}
-          <ButtonLogin
-            onPress={() => {
-              this.handleSignInPress();
-            }}
-          >
-            {loading ? (
-              <ActivityIndicator size="small" color="#fff" />
-            ) : (
-              <ButtonText>Entrar</ButtonText>
-            )}
-          </ButtonLogin>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("SignUp");
-            }}
-          >
-            <TextOpacity>Criar conta grátis</TextOpacity>
-          </TouchableOpacity>
+          <ScrollView>
+            <Logo>
+              <Image
+                source={require("~/assets/logo.png")}
+                resizeMode="stretch"
+              />
+            </Logo>
+
+            <View>
+              <LabelInput>Email</LabelInput>
+              <TextInput
+                placeholderTextColor={colors.colorTxtPrimary}
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="Digite seu e-mail"
+                underlineColorAndroid="transparent"
+                value={email}
+                onChangeText={this.handleEmailChange}
+              />
+              <LabelInput>Senha</LabelInput>
+              <TextInput
+                value={password}
+                onChangeText={this.handlePasswordChange}
+                placeholderTextColor={colors.colorTxtPrimary}
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="Sua senha secreta"
+                underlineColorAndroid="transparent"
+                secureTextEntry
+              />
+              {error && <TextError>{msgError}</TextError>}
+              <ButtonLogin
+                onPress={() => {
+                  this.handleSignInPress();
+                }}
+              >
+                {loading ? (
+                  <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                  <ButtonText>Entrar</ButtonText>
+                )}
+              </ButtonLogin>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("SignUp");
+                }}
+              >
+                <TextOpacity>Criar conta grátis</TextOpacity>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
         </View>
       </Container>
     );

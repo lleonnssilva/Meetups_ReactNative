@@ -22,6 +22,7 @@ import {
 } from "../ducks/meetups";
 
 export const getUserFromState = state => state.preferences;
+
 function* login(action) {
   try {
     const data = yield call(apiConfig.login, action.params);
@@ -51,7 +52,7 @@ function* signUp(action) {
     yield put({
       type: "SIGNUP_FAILURE",
       payload: {
-        msgError: err.response.data[0].message
+        msgError: "Erro ao cadastrar usuário!."
       }
     });
   }
@@ -61,6 +62,13 @@ function* profileUpdate(action) {
   try {
     const response = yield call(apiConfig.profileUpdate, action.params);
     yield put(PofileActions.profileUpdateSuccess());
+
+    const meetupsRecommendeds = yield call(apiConfig.meetupsRecommendeds, {
+      id: 1
+    });
+    yield put(
+      MeetupsActions.meetupsRecommendedSuccess(meetupsRecommendeds.data)
+    );
   } catch (err) {
     yield put({
       type: "PROFILE_UPDATE_FAILURE",

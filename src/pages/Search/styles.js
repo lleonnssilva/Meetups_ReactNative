@@ -27,6 +27,7 @@ export const InputText = styled.TextInput`
 `;
 export const Separator = styled.View`
   height: 20;
+  width: 20;
   background-color: ${colors.colorPrimary};
 `;
 export const ListContainer = styled.FlatList`
@@ -35,9 +36,10 @@ export const ListContainer = styled.FlatList`
 `;
 export const ContainerItem = styled.View`
   flex: 1;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   height: 210;
-  padding-right: 5;
 `;
 export const Image = styled.Image`
   width: 315;

@@ -196,6 +196,7 @@ class NewMeetup extends Component {
             />
             <LabelGeral>Data do evento</LabelGeral>
             <DatePicker
+              placeholderTextColor="gray"
               style={{ width: 200 }}
               date={this.state.event_date}
               mode="date"

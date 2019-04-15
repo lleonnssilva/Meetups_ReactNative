@@ -151,8 +151,6 @@ const mapStateToProps = state => ({
   filterPage: state.meetups.filterPage,
   filterLastPage: state.meetups.filterLastPage
 });
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators(CreatorsMeetups, dispatch);
 
 const mapDispatchToProps = {
   ...MeetupsActions,
