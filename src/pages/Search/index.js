@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { Dimensions, ToastAndroid, ActivityIndicator } from "react-native";
+import {
+  Dimensions,
+  ToastAndroid,
+  ActivityIndicator,
+  FlatList
+} from "react-native";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -44,6 +49,7 @@ class Search extends Component {
   };
   loadMeetupsSearch = () => {
     const { filterPage, filterLastPage, meetupsFilterRequest } = this.props;
+    console.tron.log(filterPage, filterLastPage);
     const { text } = this.state;
     if (filterPage < filterLastPage) {
       meetupsFilterRequest({ criterio: text, page: filterPage + 1 });
@@ -66,9 +72,8 @@ class Search extends Component {
   };
 
   renderItem = ({ item }) => (
-    <ContainerItem>
+    <ContainerItem ref="rootView">
       <Image source={{ uri: `${UrlFiles()}/${item.image}` }} />
-
       <Footer>
         <ContainerFooter>
           <TitleItem numberOfLines={1}>{item.title}</TitleItem>
@@ -93,8 +98,6 @@ class Search extends Component {
   );
 
   componentDidMount() {
-    this.loadMeetupsSearch();
-    this.getOrientation();
     Dimensions.addEventListener("change", () => {
       this.getOrientation();
     });
@@ -103,8 +106,8 @@ class Search extends Component {
   renderSeparator = () => <Separator />;
 
   render() {
-    const { meetups, loading, error, msgError } = this.props;
-    console.tron.log(this.props);
+    const { filters, loading, error, msgError } = this.props;
+
     return (
       <Container ref="rootView">
         {!!error && <Error>{msgError}</Error>}
@@ -130,8 +133,8 @@ class Search extends Component {
           />
         </SearchSection>
 
-        <ListContainer
-          data={meetups}
+        <FlatList
+          data={filters}
           keyExtractor={item => String(item.id)}
           ItemSeparatorComponent={this.renderSeparator}
           renderItem={this.renderItem}
@@ -144,7 +147,7 @@ class Search extends Component {
   }
 }
 const mapStateToProps = state => ({
-  meetups: state.meetups.filters,
+  filters: state.meetups.filters,
   msgError: state.meetups.msgError,
   error: state.meetups.error,
   loading: state.meetups.loading,

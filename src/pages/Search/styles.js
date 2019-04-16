@@ -26,8 +26,8 @@ export const InputText = styled.TextInput`
   width: ${width - metrics.marginMax * 4};
 `;
 export const Separator = styled.View`
-  height: 20;
-  width: 20;
+  height: 10;
+  width: 10;
   background-color: ${colors.colorPrimary};
 `;
 export const ListContainer = styled.FlatList`

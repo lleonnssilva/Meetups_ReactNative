@@ -21,7 +21,20 @@ import {
   Types as MeetupsTypes
 } from "../ducks/meetups";
 
-export const getUserFromState = state => state.preferences;
+// export const getUserFromState = state => state.preferences;
+function ValidaErro(err) {
+  let msgErr = "";
+  if (err.response) {
+    if (err.response.status === 400) {
+      msgErr = err.response.data[0].message;
+    } else if (err.response.status === 401) {
+      msgErr = "Dados não confere!.";
+    }
+  } else {
+    msgErr = "Erro no servidor!.";
+  }
+  return msgErr;
+}
 
 function* login(action) {
   try {
@@ -33,10 +46,7 @@ function* login(action) {
     yield put({
       type: "LOGIN_FAILURE",
       payload: {
-        msgError:
-          err.response.status === 400
-            ? err.response.data[0].message
-            : "Email não localizado!"
+        msgError: ValidaErro(err)
       }
     });
   }
@@ -52,7 +62,7 @@ function* signUp(action) {
     yield put({
       type: "SIGNUP_FAILURE",
       payload: {
-        msgError: "Erro ao cadastrar usuário!."
+        msgError: ValidaErro(err)
       }
     });
   }
@@ -72,7 +82,7 @@ function* profileUpdate(action) {
   } catch (err) {
     yield put({
       type: "PROFILE_UPDATE_FAILURE",
-      payload: { msgError: "Erro ao atualizar o perfil!." }
+      payload: { msgError: ValidaErro(err) }
     });
   }
 }
@@ -84,7 +94,7 @@ function* profileCreate(action) {
   } catch (err) {
     yield put({
       type: "PROFILE_CREATE_FAILURE",
-      payload: { msgError: "Erro ao criar o perfil!." }
+      payload: { msgError: ValidaErro(err) }
     });
   }
 }
@@ -105,7 +115,7 @@ function* profileShow() {
   } catch (err) {
     yield put({
       type: "PROFILE_SHOW_FAILURE",
-      payload: { msgError: "Erro ao mostrar o perfil!." }
+      payload: { msgError: ValidaErro(err) }
     });
   }
 }
@@ -117,7 +127,7 @@ function* meetupShow(action) {
   } catch (err) {
     yield put({
       type: "MEETUP_SHOW_FAILURE",
-      payload: { msgError: "Erro ao mostrar o meetup!." }
+      payload: { msgError: ValidaErro(err) }
     });
   }
 }
@@ -128,7 +138,7 @@ function* fileCreate(action) {
   } catch (err) {
     yield put({
       type: "FILE_UPLOAD_FAILURE",
-      payload: { msgError: "Erro ao criar o arquivo!." }
+      payload: { msgError: ValidaErro(err) }
     });
   }
 }
@@ -154,7 +164,7 @@ function* meetupCreate(action) {
     yield put({
       type: "MEETUP_CREATE_FAILURE",
       payload: {
-        msgError: err.response.data[0].message
+        msgError: ValidaErro(err)
       }
     });
   }
@@ -183,7 +193,7 @@ function* meetupSubscription(action) {
   } catch (err) {
     yield put({
       type: "MEETUP_SUBSCRIPTION_FAILURE",
-      payload: { msgError: "Erro ao se inscrever no meetup!." }
+      payload: { msgError: ValidaErro(err) }
     });
   }
 }
@@ -192,9 +202,10 @@ function* loadMeetupsSigneds(action) {
     const response = yield call(apiConfig.meetupsSigneds, action.params);
     yield put(MeetupsActions.meetupsSignedsSuccess(response.data));
   } catch (err) {
+    console.tron.log(err);
     yield put({
       type: "MEETUPS_SIGNEDS_FAILURE",
-      payload: { msgError: "Erro ao listar os meetups" }
+      payload: { msgError: ValidaErro(err) }
     });
   }
 }
@@ -205,7 +216,7 @@ function* loadMeetupsUnsigneds(action) {
   } catch (err) {
     yield put({
       type: "MEETUPS_UNSIGNEDS_FAILURE",
-      payload: { msgError: "Erro ao listar os meetups" }
+      payload: { msgError: ValidaErro(err) }
     });
   }
 }
@@ -216,7 +227,7 @@ function* loadMeetupsRecommededs(action) {
   } catch (err) {
     yield put({
       type: "MEETUPS_RECOMMENDEDS_FAILURE",
-      payload: { msgError: "Erro ao listar os meetups" }
+      payload: { msgError: ValidaErro(err) }
     });
   }
 }
@@ -228,7 +239,7 @@ function* loadPreferences() {
   } catch (err) {
     yield put({
       type: "PREFERENCES_FAILURE",
-      payload: { msgError: "Erro ao listar as preferências!." }
+      payload: { msgError: ValidaErro(err) }
     });
   }
 }
@@ -239,7 +250,7 @@ function* loadMeetupsFilter(action) {
   } catch (err) {
     yield put({
       type: "MEETUPS_RECOMMENDEDS_FAILURE",
-      payload: { msgError: "Erro ao listar os meetups" }
+      payload: { msgError: ValidaErro(err) }
     });
   }
 }

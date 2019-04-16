@@ -146,7 +146,7 @@ class Profile extends Component {
                   paddingLeft: metrics.marginMax
                 }}
                 textStyle={{
-                  // fontFamily: fonts.fontSecundary,
+                  fontFamily: fonts.fontSecundary,
                   fontSize: 18,
                   color: colors.colorTxtPrimary
                 }}

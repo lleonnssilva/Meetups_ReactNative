@@ -32,7 +32,6 @@ export default function profile(state = INITIAL_STATE, action) {
     case Types.PROFILE_SHOW_REQUEST:
       return { ...state, loading: true, msgError: "" };
     case Types.PROFILE_SHOW_SUCESS:
-      console.tron.log(action.payload.userProfile);
       return {
         ...state,
         userProfile: action.payload.userProfile,

@@ -37,7 +37,6 @@ class Profile extends Component {
           .map(e => e.id)
       });
     } catch (_err) {
-      console.tron.log("erro");
       this.setState({
         error: "Houve um problema com o login, verifique suas credenciais!"
       });
@@ -51,7 +50,6 @@ class Profile extends Component {
   };
 
   componentWillReceiveProps = data => {
-    console.tron.log("componentWillReceiveProps");
     const { profile } = data;
     if (profile.userProfile) {
       this.setState({

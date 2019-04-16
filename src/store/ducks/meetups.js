@@ -41,6 +41,7 @@ export default function meetups(state = INITIAL_STATE, action) {
     case Types.MEETUPS_UNSIGNEDS_REQUEST:
       return { ...state, loading: true, msgError: "" };
     case Types.MEETUPS_UNSIGNEDS_SUCCESS:
+      //console.tron.log([...state.unsigneds, ...action.payload.unsigneds.data]);
       return {
         ...state,
         unsigneds:
@@ -63,12 +64,10 @@ export default function meetups(state = INITIAL_STATE, action) {
     case Types.MEETUPS_FILTER_REQUEST:
       return { ...state, loading: true, msgError: "" };
     case Types.MEETUPS_FILTER_SUCCESS:
+      // console.tron.log([...state.filters, ...action.payload.filters.data]);
       return {
         ...state,
-        filters:
-          action.payload.filters.page === 1
-            ? action.payload.filters.data
-            : [...state.filters, ...action.payload.filters.data],
+        filters: [...state.filters, ...action.payload.filters.data],
         filterLastPage: action.payload.filters.lastPage,
         filterPage: action.payload.filters.page,
         loading: false,

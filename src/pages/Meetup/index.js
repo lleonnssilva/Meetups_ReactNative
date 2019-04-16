@@ -32,7 +32,7 @@ class Meetup extends Component {
 
   render() {
     const { meetup, error, loading } = this.props;
-    console.tron.log(meetup);
+
     return (
       <Container>
         {error && <LabelGeral>{error}</LabelGeral>}

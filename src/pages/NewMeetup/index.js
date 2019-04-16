@@ -89,13 +89,7 @@ class NewMeetup extends Component {
           .map(e => e.id),
         imageMeetup
       });
-    } catch (_err) {
-      // ToastAndroid.showWithGravity(
-      //   String(_err),
-      //   ToastAndroid.SHORT,
-      //   ToastAndroid.CENTER
-      // );
-    }
+    } catch (_err) {}
   };
 
   handletitleChange = title => {

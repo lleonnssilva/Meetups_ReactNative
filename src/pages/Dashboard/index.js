@@ -1,11 +1,11 @@
 import React from "react";
-
 import { ScrollView, FlatList, ActivityIndicator, View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { Creators as MeetupsActions } from "~/store/ducks/meetups";
 import { Creators as MeetupActions } from "~/store/ducks/meetup";
+import Icon from "react-native-vector-icons/FontAwesome";
+
 import {
   Container,
   ContainerItens,
@@ -100,7 +100,7 @@ class Index extends React.Component {
       signeds,
       unsigneds
     } = this.props;
-    console.tron.log(this.props);
+
     return (
       <Container>
         {loading ? (
