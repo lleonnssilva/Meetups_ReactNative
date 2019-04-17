@@ -21,7 +21,8 @@ import {
   TitleItem,
   Subscription,
   ContainerButtom,
-  ButtonDetail
+  ButtonDetail,
+  TextError
 } from "./styles";
 
 import IconFontAwesome from "react-native-vector-icons/FontAwesome";
@@ -110,18 +111,15 @@ class Search extends Component {
 
     return (
       <Container ref="rootView">
-        {!!error && <Error>{msgError}</Error>}
+        {/* {error && <TextError>{msgError}</TextError>} */}
+
         <SearchSection>
-          {loading ? (
-            <ActivityIndicator color={colors.colorPrincipal} size="small" />
-          ) : (
-            <Icon
-              style={{ paddingLeft: metrics.marginMin }}
-              name="search"
-              size={20}
-              color="#8e8e93"
-            />
-          )}
+          <Icon
+            style={{ paddingLeft: metrics.marginMin }}
+            name="search"
+            size={20}
+            color="#8e8e93"
+          />
 
           <InputText
             placeholder="Buscar Meetups"
@@ -132,16 +130,19 @@ class Search extends Component {
             maxLength={40}
           />
         </SearchSection>
-
-        <FlatList
-          data={filters}
-          keyExtractor={item => String(item.id)}
-          ItemSeparatorComponent={this.renderSeparator}
-          renderItem={this.renderItem}
-          onEndReached={this.loadMeetupsSearch}
-          onEndReachedThreshold={0.5}
-          horizontal={this.state.orientation !== "portrait"}
-        />
+        {loading ? (
+          <ActivityIndicator color={colors.colorPrincipal} size="small" />
+        ) : (
+          <FlatList
+            data={filters}
+            keyExtractor={item => String(item.id)}
+            ItemSeparatorComponent={this.renderSeparator}
+            renderItem={this.renderItem}
+            onEndReached={this.loadMeetupsSearch}
+            onEndReachedThreshold={0.5}
+            horizontal={this.state.orientation !== "portrait"}
+          />
+        )}
       </Container>
     );
   }
