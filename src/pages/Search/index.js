@@ -3,7 +3,8 @@ import {
   Dimensions,
   ToastAndroid,
   ActivityIndicator,
-  FlatList
+  FlatList,
+  Text
 } from "react-native";
 
 import { connect } from "react-redux";
@@ -111,8 +112,6 @@ class Search extends Component {
 
     return (
       <Container ref="rootView">
-        {/* {error && <TextError>{msgError}</TextError>} */}
-
         <SearchSection>
           <Icon
             style={{ paddingLeft: metrics.marginMin }}
@@ -130,6 +129,7 @@ class Search extends Component {
             maxLength={40}
           />
         </SearchSection>
+        {error && <TextError>{msgError}</TextError>}
         {loading ? (
           <ActivityIndicator color={colors.colorPrincipal} size="small" />
         ) : (

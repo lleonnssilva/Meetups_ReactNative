@@ -98,3 +98,10 @@ export const TextButton = styled.Text`
   font-size: 16;
   color: ${colors.colorTxtPrimary};
 `;
+export const TextError = styled.Text`
+  opacity: 0.6;
+  font-family: ${fonts.fontSecundary};
+  font-size: 12;
+  color: ${colors.colorPrincipal};
+  text-align: center;
+`;

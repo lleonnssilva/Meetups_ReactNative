@@ -16,7 +16,8 @@ import {
   ButtonSave,
   TextButton,
   ButtonInscrito,
-  LabelData
+  LabelData,
+  TextError
 } from "./styles";
 import { UrlFiles } from "~/config/baseURL";
 import { Creators as MeetupActions } from "~/store/ducks/meetup";
@@ -31,11 +32,11 @@ class Meetup extends Component {
   };
 
   render() {
-    const { meetup, error, loading } = this.props;
+    const { meetup, error, loading, TextError } = this.props;
 
     return (
       <Container>
-        {error && <LabelGeral>{error}</LabelGeral>}
+        {error && <TextError>{msgError}</TextError>}
         {!meetup.meetup ? (
           <ActivityIndicator color={colors.colorPrincipal} size="small" />
         ) : (

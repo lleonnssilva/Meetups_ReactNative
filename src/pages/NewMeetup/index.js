@@ -140,124 +140,131 @@ class NewMeetup extends Component {
 
     return (
       <Container>
-        <ScrollView>
-          <View>
-            <LabelGeral>Título</LabelGeral>
-            <TextGeral
-              placeholderTextColor="gray"
-              autoCapitalize="none"
-              autoCorrect={false}
-              placeholder="Digite o título do meetup"
-              underlineColorAndroid="transparent"
-              value={title}
-              onChangeText={this.handletitleChange}
-            />
-            <LabelGeral>Descrição</LabelGeral>
-            <TextGeral
-              placeholderTextColor="gray"
-              autoCapitalize="none"
-              autoCorrect={false}
-              placeholder="Descreva seu meetup"
-              underlineColorAndroid="transparent"
-              value={description}
-              onChangeText={this.handleDescriptionChange}
-            />
-            <LabelGeral>Imagem</LabelGeral>
-            <ContainerImage>
-              {img && (
-                <Fragment>
-                  <Image resizeMode="stretch" source={{ uri: img.uri }} />
-                </Fragment>
-              )}
-              <ButtonImage onPress={this.handleChoosePhoto}>
-                <IconFontAwesome
-                  visible={false}
-                  name="camera"
-                  size={24}
-                  color="white"
-                />
-              </ButtonImage>
-            </ContainerImage>
-            <LabelGeral>Localização</LabelGeral>
-            <TextGeral
-              placeholderTextColor="gray"
-              autoCapitalize="none"
-              autoCorrect={false}
-              placeholder="Onde seu meetup irá acontecer?"
-              underlineColorAndroid="transparent"
-              value={place}
-              onChangeText={this.handleplaceChange}
-            />
-            <LabelGeral>Data do evento</LabelGeral>
-            <DatePicker
-              placeholderTextColor="gray"
-              style={{ width: 200 }}
-              date={this.state.event_date}
-              mode="date"
-              placeholder="Informe a data"
-              format="YYYY-MM-DD"
-              minDate="2019-04-013"
-              maxDate="2030-06-01"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateInput: {
-                  marginLeft: 30,
-                  paddingTop: 10
-                }
-              }}
-              onDateChange={date => {
-                this.setState({ event_date: date });
-              }}
-            />
-            <LabelGeral>Tema do meetup</LabelGeral>
-            {preferences.map((item, key) => (
-              <CheckBox
-                containerStyle={{
-                  backgroundColor: "transparent",
-                  marginTop: 5,
-                  padding: 0,
-                  borderWidth: 0,
-                  paddingLeft: 30
-                }}
-                textStyle={{
-                  fontFamily: fonts.fontSecundary,
-                  fontSize: 18,
-                  color: colors.colorTxtPrimary
-                }}
-                key={key}
-                title={item.title}
-                checkedIcon={
-                  <Image
-                    style={{ width: 20, height: 20 }}
-                    source={require("~/assets/checked.png")}
-                  />
-                }
-                uncheckedIcon={
-                  <Image
-                    style={{ width: 20, height: 20 }}
-                    source={require("~/assets/unchcked.png")}
-                  />
-                }
-                checked={item.checked}
-                onPress={() => this.onSelectPreference(key)}
+        {!preferences || error ? (
+          <TextError>{msgError}</TextError>
+        ) : (
+          <ScrollView>
+            <View>
+              <LabelGeral>Título</LabelGeral>
+              <TextGeral
+                placeholderTextColor="gray"
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="Digite o título do meetup"
+                underlineColorAndroid="transparent"
+                value={title}
+                onChangeText={this.handletitleChange}
               />
-            ))}
+              <LabelGeral>Descrição</LabelGeral>
+              <TextGeral
+                placeholderTextColor="gray"
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="Descreva seu meetup"
+                underlineColorAndroid="transparent"
+                value={description}
+                onChangeText={this.handleDescriptionChange}
+              />
+              <LabelGeral>Imagem</LabelGeral>
+              <ContainerImage>
+                {img && (
+                  <Fragment>
+                    <Image resizeMode="stretch" source={{ uri: img.uri }} />
+                  </Fragment>
+                )}
+                <ButtonImage onPress={this.handleChoosePhoto}>
+                  <IconFontAwesome
+                    visible={false}
+                    name="camera"
+                    size={24}
+                    color="white"
+                  />
+                </ButtonImage>
+              </ContainerImage>
+              <LabelGeral>Localização</LabelGeral>
+              <TextGeral
+                placeholderTextColor="gray"
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="Onde seu meetup irá acontecer?"
+                underlineColorAndroid="transparent"
+                value={place}
+                onChangeText={this.handleplaceChange}
+              />
+              <LabelGeral>Data do evento</LabelGeral>
+              <DatePicker
+                placeholderTextColor="gray"
+                style={{ width: 200 }}
+                date={this.state.event_date}
+                mode="date"
+                placeholder="Informe a data"
+                format="YYYY-MM-DD"
+                minDate="2019-04-013"
+                maxDate="2030-06-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateInput: {
+                    marginLeft: 30,
+                    paddingTop: 10
+                  }
+                }}
+                onDateChange={date => {
+                  this.setState({ event_date: date });
+                }}
+              />
+              <LabelGeral>Tema do meetup</LabelGeral>
+              {preferences.map((item, key) => (
+                <CheckBox
+                  containerStyle={{
+                    backgroundColor: "transparent",
+                    marginTop: 5,
+                    padding: 0,
+                    borderWidth: 0,
+                    paddingLeft: 30
+                  }}
+                  textStyle={{
+                    fontFamily: fonts.fontSecundary,
+                    fontSize: 18,
+                    color: colors.colorTxtPrimary
+                  }}
+                  key={key}
+                  title={item.title}
+                  checkedIcon={
+                    <Image
+                      style={{ width: 20, height: 20 }}
+                      source={require("~/assets/checked.png")}
+                    />
+                  }
+                  uncheckedIcon={
+                    <Image
+                      style={{ width: 20, height: 20 }}
+                      source={require("~/assets/unchcked.png")}
+                    />
+                  }
+                  checked={item.checked}
+                  onPress={() => this.onSelectPreference(key)}
+                />
+              ))}
 
-            {error && <TextError>{msgError}</TextError>}
-            <ButtonSave
-              onPress={() => {
-                this.handleSave();
-              }}
-            >
-              {loading ? (
-                <ActivityIndicator size="small" color={colors.colorSecundary} />
-              ) : (
-                <ButtonText>Salvar</ButtonText>
-              )}
-            </ButtonSave>
-          </View>
-        </ScrollView>
+              {error && <TextError>{msgError}</TextError>}
+              <ButtonSave
+                onPress={() => {
+                  this.handleSave();
+                }}
+              >
+                {loading ? (
+                  <ActivityIndicator
+                    size="small"
+                    color={colors.colorSecundary}
+                  />
+                ) : (
+                  <ButtonText>Salvar</ButtonText>
+                )}
+              </ButtonSave>
+            </View>
+          </ScrollView>
+        )}
       </Container>
     );
   }

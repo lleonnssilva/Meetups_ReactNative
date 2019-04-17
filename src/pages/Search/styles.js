@@ -98,3 +98,10 @@ export const Icon = styled.View`
   padding-top: ${metrics.marginMax};
   padding-left: 121;
 `;
+export const TextError = styled.Text`
+  opacity: 0.6;
+  font-family: ${fonts.fontSecundary};
+  font-size: 12;
+  color: ${colors.colorPrincipal};
+  text-align: center;
+`;
