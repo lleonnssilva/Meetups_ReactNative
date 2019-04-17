@@ -30,6 +30,7 @@ export const ButtonText = styled.Text`
 export const LabelGeral = styled.Text`
   font-family: ${fonts.fontSecundary};
   font-size: 16;
+  font-weight: bold;
   color: ${colors.colorTxtPrimary};
   padding-top: ${metrics.marginMin};
   padding-left: ${metrics.marginMax};
@@ -41,9 +42,9 @@ export const TextGeral = styled.TextInput`
   font-family: ${fonts.fontPrimary};
   font-size: 20;
   color: ${colors.colorTxtPrimary};
-
   padding-left: ${metrics.marginMax};
   padding-right: ${metrics.marginMax};
+  padding-top: ${metrics.marginMin};
 `;
 export const TextError = styled.Text`
   opacity: 0.5;

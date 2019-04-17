@@ -66,7 +66,10 @@ class Meetup extends Component {
               ) : (
                 <ButtonSave onPress={this.subscriptionIn}>
                   {loading ? (
-                    <ActivityIndicator size="small" color="black" />
+                    <ActivityIndicator
+                      size="small"
+                      color={colors.colorSecundary}
+                    />
                   ) : (
                     <TextButton>Inscreva-se</TextButton>
                   )}

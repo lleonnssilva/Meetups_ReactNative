@@ -23,7 +23,7 @@ class Profile extends Component {
       email: null,
       username: null,
       password: "",
-      password_confirmation: "",
+      // password_confirmation: "",
       preferences: [],
       error: null,
       loading: false,
@@ -72,7 +72,7 @@ class Profile extends Component {
         email: profile.userProfile[0].email,
         username: profile.userProfile[0].username,
         password: "",
-        password_confirmation: "",
+        // password_confirmation: "",
         preferences: profile.userProfile[0].preferences,
         error: profile.error,
         msgError: profile.msgError,
@@ -90,7 +90,7 @@ class Profile extends Component {
     const {
       username,
       password,
-      password_confirmation,
+      // password_confirmation,
       preferences,
       error,
       loading,
@@ -124,17 +124,7 @@ class Profile extends Component {
               underlineColorAndroid="transparent"
               secureTextEntry
             />
-            <LabelGeral>Confirmação de senha</LabelGeral>
-            <TextGeral
-              value={password_confirmation}
-              onChangeText={this.handlePasswordConfirmChange}
-              placeholderTextColor={colors.colorTxtPrimary}
-              autoCapitalize="none"
-              autoCorrect={false}
-              placeholder="Sua senha secreta"
-              underlineColorAndroid="transparent"
-              secureTextEntry
-            />
+
             <LabelGeral>Preferências</LabelGeral>
             {preferences.map((item, key) => (
               <CheckBox
@@ -166,7 +156,7 @@ class Profile extends Component {
               }}
             >
               {loading ? (
-                <ActivityIndicator size="small" color="#fff" />
+                <ActivityIndicator size="small" color={colors.colorSecundary} />
               ) : (
                 <ButtonText>Salvar</ButtonText>
               )}

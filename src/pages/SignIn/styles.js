@@ -12,14 +12,12 @@ export const Container = styled.View`
 `;
 
 export const TextInput = styled.TextInput`
-  margin-top: ${metrics.marginMin};
   opacity: 0.5;
   font-family: ${fonts.fontSecundary};
   font-size: 20;
   color: ${colors.colorTxtPrimary};
   text-align: left;
-  padding-left: 0;
-  padding-right: 0;
+  padding-top: ${metrics.marginMin};
 `;
 
 export const ButtonLogin = styled.TouchableOpacity`

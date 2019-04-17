@@ -40,6 +40,7 @@ export const ContainerItem = styled.View`
   align-items: center;
   flex-direction: column;
   height: 210;
+  padding-left: ${metrics.marginMedium};
 `;
 export const Image = styled.Image`
   width: 315;

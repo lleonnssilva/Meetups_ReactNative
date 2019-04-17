@@ -70,7 +70,7 @@ const Routes = (userLogged = false) =>
               navigationOptions: () => ({
                 tabBarLabel: "New",
                 tabBarIcon: ({ tintColor, activeTintColor }) => (
-                  <IconAwsome name="plus-square" size={30} color={tintColor} />
+                  <IconAwsome name="plus-square" size={24} color={tintColor} />
                 )
               })
             },
@@ -79,7 +79,7 @@ const Routes = (userLogged = false) =>
               navigationOptions: () => ({
                 tabBarLabel: "Inicio",
                 tabBarIcon: ({ tintColor, activeTintColor }) => (
-                  <Icon name="home" size={30} color={tintColor} />
+                  <Icon name="home" size={24} color={tintColor} />
                 )
               })
             },
@@ -88,7 +88,7 @@ const Routes = (userLogged = false) =>
               navigationOptions: () => ({
                 tabBarLabel: "Busca",
                 tabBarIcon: ({ tintColor, activeTintColor }) => (
-                  <Icon name="search" size={30} color={tintColor} />
+                  <Icon name="search" size={24} color={tintColor} />
                 )
               })
             }
@@ -100,7 +100,8 @@ const Routes = (userLogged = false) =>
               showIcon: true,
               style: {
                 backgroundColor: colors.colorPrincipal,
-                borderTopWidth: 0
+                borderTopWidth: 0,
+                height: 60
               },
               showLabel: false
             },

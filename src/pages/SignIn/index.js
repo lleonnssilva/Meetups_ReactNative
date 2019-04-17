@@ -5,7 +5,8 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  ScrollView
+  ScrollView,
+  StatusBar
 } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -52,6 +53,10 @@ class Login extends Component {
 
     return (
       <Container>
+        <StatusBar
+          backgroundColor={colors.colorPrimary}
+          barStyle="light-content"
+        />
         <View>
           <ScrollView>
             <Logo>
@@ -90,7 +95,10 @@ class Login extends Component {
                 }}
               >
                 {loading ? (
-                  <ActivityIndicator size="small" color="#fff" />
+                  <ActivityIndicator
+                    size="small"
+                    color={colors.colorSecundary}
+                  />
                 ) : (
                   <ButtonText>Entrar</ButtonText>
                 )}

@@ -40,6 +40,7 @@ export const TextOpacity = styled.Text`
   color: ${colors.colorTxtSecundary};
   text-align: left;
   padding-top: ${metrics.marginMedium};
+  padding-bottom: ${metrics.marginMedium};
 `;
 
 export const LabelInput = styled.Text`
@@ -49,6 +50,14 @@ export const LabelInput = styled.Text`
   color: ${colors.colorTerciary};
   text-align: left;
 `;
+export const LabelInputPreference = styled.Text`
+  font-family: ${fonts.fontSecundary}
+  font-size: 16;
+  margin-top: ${metrics.marginMin};
+  color: ${colors.colorTerciary};
+  text-align: left;
+`;
+
 export const Logo = styled.Text`
   flex-direction: row;
   justify-content: center;

@@ -127,7 +127,7 @@ class SigUp extends Component {
               }}
             >
               {loading ? (
-                <ActivityIndicator size="small" color="#fff" />
+                <ActivityIndicator size="small" color={colors.colorSecundary} />
               ) : (
                 <ButtonText>Criar conta</ButtonText>
               )}

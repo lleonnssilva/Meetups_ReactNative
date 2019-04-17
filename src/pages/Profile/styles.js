@@ -38,11 +38,11 @@ export const LabelGeral = styled.Text`
 
 export const TextGeral = styled.TextInput`
   font-family: ${fonts.fontPrimary};
-  padding-top: ${metrics.marginMedium};
   opacity: 0.5;
   font-size: 20;
   color: ${colors.colorTxtPrimary};
   padding-left: ${metrics.marginMax};
+  padding-top: ${metrics.marginMin};
 `;
 
 export const Image = styled.Image`

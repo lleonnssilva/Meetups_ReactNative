@@ -1,9 +1,9 @@
 import { colors, metrics, fonts } from "~/styles";
 import styled from "styled-components/native";
+// padding-top: ${metrics.marginMax};
 export const Container = styled.View`
   flex: 1;
   background-color: ${colors.colorPrimary};
-  padding-top: ${metrics.marginMax};
 
   padding-right: ${metrics.marginMax};
   padding-bottom: ${metrics.marginMax};
@@ -23,12 +23,12 @@ export const Form = styled.View`
   margin-top: ${metrics.marginMax};
 `;
 export const TextInput = styled.TextInput`
-  margin-top: ${metrics.marginMin};
   opacity: 0.5;
   font-family: ${fonts.fontSecundary};
   font-size: 20;
   color: ${colors.colorTxtPrimary};
   padding-left: ${metrics.marginMax};
+  padding-top: ${metrics.marginMin};
   text-align: left;
 `;
 export const ButtonSave = styled.TouchableOpacity`
@@ -60,10 +60,11 @@ export const TextOpacity = styled.Text`
 export const LabelInput = styled.Text`
   font-family: ${fonts.fontPrimary};
   font-size: 22;
-  margin-top: ${metrics.marginMin};
+  margin-top: ${metrics.marginMax};
   padding-left: ${metrics.marginMax};
   color: ${colors.colorTxtPrimary};
   text-align: left;
+  font-weight: bold;
 `;
 export const Logo = styled.View`
   flex-direction: row;

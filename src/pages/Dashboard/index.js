@@ -1,5 +1,11 @@
 import React from "react";
-import { ScrollView, FlatList, ActivityIndicator, View } from "react-native";
+import {
+  ScrollView,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+  View
+} from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Creators as MeetupsActions } from "~/store/ducks/meetups";
@@ -98,7 +104,10 @@ class Index extends React.Component {
       loading,
       recommendeds,
       signeds,
-      unsigneds
+      unsigneds,
+      meetupsSignedsRequest,
+      meetupsUnsignedsRequest,
+      meetupsRecommendedsRequest
     } = this.props;
 
     return (
@@ -110,7 +119,13 @@ class Index extends React.Component {
         <ScrollView>
           <View>
             <ContainerItens>
-              <Title>Inscrições</Title>
+              <TouchableOpacity
+                onPress={() => {
+                  meetupsSignedsRequest({ id: 1 });
+                }}
+              >
+                <Title>Inscrições</Title>
+              </TouchableOpacity>
               <FlatList
                 data={signeds}
                 keyExtractor={item => String(item.id)}
@@ -124,7 +139,14 @@ class Index extends React.Component {
           </View>
           <View>
             <ContainerItens>
-              <Title>Próximos</Title>
+              <TouchableOpacity
+                onPress={() => {
+                  meetupsUnsignedsRequest({ id: 1 });
+                }}
+              >
+                <Title>Próximos</Title>
+              </TouchableOpacity>
+
               <FlatList
                 data={unsigneds}
                 keyExtractor={item => String(item.id)}
@@ -138,7 +160,14 @@ class Index extends React.Component {
           </View>
           <View>
             <ContainerItens>
-              <Title>Recomendados</Title>
+              <TouchableOpacity
+                onPress={() => {
+                  meetupsRecommendedsRequest({ id: 1 });
+                }}
+              >
+                <Title>Recomendados</Title>
+              </TouchableOpacity>
+
               <FlatList
                 data={recommendeds}
                 keyExtractor={item => String(item.id)}

@@ -13,7 +13,8 @@ import {
   TextOpacity,
   Image,
   Button,
-  ButtonText
+  ButtonText,
+  LabelInputPreference
 } from "./styles";
 
 class Profile extends Component {
@@ -75,7 +76,7 @@ class Profile extends Component {
         ) : (
           <ScrollView>
             <LabelInput>
-              Olá,s
+              Olá,
               {username}
             </LabelInput>
 
@@ -84,7 +85,7 @@ class Profile extends Component {
               algumas preferências para selecionarmos os melhores meetups pra
               você:
             </TextOpacity>
-            <LabelInput>Preferências:</LabelInput>
+            <LabelInputPreference>Preferências:</LabelInputPreference>
             {preferences.map((item, key) => (
               <CheckBox
                 containerStyle={{
@@ -115,7 +116,7 @@ class Profile extends Component {
               }}
             >
               {loading ? (
-                <ActivityIndicator size="small" color="#fff" />
+                <ActivityIndicator size="small" color={colors.colorSecundary} />
               ) : (
                 <ButtonText>Continuar</ButtonText>
               )}
