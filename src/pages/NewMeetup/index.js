@@ -140,7 +140,7 @@ class NewMeetup extends Component {
 
     return (
       <Container>
-        {!preferences || error ? (
+        {!preferences ? (
           <TextError>{msgError}</TextError>
         ) : (
           <ScrollView>
