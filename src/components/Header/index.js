@@ -17,38 +17,37 @@ const Header = props => {
         backgroundColor={colors.colorPrincipal}
         barStyle="light-content"
       />
-      <View>
-        {title !== "Início" && title !== "Busca" && title !== "Novo meetup" ? (
-          <TouchableOpacity onPress={() => navigation.goBack(null)}>
-            <Icon name="chevron-left" size={24} color="white" />
-          </TouchableOpacity>
-        ) : null}
-      </View>
+
+      {title !== "Início" && title !== "Busca" && title !== "Novo meetup" ? (
+        <TouchableOpacity onPress={() => navigation.goBack(null)}>
+          <Icon name="chevron-left" size={24} color="white" />
+        </TouchableOpacity>
+      ) : (
+        <View style={{ width: 24 }} />
+      )}
 
       <Title numberOfLines={1} adjustsFontSizeToFit>
         {title}
       </Title>
-      <View>
-        {title === "Perfil" ? (
-          <TouchableOpacity
-            onPress={() => {
-              AsyncStorage.clear();
-              navigation.navigate("SignIn");
-            }}
-          >
-            {/* rocket */}
-            <IconFontAwesome name="power-off" size={24} color="white" />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Profile");
-            }}
-          >
-            <Icon name="person-outline" size={24} color="white" />
-          </TouchableOpacity>
-        )}
-      </View>
+
+      {title === "Perfil" ? (
+        <TouchableOpacity
+          onPress={() => {
+            AsyncStorage.clear();
+            navigation.navigate("SignIn");
+          }}
+        >
+          <IconFontAwesome name="power-off" size={24} color="white" />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Profile");
+          }}
+        >
+          <Icon name="person-outline" size={24} color="white" />
+        </TouchableOpacity>
+      )}
     </Container>
   );
 };
