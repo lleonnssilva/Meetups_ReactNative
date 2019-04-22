@@ -105,3 +105,12 @@ export const TextError = styled.Text`
   color: ${colors.colorPrincipal};
   text-align: center;
 `;
+// export const ControlIcon = styled(Icon).attrs({
+//   color: "#FFF",
+//   size: 32
+// })``;
+
+export const ActivityIndicator = styled.ActivityIndicator`
+color= "#FFF";
+size= "small";
+`;

@@ -62,6 +62,8 @@ function* signUp(action) {
     yield put({
       type: "SIGNUP_FAILURE",
       payload: {
+        error: true,
+        loading: false,
         msgError: ValidaErro(err)
       }
     });

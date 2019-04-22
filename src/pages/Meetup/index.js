@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { View, ScrollView, ActivityIndicator } from "react-native";
+import { View, ScrollView } from "react-native";
 import Moment from "moment";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -17,28 +17,28 @@ import {
   TextButton,
   ButtonInscrito,
   LabelData,
-  TextError
+  TextError,
+  ActivityIndicator
 } from "./styles";
 import { UrlFiles } from "~/config/baseURL";
 import { Creators as MeetupActions } from "~/store/ducks/meetup";
 import { colors } from "~/styles";
 
 class Meetup extends Component {
-  subscriptionIn = async () => {
-    const { meetupSubscriptionRequest } = this.props;
-    meetupSubscriptionRequest({
-      id: this.props.meetup.meetup.id
-    });
-  };
-
   render() {
-    const { meetup, error, loading, TextError } = this.props;
-
+    const {
+      meetup,
+      error,
+      loading,
+      TextError,
+      msgError,
+      meetupSubscriptionRequest
+    } = this.props;
+    console.tron.log(this.props);
     return (
       <Container>
-        {error && <TextError>{msgError}</TextError>}
-        {!meetup.meetup ? (
-          <ActivityIndicator color={colors.colorPrincipal} size="small" />
+        {!meetup.meetup || error ? (
+          <TextError>{msgError}</TextError>
         ) : (
           <ScrollView>
             <Image
@@ -65,12 +65,15 @@ class Meetup extends Component {
                   <TextButton>Já inscrito</TextButton>
                 </ButtonInscrito>
               ) : (
-                <ButtonSave onPress={this.subscriptionIn}>
+                <ButtonSave
+                  onPress={() => {
+                    meetupSubscriptionRequest({
+                      id: this.props.meetup.meetup.id
+                    });
+                  }}
+                >
                   {loading ? (
-                    <ActivityIndicator
-                      size="small"
-                      color={colors.colorSecundary}
-                    />
+                    <ActivityIndicator />
                   ) : (
                     <TextButton>Inscreva-se</TextButton>
                   )}

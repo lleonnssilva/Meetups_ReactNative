@@ -100,6 +100,7 @@ class Search extends Component {
   );
 
   componentDidMount() {
+    this.getOrientation();
     Dimensions.addEventListener("change", () => {
       this.getOrientation();
     });
